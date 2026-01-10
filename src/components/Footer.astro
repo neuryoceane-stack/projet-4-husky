@@ -1,0 +1,165 @@
+---
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Chalet Husky</h3>
+        <p>Location premium au cœur des 2 Alpes. Un chalet d'exception pour vos vacances à la montagne.</p>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="/">Accueil</a></li>
+          <li><a href="/station">Les 2 Alpes</a></li>
+          <li><a href="/chalet">Le Chalet</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Coordonnées</h4>
+        <ul class="footer-info">
+          <li>
+            <strong>Adresse:</strong><br />
+            Les 2 Alpes, 38860<br />
+            Isère, France
+          </li>
+          <li>
+            <strong>Téléphone:</strong><br />
+            <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          </li>
+          <li>
+            <strong>Email:</strong><br />
+            <a href="mailto:contact@chalethusky.fr">contact@chalethusky.fr</a>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Suivez-nous</h4>
+        <p>Restez informé de nos actualités et disponibilités.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook" class="social-link">Facebook</a>
+          <a href="#" aria-label="Instagram" class="social-link">Instagram</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 Chalet Husky. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-blue-night);
+    color: var(--color-snow);
+    padding: var(--spacing-xl) 0 var(--spacing-md);
+    margin-top: var(--spacing-xl);
+  }
+  
+  .footer h3,
+  .footer h4 {
+    color: var(--color-cream);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .footer-col p {
+    color: var(--color-cream);
+    line-height: 1.8;
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li {
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .footer-links a {
+    color: var(--color-cream);
+    transition: color var(--transition-base);
+  }
+  
+  .footer-links a:hover {
+    color: var(--color-accent);
+  }
+  
+  .footer-info {
+    list-style: none;
+    padding: 0;
+    color: var(--color-cream);
+  }
+  
+  .footer-info li {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.6;
+  }
+  
+  .footer-info strong {
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  .footer-info a {
+    color: var(--color-cream);
+    text-decoration: underline;
+  }
+  
+  .footer-info a:hover {
+    color: var(--color-accent);
+  }
+  
+  .footer-social {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+  
+  .social-link {
+    padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    transition: background-color var(--transition-base);
+  }
+  
+  .social-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-blue-night);
+  }
+  
+  .footer-bottom {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: var(--color-cream);
+    font-size: 0.875rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+  }
+</style>

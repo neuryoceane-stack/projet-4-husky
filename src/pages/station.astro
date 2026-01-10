@@ -1,0 +1,770 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<BaseLayout 
+  title="Les 2 Alpes - Station de ski d'exception"
+  description="Découvrez les 2 Alpes, l'une des stations de ski les plus réputées des Alpes. Domaine skiable exceptionnel, activités variées et accessibilité facilitée."
+>
+  <Hero 
+    title="Au cœur d'un domaine skiable exceptionnel"
+    subtitle="Une station mythique au cœur des Alpes françaises"
+    image="/assets/station/montagne test.jpg"
+  />
+
+  <section class="station-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">89</span><br />
+          <span class="stat-label">pistes</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">220</span><br />
+          <span class="stat-label">km</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3600</span><br />
+          <span class="stat-label">m d'altitude</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="text-center">Au cœur du massif des Écrins</h2>
+        <p class="text-center" style="font-size: 1.25rem; line-height: 1.8; margin-bottom: var(--spacing-lg); color: var(--color-blue-night);">
+          7 secteurs incontournables à découvrir. Pistes, secteurs et espaces ludiques, c'est le terrain de jeu idéal pour pimenter vos descentes et partager des défis en famille ou entre amis. Sensations garanties pour de la glisse 100% plaisir !
+        </p>
+        <div class="plan-pistes-container">
+          <img 
+            src="/assets/station/Plan des pistes.jpg" 
+            alt="Plan des pistes des 2 Alpes"
+            class="plan-pistes-image"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <h2 class="text-center mb-lg">2 Alpes, une station village</h2>
+        <div class="station-village-content">
+          <div class="station-logo-container">
+            <img 
+              src="/assets/station/logo 2 Alpes.png" 
+              alt="Logo Les 2 Alpes"
+              class="station-logo"
+              loading="lazy"
+            />
+          </div>
+          <div class="station-village-text">
+            <p style="font-size: 1.25rem; line-height: 1.8; text-align: justify; color: var(--color-blue-night);">
+              Les 2 Alpes, c'est bien plus qu'une simple station de ski. C'est un véritable village de montagne qui bat au rythme de la vie alpine. Dynamique et chaleureuse, la station offre une expérience unique où se mêlent tradition montagnarde et modernité. Avec ses commerces animés, ses restaurants conviviaux, ses bars et ses animations, Les 2 Alpes vit jour et nuit pour le plus grand plaisir de ses visiteurs.
+            </p>
+            <p style="font-size: 1.25rem; line-height: 1.8; text-align: justify; margin-top: var(--spacing-md); color: var(--color-blue-night);">
+              Que vous soyez en quête de sensations fortes sur les pistes ou de moments de détente après le ski, la station vous accueille dans une ambiance authentique et festive. Un séjour aux 2 Alpes, c'est l'assurance de vivre des vacances inoubliables dans un cadre exceptionnel.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Galerie d'images avec coins arrondis -->
+        <div class="station-images-gallery">
+          <div class="station-images-row">
+            <img 
+              src="/assets/station/2 Alps vintage.jpg" 
+              alt="Les 2 Alpes - Vue vintage"
+              class="station-gallery-image"
+              loading="lazy"
+            />
+            <img 
+              src="/assets/station/2 Alps enseigne.jpg" 
+              alt="Les 2 Alpes - Enseigne"
+              class="station-gallery-image"
+              loading="lazy"
+            />
+          </div>
+          <div class="station-images-single">
+            <img 
+              src="/assets/station/Les2Alpes.jpg" 
+              alt="Les 2 Alpes - Vue panoramique"
+              class="station-gallery-image"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        
+        <!-- Section "Une station qui vit toute l'année" -->
+        <div class="station-year-round-box">
+          <h2 class="station-year-round-title">Une station qui vit toute l'année</h2>
+          <div class="station-year-round-grid">
+            <div class="station-year-round-item">
+              <h3>Animations</h3>
+              <p>Événements et festivités toute l'année pour petits et grands</p>
+            </div>
+            <div class="station-year-round-item">
+              <h3>Commerces</h3>
+              <p>Boutiques, restaurants et services à proximité immédiate</p>
+            </div>
+            <div class="station-year-round-item">
+              <h3>Convivialité</h3>
+              <p>Ambiance chaleureuse et accueil authentique de la montagne</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 365 jours par an -->
+  <section class="section-365-days">
+    <div class="container">
+      <h2 class="section-365-title">365 jours par an</h2>
+      <p class="section-365-subtitle">Hiver comme été, la station propose une multitude d'activités pour des vacances riches en émotions</p>
+      
+      <div class="section-365-content">
+        <div class="section-365-column">
+          <h3 class="section-365-season">HIVER</h3>
+          <div class="section-365-images">
+            <div class="section-365-image-wrapper">
+              <img 
+                src="/assets/station/skieur pro.jpg" 
+                alt="Skieur professionnel descendant les pistes enneigées des 2 Alpes en hiver"
+                class="section-365-image"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+              <span class="section-365-caption">Ski alpin</span>
+            </div>
+            <div class="section-365-image-wrapper">
+              <img 
+                src="/assets/station/montagne test.jpg" 
+                alt="Paysage montagnard hivernal des 2 Alpes avec neige immaculée"
+                class="section-365-image"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+              <span class="section-365-caption">Paysages enneigés</span>
+            </div>
+            <div class="section-365-image-wrapper">
+              <img 
+                src="/assets/station/2 Alps oeufs blancs.jpg" 
+                alt="Station de ski des 2 Alpes enneigée avec infrastructures modernes"
+                class="section-365-image"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+              <span class="section-365-caption">Station de ski</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-365-column">
+          <h3 class="section-365-season">ÉTÉ</h3>
+          <div class="section-365-images">
+            <div class="section-365-image-wrapper">
+              <img 
+                src="/assets/station/parapente.jpg" 
+                alt="Parapente aux 2 Alpes - vol libre avec vue panoramique sur les montagnes"
+                class="section-365-image"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+              <span class="section-365-caption">Parapente</span>
+            </div>
+            <div class="section-365-image-wrapper">
+              <img 
+                src="/assets/station/vtt bike park.jpg" 
+                alt="VTT Bike Park des 2 Alpes - descente de montagne en vélo tout terrain"
+                class="section-365-image"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+              <span class="section-365-caption">VTT Bike Park</span>
+            </div>
+            <div class="section-365-image-wrapper">
+              <img 
+                src="/assets/station/randonnee.jpg" 
+                alt="Randonnée pédestre aux 2 Alpes - sentiers de montagne en été"
+                class="section-365-image section-365-image-rando"
+                loading="lazy"
+                decoding="async"
+                width="600"
+                height="400"
+              />
+              <span class="section-365-caption">Randonnée</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA 
+    title="Séjournez au Chalet Husky"
+    text="Profitez de votre séjour aux 2 Alpes en résidant dans notre chalet d'exception, idéalement situé pour profiter de tous les avantages de la station."
+    buttonText="Découvrir le chalet"
+    buttonLink="/chalet"
+    variant="alt"
+  />
+
+  <CTA 
+    title="Des questions sur la station ?"
+    text="Notre équipe est à votre disposition pour vous renseigner sur les activités, les conditions de neige ou toute autre information."
+    buttonText="Nous contacter"
+    buttonLink="/contact"
+  />
+</BaseLayout>
+
+<style>
+  :global(.hero-title) {
+    font-size: 4.5rem !important;
+  }
+  
+  :global(.hero) {
+    height: 90vh !important;
+    min-height: 700px !important;
+  }
+  
+  :global(.hero-image) {
+    background-color: var(--color-blue-night);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  :global(.hero-image img) {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: auto !important;
+    -webkit-backface-visibility: hidden !important;
+    backface-visibility: hidden !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-perspective: 1000px !important;
+    perspective: 1000px !important;
+    will-change: auto !important;
+  }
+  
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    :global(.hero-image img) {
+      image-rendering: -webkit-optimize-contrast !important;
+      image-rendering: crisp-edges !important;
+    }
+  }
+  
+  .station-stats {
+    position: absolute;
+    top: auto;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0;
+    margin-top: 0;
+  }
+  
+  :global(.hero) {
+    position: relative !important;
+  }
+  
+  :global(.hero-content) {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: var(--spacing-xl) !important;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 700px;
+    margin: var(--spacing-lg) auto 0;
+    width: 100%;
+  }
+  
+  .stat-card {
+    background-color: rgba(40, 40, 40, 0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: auto;
+    width: 100%;
+  }
+  
+  .stat-card:hover {
+    background-color: rgba(50, 50, 50, 0.85);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.1;
+    margin-bottom: 0.1rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .stat-label {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.3;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .plan-pistes-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--spacing-lg);
+    width: 100%;
+  }
+  
+  .plan-pistes-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    object-fit: contain;
+  }
+  
+  .station-village-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+  
+  .station-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .station-logo {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+  
+  .station-village-text {
+    flex: 1;
+  }
+  
+  .station-images-gallery {
+    margin-top: var(--spacing-xl);
+  }
+  
+  .station-images-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .station-images-single {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .station-gallery-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .station-gallery-image:hover {
+    transform: scale(1.02);
+  }
+  
+  .station-images-single .station-gallery-image {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .station-year-round-box {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--color-blue-night);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 37, 64, 0.15);
+  }
+  
+  .station-year-round-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .station-year-round-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  .station-year-round-item {
+    text-align: center;
+    padding: var(--spacing-md);
+  }
+  
+  .station-year-round-item h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .station-year-round-item p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-blue-night);
+    margin: 0;
+  }
+  
+  /* Section 365 jours par an */
+  .section-365-days {
+    background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #2C3E50 100%);
+    padding: 4rem 0;
+    margin: 3.5rem 0;
+  }
+  
+  .section-365-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #D4AF37;
+    margin-bottom: 1.5rem;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    line-height: 1.2;
+  }
+  
+  .section-365-subtitle {
+    text-align: center;
+    font-size: 1.35rem;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 3.5rem;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--spacing-md);
+    font-weight: 400;
+  }
+  
+  .section-365-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+  
+  .section-365-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .section-365-season {
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    position: relative;
+    padding-bottom: 0.875rem;
+  }
+  
+  .section-365-season::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  }
+  
+  .section-365-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .section-365-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  
+  .section-365-image {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    will-change: transform;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: block;
+  }
+  
+  .section-365-image-wrapper:hover .section-365-image {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    border-radius: 18px;
+  }
+  
+  .section-365-caption {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: none;
+    color: white;
+    padding: 0;
+    border-radius: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.6);
+  }
+  
+  .section-365-image-wrapper:hover .section-365-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .section-365-image:focus {
+    outline: 3px solid #D4AF37;
+    outline-offset: 3px;
+  }
+  
+  .section-365-image-wrapper .section-365-image-rando {
+    object-fit: cover;
+    object-position: center 35%;
+    min-height: 280px;
+    max-height: 280px;
+    width: 100%;
+  }
+  
+  /* Augmentation de la taille des textes (sauf titres) */
+  .section p,
+  .card p {
+    font-size: 1.125rem !important;
+  }
+  
+  .section ul li {
+    font-size: 1.125rem;
+  }
+  
+  @media (max-width: 768px) {
+    :global(.hero-title) {
+      font-size: 2.75rem !important;
+    }
+    
+    :global(.hero) {
+      height: 75vh !important;
+      min-height: 500px !important;
+    }
+    
+    :global(.hero-content) {
+      padding-top: var(--spacing-lg) !important;
+    }
+    
+    .station-stats {
+      bottom: 40px;
+    }
+    
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-md);
+    }
+    
+    .stat-card {
+      padding: 0.5rem 0.75rem;
+    }
+    
+    .stat-number {
+      font-size: 1.25rem;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+    }
+    
+    .station-village-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .station-logo-container {
+      order: -1;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .station-logo {
+      max-width: 200px;
+    }
+    
+    .station-images-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+    
+    .station-gallery-image {
+      border-radius: 12px;
+    }
+    
+    .station-year-round-box {
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+    
+    .station-year-round-title {
+      font-size: 1.75rem;
+    }
+    
+    .station-year-round-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .station-year-round-item {
+      padding: var(--spacing-sm);
+    }
+    
+    .station-year-round-item h3 {
+      font-size: 1.25rem;
+    }
+    
+    .station-year-round-item p {
+      font-size: 1rem;
+    }
+    
+    .section-365-days {
+      padding: 2.5rem 0;
+      margin: 2rem 0;
+    }
+    
+    .section-365-title {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      padding: 0 var(--spacing-sm);
+    }
+    
+    .section-365-subtitle {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      padding: 0 var(--spacing-md);
+      margin-bottom: 2.5rem;
+    }
+    
+    .section-365-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 0 var(--spacing-sm);
+    }
+    
+    .section-365-season {
+      font-size: 1.75rem;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+    }
+    
+    .section-365-season::after {
+      width: 50px;
+      height: 2px;
+    }
+    
+    .section-365-images {
+      gap: 1.25rem;
+    }
+    
+    .section-365-image {
+      height: 220px;
+      border-radius: 14px;
+    }
+    
+    .section-365-image-wrapper:hover .section-365-image {
+      transform: translateY(-4px) scale(1.01);
+      border-radius: 16px;
+    }
+    
+    .section-365-image-wrapper .section-365-image-rando {
+      object-position: center 30%;
+      min-height: 220px;
+      max-height: 220px;
+    }
+    
+    .section-365-caption {
+      bottom: 0.75rem;
+      left: 0.75rem;
+      padding: 0;
+      font-size: 0.9rem;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.6);
+    }
+  }
+</style>

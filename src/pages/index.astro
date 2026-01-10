@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout 
+  title="Chalet Husky - Location Premium aux 2 Alpes"
+  description="Découvrez le Chalet Husky, une location d'exception au cœur des 2 Alpes. Confort, vue panoramique et proximité des pistes pour des vacances mémorables à la montagne."
+>
+  <Hero 
+    badge="Au bord des pistes de ski"
+    title="Un séjour au paradis"
+    subtitle="Chalet de standing pour 12 personnes<br />Idéal pour les familles"
+    image="/assets/station/Les2Alpes.jpg"
+    ctaPrimary={{ text: "Découvrir le chalet", link: "/chalet" }}
+    ctaSecondary={{ text: "Contacter", link: "/contact" }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <h2 class="text-center mb-md" style="font-size: 2.5rem; font-weight: 900;">Bienvenue au Chalet Husky</h2>
+        
+        <div class="features-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-md); margin: var(--spacing-lg) 0;">
+          <div class="feature-item">
+            <div class="feature-emoji" style="font-size: 3rem; margin-bottom: var(--spacing-xs);">⛷️</div>
+            <h3 style="font-size: var(--font-size-xl); font-weight: 700; color: var(--color-blue-night);">Au bord des pistes</h3>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-emoji" style="font-size: 3rem; margin-bottom: var(--spacing-xs);">👥</div>
+            <h3 style="font-size: var(--font-size-xl); font-weight: 700; color: var(--color-blue-night);">12 personnes</h3>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-emoji" style="font-size: 3rem; margin-bottom: var(--spacing-xs);">✨</div>
+            <h3 style="font-size: var(--font-size-xl); font-weight: 700; color: var(--color-blue-night);">Confort optimal</h3>
+          </div>
+        </div>
+        
+        <p style="font-size: var(--font-size-lg); line-height: 1.8; color: var(--color-text-light); margin-top: var(--spacing-md);">
+          Notre chalet de 12 personnes est idéal pour accueillir des familles dans le confort et la convivialité. Avec ses espaces spacieux, sa grande terrasse orientée sud et son hammam, vous trouverez tout ce qu'il faut pour passer des vacances inoubliables.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="text-center mb-lg">Votre expérience aux 2 Alpes</h2>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>⛷️ Domaine skiable</h3>
+          <p>Avec plus de 200 km de pistes, le domaine skiable des 2 Alpes est l'un des plus vastes d'Europe. Du débutant au skieur confirmé, chacun trouvera son bonheur.</p>
+        </div>
+        
+        <div class="card">
+          <h3>🍽️ Restaurants d'altitude</h3>
+          <p>Découvrez une gastronomie de qualité dans les nombreux restaurants de la station. Savourez les spécialités locales après une journée sur les pistes.</p>
+        </div>
+        
+        <div class="card">
+          <h3>🏊 Activités bien-être</h3>
+          <p>Après le ski, détendez-vous dans un spa, un sauna ou un jacuzzi. Des moments de relaxation pour recharger vos batteries.</p>
+        </div>
+        
+        <div class="card">
+          <h3>🚴 Activités été</h3>
+          <p>L'été, la station se transforme en paradis pour la randonnée, le VTT, l'escalade et de nombreuses autres activités de plein air.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2>Localisation privilégiée</h2>
+        <p style="font-size: var(--font-size-lg); margin-bottom: var(--spacing-md);">
+          Le Chalet Husky est situé dans une position idéale aux 2 Alpes, à quelques pas des remontées mécaniques et des commerces de la station.
+        </p>
+        <a href="/station" class="btn btn-secondary">En savoir plus sur la station</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-cta">
+    <div class="container">
+      <h2 class="text-center mb-lg">Prêt à découvrir votre séjour idéal ?</h2>
+      
+      <div class="cta-cards">
+        <a href="/station" class="cta-card">
+          <span class="cta-card-text">La station des 2 Alpes</span>
+        </a>
+        
+        <a href="/chalet" class="cta-card">
+          <span class="cta-card-text">Votre Chalet</span>
+        </a>
+        
+        <a href="/contact" class="cta-card">
+          <span class="cta-card-text">Contact</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-cta {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-cream);
+  }
+  
+  .cta-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .cta-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-blue-night);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+  }
+  
+  .cta-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    background-color: var(--color-blue-night);
+    color: white;
+  }
+  
+  .cta-card-text {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .features-grid {
+    margin: var(--spacing-lg) 0 !important;
+  }
+  
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .features-grid {
+      grid-template-columns: 1fr !important;
+      gap: var(--spacing-md) !important;
+    }
+    
+    .feature-emoji {
+      font-size: 2.5rem !important;
+    }
+    
+    .feature-item h3 {
+      font-size: var(--font-size-lg) !important;
+    }
+    
+    .cta-cards {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+    
+    .cta-card {
+      min-height: 120px;
+      padding: var(--spacing-md);
+    }
+    
+    .cta-card-text {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>

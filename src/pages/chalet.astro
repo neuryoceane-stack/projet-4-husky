@@ -1,0 +1,161 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Gallery from '../components/Gallery.astro';
+import CTA from '../components/CTA.astro';
+
+const chaletImages = [
+  '/assets/chalet/chalet-01.jpg',
+  '/assets/chalet/chalet-02.jpg',
+  '/assets/chalet/chalet-03.jpg',
+  '/assets/chalet/chalet-04.jpg',
+  '/assets/chalet/chalet-05.jpg',
+  '/assets/chalet/chalet-06.jpg',
+  '/assets/chalet/chalet-07.jpg',
+  '/assets/chalet/chalet-08.jpg',
+  '/assets/chalet/chalet-09.jpg',
+];
+---
+
+<BaseLayout 
+  title="Le Chalet Husky - Location Premium aux 2 Alpes"
+  description="Découvrez le Chalet Husky en détail : équipements, confort, et informations pratiques pour votre séjour aux 2 Alpes."
+>
+  <Hero 
+    title="Le Chalet"
+    subtitle="Un hébergement d'exception au cœur des 2 Alpes"
+    image="/assets/chalet/chalet-01.jpg"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <h2>au coeur d'un domaine skiable exceptionnel</h2>
+        <p style="font-size: var(--font-size-lg); line-height: 1.8; margin-bottom: var(--spacing-md);">
+          Le Chalet Husky est bien plus qu'un simple hébergement : c'est un véritable havre de paix où tradition montagnarde et confort moderne se rencontrent harmonieusement. Niché dans un écrin de verdure en hiver et de nature préservée, le chalet vous offre une expérience authentique aux 2 Alpes.
+        </p>
+        <p style="font-size: var(--font-size-lg); line-height: 1.8;">
+          Chaque détail a été pensé pour votre bien-être : des matériaux nobles comme le bois et la pierre, une décoration soignée qui respire le charme alpin, et des équipements de qualité pour garantir votre confort. Que vous recherchiez une escapade romantique, des vacances en famille ou un séjour entre amis, le Chalet Husky saura répondre à vos attentes.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="text-center mb-lg">Équipements et services</h2>
+      
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>🛏️ Hébergement</h3>
+          <ul style="list-style: none; padding: 0; line-height: 2;">
+            <li>4 chambres confortables</li>
+            <li>2 salles de bain</li>
+            <li>1 salle d'eau</li>
+            <li>Literie haut de gamme</li>
+            <li>Linge de maison fourni</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3>🍳 Cuisine</h3>
+          <ul style="list-style: none; padding: 0; line-height: 2;">
+            <li>Cuisine entièrement équipée</li>
+            <li>Électroménager moderne</li>
+            <li>Lave-vaisselle</li>
+            <li>Machine à café</li>
+            <li>Ustensiles complets</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3>🔥 Confort</h3>
+          <ul style="list-style: none; padding: 0; line-height: 2;">
+            <li>Cheminée au salon</li>
+            <li>Chauffage central</li>
+            <li>Double vitrage</li>
+            <li>Vue panoramique</li>
+            <li>Balcon privé</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3>💻 Technologie</h3>
+          <ul style="list-style: none; padding: 0; line-height: 2;">
+            <li>WiFi haut débit</li>
+            <li>TV écran plat</li>
+            <li>Chaînes satellite</li>
+            <li>Bluetooth speaker</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3>🚗 Pratique</h3>
+          <ul style="list-style: none; padding: 0; line-height: 2;">
+            <li>Parking privé</li>
+            <li>Local à ski</li>
+            <li>Sèche-chaussures</li>
+            <li>Accessibilité facilitée</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3>🌲 Extérieur</h3>
+          <ul style="list-style: none; padding: 0; line-height: 2;">
+            <li>Terrasse avec vue</li>
+            <li>Mobilier de jardin</li>
+            <li>Barbecue (été)</li>
+            <li>Jardin privatif</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Gallery 
+    title="Galerie du chalet"
+    images={chaletImages}
+    columns={3}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="text-center mb-lg">Informations pratiques</h2>
+        
+        <div class="grid grid-2">
+          <div class="card">
+            <h3>📅 Arrivée et départ</h3>
+            <p><strong>Arrivée :</strong> À partir de 16h00</p>
+            <p><strong>Départ :</strong> Avant 10h00</p>
+            <p>Ces horaires peuvent être adaptés selon disponibilités. N'hésitez pas à nous contacter.</p>
+          </div>
+          
+          <div class="card">
+            <h3>👥 Capacité</h3>
+            <p><strong>12 personnes maximum</strong></p>
+            <p>Le chalet est idéal pour les familles ou les groupes d'amis. Toute sur-occupation est strictement interdite pour votre confort et notre respect des normes.</p>
+          </div>
+          
+          <div class="card">
+            <h3>🐕 Animaux</h3>
+            <p>Les animaux de compagnie sont acceptés sur demande préalable, moyennant un supplément. Merci de nous contacter pour plus d'informations.</p>
+          </div>
+          
+          <div class="card">
+            <h3>🚭 Règles</h3>
+            <p>Fumer est strictement interdit à l'intérieur du chalet. Merci de respecter les lieux et les voisins pour que tous puissent profiter sereinement de leur séjour.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA 
+    title="Réservez votre séjour"
+    text="Contactez-nous dès maintenant pour vérifier les disponibilités et obtenir un devis personnalisé pour votre séjour au Chalet Husky."
+    buttonText="Demander une disponibilité"
+    buttonLink="/contact"
+    variant="alt"
+  />
+</BaseLayout>
