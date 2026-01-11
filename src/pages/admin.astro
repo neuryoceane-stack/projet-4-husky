@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Redirection côté serveur si non authentifié (pour Astro hybrid)
+if (import.meta.env.SSR) {
+  // En mode SSR, on peut vérifier les cookies/sessions
+  // Pour l'instant, on laisse le script client gérer la vérification
+}
+---
+
+<BaseLayout 
+  title="Administration - Chalet Husky"
+  description="Plateforme d'administration du Chalet Husky"
+>
+  <section class="admin-section">
+    <div class="container">
+      <div class="admin-header">
+        <h1>Administration Chalet Husky</h1>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
+      </div>
+
+      <div class="admin-grid">
+        <a href="/admin/crm" class="admin-card">
+          <div class="admin-card-icon">📋</div>
+          <h2>CRM Clients</h2>
+          <p>Gérer les contacts et demandes de réservation</p>
+        </a>
+
+        <a href="/admin/synthese" class="admin-card">
+          <div class="admin-card-icon">📊</div>
+          <h2>Synthèse</h2>
+          <p>Vue d'ensemble et statistiques</p>
+        </a>
+
+        <a href="/admin/calendrier" class="admin-card">
+          <div class="admin-card-icon">📅</div>
+          <h2>Calendrier</h2>
+          <p>Gérer les réservations et prix par semaine</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  }
+
+  .admin-section {
+    padding: var(--spacing-xl) 0;
+    min-height: calc(100vh - 200px);
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .admin-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin: 0;
+  }
+
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .admin-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .admin-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .admin-card-icon {
+    font-size: 3.2rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .admin-card h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .admin-card p {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .admin-header h1 {
+      font-size: 1.6rem;
+    }
+
+    .admin-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Vérifier l'authentification
+    const auth = sessionStorage.getItem('chalet_admin_auth');
+    if (auth !== 'authenticated') {
+      window.location.href = '/login';
+      return;
+    }
+
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/login';
+      });
+    }
+  });
+</script>

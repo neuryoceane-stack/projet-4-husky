@@ -1,0 +1,1126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Calendrier - Administration Chalet Husky"
+  description="Gestion des réservations et prix par semaine"
+>
+  <section class="admin-section">
+    <div class="container">
+      <div class="admin-header">
+        <div>
+          <a href="/admin" class="back-link">← Retour</a>
+          <h1>Calendrier des réservations</h1>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
+      </div>
+
+      <div class="calendar-container">
+        <div class="calendar-controls">
+          <button id="prevYear" class="btn btn-secondary">←</button>
+          <span id="currentYear" class="year-display">Hiver 24/25</span>
+          <button id="nextYear" class="btn btn-secondary">→</button>
+        </div>
+
+        <div class="calendar-table-container">
+          <table class="calendar-table" id="calendarTable">
+            <thead>
+              <tr>
+                <th class="week-column">Semaine</th>
+                <th>Tarif TTC (€)</th>
+                <th>Plateforme</th>
+                <th>État</th>
+                <th class="action-column">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody">
+              <!-- Généré par JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Fiche Locataire -->
+  <div id="tenantModal" class="tenant-modal" style="display: none;">
+    <div class="tenant-modal-content">
+      <div class="tenant-modal-header">
+        <h2>Fiche Locataire</h2>
+        <button class="tenant-modal-close" id="closeTenantModal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="tenant-modal-body">
+        <form id="tenantForm">
+          <div class="form-group">
+            <label for="tenantNom">Nom</label>
+            <input type="text" id="tenantNom" name="nom" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="tenantPrenom">Prénom</label>
+            <input type="text" id="tenantPrenom" name="prenom" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="tenantNationalite">Nationalité</label>
+            <input type="text" id="tenantNationalite" name="nationalite" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="tenantEmail">Email</label>
+            <input type="email" id="tenantEmail" name="email" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="tenantTelephone">Numéro de téléphone</label>
+            <input type="tel" id="tenantTelephone" name="telephone" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="tenantNote">Note</label>
+            <textarea id="tenantNote" name="note" class="form-textarea" rows="4"></textarea>
+          </div>
+          <div class="tenant-modal-actions">
+            <button type="button" class="btn btn-secondary" id="cancelTenantForm">Annuler</button>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  }
+
+  .admin-section {
+    padding: var(--spacing-xl) 0;
+    min-height: calc(100vh - 200px);
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-sapin);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-base);
+  }
+
+  .back-link:hover {
+    color: var(--color-blue-night);
+  }
+
+  .admin-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin: 0;
+  }
+
+  .calendar-container {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .calendar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .year-display {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .calendar-table-container {
+    overflow-x: auto;
+  }
+
+  .calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+
+  .calendar-table thead {
+    background-color: var(--color-cream);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .calendar-table th {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    border: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .week-column {
+    text-align: left !important;
+    min-width: 200px;
+  }
+
+  .calendar-table tbody tr {
+    background-color: transparent;
+  }
+
+  .calendar-table td {
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    text-align: center;
+    vertical-align: middle;
+    background-color: transparent;
+  }
+
+  /* Alignement spécifique pour les colonnes (sauf Semaine) */
+  .calendar-table td:not(.week-cell):not(.action-cell) {
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  /* Centrer le contenu des cellules avec inputs/selects */
+  .calendar-table td:not(.week-cell):not(.action-cell) > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Couleurs selon l'état - Priorité absolue */
+  .calendar-table tbody tr.row-reserved {
+    background-color: #fee2e2 !important;
+  }
+
+  .calendar-table tbody tr.row-reserved td {
+    background-color: #fee2e2 !important;
+  }
+
+  .calendar-table tbody tr.row-reserved:hover {
+    background-color: #fecaca !important;
+  }
+
+  .calendar-table tbody tr.row-reserved:hover td {
+    background-color: #fecaca !important;
+  }
+
+  .calendar-table tbody tr.row-available {
+    background-color: #dcfce7 !important;
+  }
+
+  .calendar-table tbody tr.row-available td {
+    background-color: #dcfce7 !important;
+  }
+
+  .calendar-table tbody tr.row-available:hover {
+    background-color: #bbf7d0 !important;
+  }
+
+  .calendar-table tbody tr.row-available:hover td {
+    background-color: #bbf7d0 !important;
+  }
+
+  .calendar-table tbody tr.row-privatized {
+    background-color: #fed7aa !important;
+  }
+
+  .calendar-table tbody tr.row-privatized td {
+    background-color: #fed7aa !important;
+  }
+
+  .calendar-table tbody tr.row-privatized:hover {
+    background-color: #fdba74 !important;
+  }
+
+  .calendar-table tbody tr.row-privatized:hover td {
+    background-color: #fdba74 !important;
+  }
+
+  .calendar-table tbody tr:not(.row-reserved):not(.row-available):not(.row-privatized):hover {
+    background-color: var(--color-cream);
+  }
+
+  /* S'assurer que les inputs/selects dans les lignes colorées sont transparents */
+  .calendar-table tbody tr.row-reserved .price-input:not(:focus),
+  .calendar-table tbody tr.row-available .price-input:not(:focus),
+  .calendar-table tbody tr.row-privatized .price-input:not(:focus) {
+    background-color: transparent !important;
+  }
+
+  .calendar-table tbody tr.row-reserved .calendar-select:disabled,
+  .calendar-table tbody tr.row-available .calendar-select:disabled,
+  .calendar-table tbody tr.row-privatized .calendar-select:disabled {
+    background-color: transparent !important;
+  }
+
+  .week-cell {
+    font-weight: 600;
+    color: var(--color-blue-night);
+    text-align: left !important;
+  }
+
+  .price-input {
+    width: 100%;
+    max-width: 150px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-family: Calibri, sans-serif;
+    transition: border-color var(--transition-base);
+    display: block;
+    text-align-last: center;
+  }
+
+  .price-input:focus {
+    outline: none;
+    border-color: var(--color-sapin);
+    background-color: white;
+  }
+
+  .price-input:not(:focus) {
+    background-color: transparent;
+  }
+
+  .price-input[readonly],
+  .calendar-select:disabled {
+    cursor: default;
+    opacity: 0.9;
+  }
+
+  .calendar-select {
+    width: 100%;
+    max-width: 180px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    text-align-last: center;
+    font-size: 0.85rem;
+    font-family: Calibri, sans-serif;
+    background-color: transparent;
+    cursor: pointer;
+    transition: border-color var(--transition-base);
+    display: block;
+  }
+
+  .calendar-select:not(:disabled) {
+    background-color: white;
+  }
+
+  .calendar-select option {
+    text-align: center;
+  }
+
+  .calendar-select:focus {
+    outline: none;
+    border-color: var(--color-sapin);
+    background-color: white;
+  }
+
+  .calendar-select:hover {
+    border-color: var(--color-border);
+  }
+
+  .action-column {
+    width: 120px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .action-cell {
+    text-align: center;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+
+  .btn-edit,
+  .btn-comment,
+  .btn-save,
+  .btn-cancel {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.375rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color var(--transition-base);
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .btn-edit {
+    color: var(--color-blue-night);
+  }
+
+  .btn-edit:hover {
+    background-color: var(--color-cream);
+  }
+
+  .btn-comment {
+    color: var(--color-blue-primary);
+  }
+
+  .btn-comment:hover {
+    background-color: var(--color-cream);
+  }
+
+  .btn-save {
+    color: #22c55e;
+  }
+
+  .btn-save:hover {
+    background-color: #dcfce7;
+  }
+
+  .btn-cancel {
+    color: #ef4444;
+  }
+
+  .btn-cancel:hover {
+    background-color: #fee2e2;
+  }
+
+  /* Modal Fiche Locataire */
+  .tenant-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tenant-modal-content {
+    background-color: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .tenant-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .tenant-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--color-blue-night);
+  }
+
+  .tenant-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-light);
+    transition: color var(--transition-base);
+  }
+
+  .tenant-modal-close:hover {
+    color: var(--color-blue-night);
+  }
+
+  .tenant-modal-body {
+    padding: 1.5rem;
+  }
+
+  .tenant-modal-body .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .tenant-modal-body .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--color-blue-night);
+    font-size: 0.875rem;
+  }
+
+  .tenant-modal-body .form-input,
+  .tenant-modal-body .form-textarea {
+    width: 100%;
+    padding: 0.625rem;
+    font-size: 0.875rem;
+    font-family: Calibri, sans-serif;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    transition: border-color var(--transition-base);
+  }
+
+  .tenant-modal-body .form-input:focus,
+  .tenant-modal-body .form-textarea:focus {
+    outline: none;
+    border-color: var(--color-sapin);
+  }
+
+  .tenant-modal-body .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .tenant-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tenant-modal-actions .btn {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.875rem;
+    font-family: Calibri, sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .admin-header h1 {
+      font-size: 1.6rem;
+    }
+
+    .calendar-table {
+      font-size: 0.75rem;
+    }
+
+    .calendar-table th,
+    .calendar-table td {
+      padding: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Vérifier l'authentification
+    const auth = sessionStorage.getItem('chalet_admin_auth');
+    if (auth !== 'authenticated') {
+      window.location.href = '/login';
+      return;
+    }
+
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/login';
+      });
+    }
+
+    // Fonction pour obtenir le premier samedi de décembre
+    function getFirstSaturdayOfDecember(year: number): Date {
+      const firstDay = new Date(year, 11, 1); // Décembre = mois 11
+      const dayOfWeek = firstDay.getDay(); // 0 = Dimanche, 6 = Samedi
+      // Trouver le premier samedi de décembre
+      // Si c'est déjà samedi, prendre le 1er
+      // Sinon, aller au samedi suivant
+      let daysToAdd;
+      if (dayOfWeek === 6) {
+        daysToAdd = 0; // C'est déjà samedi
+      } else {
+        // Calculer les jours jusqu'au prochain samedi
+        // Si dayOfWeek = 0 (dimanche) -> samedi suivant = +6 jours
+        // Si dayOfWeek = 1 (lundi) -> samedi suivant = +5 jours
+        // Si dayOfWeek = 2 (mardi) -> samedi suivant = +4 jours
+        // Si dayOfWeek = 3 (mercredi) -> samedi suivant = +3 jours
+        // Si dayOfWeek = 4 (jeudi) -> samedi suivant = +2 jours
+        // Si dayOfWeek = 5 (vendredi) -> samedi suivant = +1 jour
+        daysToAdd = (6 - dayOfWeek + 7) % 7;
+        if (daysToAdd === 0 && dayOfWeek !== 6) {
+          daysToAdd = 7;
+        }
+      }
+      const result = new Date(year, 11, 1 + daysToAdd);
+      // Vérifier que c'est bien un samedi
+      if (result.getDay() !== 6) {
+        // Si ce n'est pas un samedi, trouver le prochain samedi
+        const currentDay = result.getDay();
+        const additionalDays = (6 - currentDay + 7) % 7;
+        result.setDate(result.getDate() + additionalDays);
+      }
+      return result;
+    }
+
+    // Fonction pour formater une date
+    function formatDate(date: Date): string {
+      return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+    }
+
+    // Fonction pour obtenir le premier samedi de juin
+    function getFirstSaturdayOfJune(year: number): Date {
+      const firstDay = new Date(year, 5, 1); // Juin = mois 5
+      const dayOfWeek = firstDay.getDay(); // 0 = Dimanche, 6 = Samedi
+      let daysToAdd;
+      if (dayOfWeek === 6) {
+        daysToAdd = 0; // C'est déjà samedi
+      } else {
+        daysToAdd = (6 - dayOfWeek + 7) % 7;
+        if (daysToAdd === 0 && dayOfWeek !== 6) {
+          daysToAdd = 7;
+        }
+      }
+      const result = new Date(year, 5, 1 + daysToAdd);
+      if (result.getDay() !== 6) {
+        const currentDay = result.getDay();
+        const additionalDays = (6 - currentDay + 7) % 7;
+        result.setDate(result.getDate() + additionalDays);
+      }
+      return result;
+    }
+
+    // Fonction pour obtenir toutes les semaines hiver (samedi-samedi de décembre à fin mai)
+    function getWinterWeeks(year: number): Array<{ start: Date; end: Date }> {
+      const weeks: Array<{ start: Date; end: Date }> = [];
+      let currentSaturday = getFirstSaturdayOfDecember(year);
+      const endDate = new Date(year + 1, 4, 31); // Fin mai de l'année suivante
+
+      while (currentSaturday <= endDate) {
+        const weekEnd = new Date(currentSaturday);
+        weekEnd.setDate(weekEnd.getDate() + 6); // Samedi suivant (6 jours plus tard)
+        
+        // Si la fin de la semaine dépasse la date limite, on arrête
+        if (weekEnd > endDate) break;
+        
+        weeks.push({ 
+          start: new Date(currentSaturday), 
+          end: new Date(weekEnd) 
+        });
+        
+        // Passer au samedi suivant (7 jours plus tard)
+        currentSaturday = new Date(currentSaturday);
+        currentSaturday.setDate(currentSaturday.getDate() + 7);
+      }
+
+      return weeks;
+    }
+
+    // Fonction pour obtenir toutes les semaines été (samedi-samedi de juin à fin août)
+    function getSummerWeeks(year: number): Array<{ start: Date; end: Date }> {
+      const weeks: Array<{ start: Date; end: Date }> = [];
+      let currentSaturday = getFirstSaturdayOfJune(year);
+      const endDate = new Date(year, 7, 31); // Fin août (mois 7)
+
+      while (currentSaturday <= endDate) {
+        const weekEnd = new Date(currentSaturday);
+        weekEnd.setDate(weekEnd.getDate() + 6); // Samedi suivant (6 jours plus tard)
+        
+        // Si la fin de la semaine dépasse la date limite, on arrête
+        if (weekEnd > endDate) break;
+        
+        weeks.push({ 
+          start: new Date(currentSaturday), 
+          end: new Date(weekEnd) 
+        });
+        
+        // Passer au samedi suivant (7 jours plus tard)
+        currentSaturday = new Date(currentSaturday);
+        currentSaturday.setDate(currentSaturday.getDate() + 7);
+      }
+
+      return weeks;
+    }
+
+    // Générer le calendrier
+    let currentYear = new Date().getFullYear();
+    let isWinter = true; // true = Hiver, false = Été
+    const platforms = ['Perso', 'Booking', 'Airbnb', 'Abritel', 'Centrale de résa'];
+    const states = ['Disponible', 'Réservé', 'Hors Loc', 'Privatisé'];
+
+    // Gestion de la modal fiche locataire
+    const tenantModal = document.getElementById('tenantModal') as HTMLElement;
+    const closeTenantModal = document.getElementById('closeTenantModal');
+    const cancelTenantForm = document.getElementById('cancelTenantForm');
+    const tenantForm = document.getElementById('tenantForm') as HTMLFormElement;
+    let currentWeekKey = '';
+
+    function openTenantModal(weekKey: string) {
+      currentWeekKey = weekKey;
+      
+      // Déterminer la clé de stockage (hiver ou été)
+      const currentStorageKey = isWinter 
+        ? `chalet_calendar_hiver_${currentYear}`
+        : `chalet_calendar_ete_${currentYear}`;
+      
+      // Charger les données du locataire
+      const tenantStorageKey = `${currentStorageKey}_tenant`;
+      const tenantData = JSON.parse(localStorage.getItem(tenantStorageKey) || '{}');
+      const weekTenantData = tenantData[weekKey] || {
+        nom: '',
+        prenom: '',
+        nationalite: '',
+        email: '',
+        telephone: '',
+        note: ''
+      };
+
+      // Remplir le formulaire
+      (document.getElementById('tenantNom') as HTMLInputElement).value = weekTenantData.nom || '';
+      (document.getElementById('tenantPrenom') as HTMLInputElement).value = weekTenantData.prenom || '';
+      (document.getElementById('tenantNationalite') as HTMLInputElement).value = weekTenantData.nationalite || '';
+      (document.getElementById('tenantEmail') as HTMLInputElement).value = weekTenantData.email || '';
+      (document.getElementById('tenantTelephone') as HTMLInputElement).value = weekTenantData.telephone || '';
+      (document.getElementById('tenantNote') as HTMLTextAreaElement).value = weekTenantData.note || '';
+
+      // Afficher la modal
+      if (tenantModal) {
+        tenantModal.style.display = 'flex';
+      }
+    }
+
+    function closeModal() {
+      if (tenantModal) {
+        tenantModal.style.display = 'none';
+      }
+      currentWeekKey = '';
+      if (tenantForm) {
+        tenantForm.reset();
+      }
+    }
+
+    // Event listeners pour fermer la modal
+    if (closeTenantModal) {
+      closeTenantModal.addEventListener('click', closeModal);
+    }
+
+    if (cancelTenantForm) {
+      cancelTenantForm.addEventListener('click', closeModal);
+    }
+
+    // Fermer la modal en cliquant en dehors
+    if (tenantModal) {
+      tenantModal.addEventListener('click', (e: Event) => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('tenant-modal')) {
+          closeModal();
+        }
+      });
+    }
+
+    // Sauvegarder les données du locataire
+    if (tenantForm) {
+      tenantForm.addEventListener('submit', (e: Event) => {
+        e.preventDefault();
+        
+        if (!currentWeekKey) return;
+
+        // Déterminer la clé de stockage
+        const currentStorageKey = isWinter 
+          ? `chalet_calendar_hiver_${currentYear}`
+          : `chalet_calendar_ete_${currentYear}`;
+        
+        const tenantStorageKey = `${currentStorageKey}_tenant`;
+        const tenantData = JSON.parse(localStorage.getItem(tenantStorageKey) || '{}');
+
+        // Récupérer les valeurs du formulaire
+        tenantData[currentWeekKey] = {
+          nom: (document.getElementById('tenantNom') as HTMLInputElement).value,
+          prenom: (document.getElementById('tenantPrenom') as HTMLInputElement).value,
+          nationalite: (document.getElementById('tenantNationalite') as HTMLInputElement).value,
+          email: (document.getElementById('tenantEmail') as HTMLInputElement).value,
+          telephone: (document.getElementById('tenantTelephone') as HTMLInputElement).value,
+          note: (document.getElementById('tenantNote') as HTMLTextAreaElement).value
+        };
+
+        // Sauvegarder dans localStorage
+        localStorage.setItem(tenantStorageKey, JSON.stringify(tenantData));
+
+        // Fermer la modal
+        closeModal();
+      });
+    }
+
+    // Fonction pour ajouter les event listeners aux boutons commentaire
+    function attachCommentButtonListeners() {
+      document.querySelectorAll('.btn-comment').forEach((btn: any) => {
+        btn.addEventListener('click', (e: Event) => {
+          const target = e.target.closest('.btn-comment') as HTMLElement;
+          const weekKey = target.dataset.week;
+          if (weekKey) {
+            openTenantModal(weekKey);
+          }
+        });
+      });
+    }
+
+    function renderCalendar(year: number, winter: boolean) {
+      const tbody = document.getElementById('calendarBody');
+      const yearDisplay = document.getElementById('currentYear');
+      if (!tbody || !yearDisplay) return;
+
+      let weeks: Array<{ start: Date; end: Date }>;
+      let storageKey: string;
+      let displayTitle: string;
+
+      if (winter) {
+        weeks = getWinterWeeks(year);
+        const yearShort = year.toString().slice(-2);
+        const nextYearShort = (year + 1).toString().slice(-2);
+        displayTitle = `Hiver ${yearShort}/${nextYearShort}`;
+        storageKey = `chalet_calendar_hiver_${year}`;
+      } else {
+        weeks = getSummerWeeks(year);
+        const yearShort = year.toString().slice(-2);
+        displayTitle = `Été ${yearShort}`;
+        storageKey = `chalet_calendar_ete_${year}`;
+      }
+
+      yearDisplay.textContent = displayTitle;
+      
+      // Charger les données sauvegardées
+      const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      
+      tbody.innerHTML = weeks.map((week, index) => {
+        const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
+        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
+        const etat = (weekData.etat || '').trim();
+        
+        // Déterminer la classe CSS selon l'état
+        let rowClass = '';
+        if (etat === 'Réservé') {
+          rowClass = 'row-reserved';
+        } else if (etat === 'Disponible') {
+          rowClass = 'row-available';
+        } else if (etat === 'Privatisé') {
+          rowClass = 'row-privatized';
+        }
+        // Hors Loc : pas de classe (pas de couleur)
+        
+        return `
+          <tr class="${rowClass}" data-week-key="${weekKey}">
+            <td class="week-cell">
+              ${formatDate(week.start)} - ${formatDate(week.end)}
+            </td>
+            <td>
+              <input 
+                type="text" 
+                class="price-input" 
+                data-week="${weekKey}"
+                data-field="tarif"
+                value="${weekData.tarif || ''}"
+                placeholder="€"
+                readonly
+              />
+            </td>
+            <td>
+              <select 
+                class="calendar-select" 
+                data-week="${weekKey}"
+                data-field="plateforme"
+                disabled
+              >
+                <option value="">--</option>
+                ${platforms.map(platform => `
+                  <option value="${platform}" ${weekData.plateforme === platform ? 'selected' : ''}>${platform}</option>
+                `).join('')}
+              </select>
+            </td>
+            <td>
+              <select 
+                class="calendar-select" 
+                data-week="${weekKey}"
+                data-field="etat"
+                disabled
+              >
+                <option value="">--</option>
+                ${states.map(state => `
+                  <option value="${state}" ${weekData.etat === state ? 'selected' : ''}>${state}</option>
+                `).join('')}
+              </select>
+            </td>
+            <td class="action-cell">
+              <div class="action-buttons">
+                <button class="btn-edit" data-week="${weekKey}" title="Modifier">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="12" cy="5" r="1"></circle>
+                    <circle cx="12" cy="19" r="1"></circle>
+                  </svg>
+                </button>
+                <button class="btn-comment" data-week="${weekKey}" title="Fiche locataire">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </button>
+                <button class="btn-save" data-week="${weekKey}" title="Enregistrer" style="display: none;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+                <button class="btn-cancel" data-week="${weekKey}" title="Annuler" style="display: none;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Stocker les données originales pour annuler
+      const originalData: { [key: string]: any } = {};
+      
+      // Ajouter les event listeners pour les boutons d'édition
+      tbody.querySelectorAll('.btn-edit').forEach((btn: any) => {
+        btn.addEventListener('click', (e: Event) => {
+          const target = e.target.closest('.btn-edit') as HTMLElement;
+          const weekKey = target.dataset.week;
+          if (!weekKey) return;
+
+          const row = target.closest('tr') as HTMLTableRowElement;
+          if (!row) return;
+
+          // Récupérer les valeurs actuelles et les sauvegarder comme originales
+          const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+          originalData[weekKey] = {};
+          inputs.forEach(input => {
+            const field = input.dataset.field;
+            if (field) {
+              originalData[weekKey][field] = input.value;
+            }
+          });
+
+          // Activer le mode édition
+          inputs.forEach(input => {
+            input.classList.add('editing');
+            if (input.tagName === 'INPUT') {
+              (input as HTMLInputElement).readOnly = false;
+            } else {
+              (input as HTMLSelectElement).disabled = false;
+            }
+          });
+
+          // Afficher les boutons d'action et masquer le bouton d'édition
+          target.style.display = 'none';
+          const saveBtn = row.querySelector('.btn-save') as HTMLElement;
+          const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
+          if (saveBtn) saveBtn.style.display = 'inline-flex';
+          if (cancelBtn) cancelBtn.style.display = 'inline-flex';
+        });
+      });
+
+      // Bouton d'enregistrement
+      tbody.querySelectorAll('.btn-save').forEach((btn: any) => {
+        btn.addEventListener('click', (e: Event) => {
+          const target = e.target.closest('.btn-save') as HTMLElement;
+          const weekKey = target.dataset.week;
+          if (!weekKey) return;
+
+          const row = target.closest('tr') as HTMLTableRowElement;
+          if (!row) return;
+
+          // Récupérer les nouvelles valeurs et sauvegarder
+          const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+          const data = JSON.parse(localStorage.getItem(storageKey) || '{}');
+          if (!data[weekKey]) data[weekKey] = {};
+
+          // Récupérer toutes les valeurs
+          const rowCells = row.querySelectorAll('td');
+          let etatValue = '';
+          
+          inputs.forEach(input => {
+            const field = input.dataset.field;
+            if (field) {
+              const value = input.value.trim();
+              data[weekKey][field] = value;
+              if (field === 'etat') {
+                etatValue = value;
+              }
+            }
+          });
+
+          // Appliquer la couleur de la ligne selon l'état
+          row.classList.remove('row-reserved', 'row-available', 'row-privatized');
+          
+          let bgColor = '';
+          if (etatValue === 'Réservé') {
+            row.classList.add('row-reserved');
+            bgColor = '#fee2e2';
+          } else if (etatValue === 'Disponible') {
+            row.classList.add('row-available');
+            bgColor = '#dcfce7';
+          } else if (etatValue === 'Privatisé') {
+            row.classList.add('row-privatized');
+            bgColor = '#fed7aa';
+          }
+          
+          // Appliquer la couleur directement aux cellules si nécessaire
+          if (bgColor) {
+            rowCells.forEach(td => {
+              (td as HTMLElement).style.backgroundColor = bgColor;
+            });
+          } else {
+            // Pas de couleur pour Hors Loc
+            rowCells.forEach(td => {
+              (td as HTMLElement).style.backgroundColor = '';
+            });
+          }
+
+          localStorage.setItem(storageKey, JSON.stringify(data));
+
+          // Désactiver le mode édition
+          inputs.forEach(input => {
+            input.classList.remove('editing');
+            if (input.tagName === 'INPUT') {
+              (input as HTMLInputElement).readOnly = true;
+            } else {
+              (input as HTMLSelectElement).disabled = true;
+            }
+          });
+
+          // Masquer les boutons d'action et afficher le bouton d'édition
+          const saveBtn = row.querySelector('.btn-save') as HTMLElement;
+          const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
+          const editBtn = row.querySelector('.btn-edit') as HTMLElement;
+          if (saveBtn) saveBtn.style.display = 'none';
+          if (cancelBtn) cancelBtn.style.display = 'none';
+          if (editBtn) editBtn.style.display = 'inline-flex';
+        });
+      });
+
+      // Bouton d'annulation
+      tbody.querySelectorAll('.btn-cancel').forEach((btn: any) => {
+        btn.addEventListener('click', (e: Event) => {
+          const target = e.target.closest('.btn-cancel') as HTMLElement;
+          const weekKey = target.dataset.week;
+          if (!weekKey) return;
+
+          const row = target.closest('tr') as HTMLTableRowElement;
+          if (!row) return;
+
+          const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+
+          // Restaurer les valeurs originales
+          if (originalData[weekKey]) {
+            let etatValue = '';
+            
+            inputs.forEach(input => {
+              const field = input.dataset.field;
+              if (field && originalData[weekKey][field] !== undefined) {
+                input.value = originalData[weekKey][field];
+                if (field === 'etat') {
+                  etatValue = (originalData[weekKey][field] || '').trim();
+                }
+              }
+            });
+
+            // Mettre à jour la couleur de la ligne selon l'état original
+            row.classList.remove('row-reserved', 'row-available', 'row-privatized');
+            if (etatValue === 'Réservé') {
+              row.classList.add('row-reserved');
+            } else if (etatValue === 'Disponible') {
+              row.classList.add('row-available');
+            } else if (etatValue === 'Privatisé') {
+              row.classList.add('row-privatized');
+            }
+            // Hors Loc : pas de classe (pas de couleur)
+          }
+
+          // Désactiver le mode édition
+          inputs.forEach(input => {
+            input.classList.remove('editing');
+            if (input.tagName === 'INPUT') {
+              (input as HTMLInputElement).readOnly = true;
+            } else {
+              (input as HTMLSelectElement).disabled = true;
+            }
+          });
+
+          // Masquer les boutons d'action et afficher le bouton d'édition
+          const saveBtn = row.querySelector('.btn-save') as HTMLElement;
+          const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
+          const editBtn = row.querySelector('.btn-edit') as HTMLElement;
+          if (saveBtn) saveBtn.style.display = 'none';
+          if (cancelBtn) cancelBtn.style.display = 'none';
+          if (editBtn) editBtn.style.display = 'inline-flex';
+        });
+      });
+
+      // Attacher les listeners pour les boutons commentaire
+      attachCommentButtonListeners();
+    }
+
+    // Contrôles de navigation
+    document.getElementById('prevYear')?.addEventListener('click', () => {
+      if (isWinter) {
+        // Si on est en hiver (ex: Hiver 24/25 = déc 2024 - mai 2025), passer à l'été de l'année précédente (Été 24 = juin 2024 - août 2024)
+        isWinter = false;
+        currentYear--;
+      } else {
+        // Si on est en été (ex: Été 25 = juin 2025 - août 2025), passer à l'hiver de l'année précédente (Hiver 24/25 = déc 2024 - mai 2025)
+        isWinter = true;
+        currentYear--;
+      }
+      renderCalendar(currentYear, isWinter);
+    });
+
+    document.getElementById('nextYear')?.addEventListener('click', () => {
+      if (isWinter) {
+        // Si on est en hiver (ex: Hiver 24/25 = déc 2024 - mai 2025), passer à l'été de l'année suivante (Été 25 = juin 2025 - août 2025)
+        isWinter = false;
+        currentYear++; // Pour l'été, on utilise l'année suivante
+      } else {
+        // Si on est en été (ex: Été 25 = juin 2025 - août 2025), passer à l'hiver de la même année (Hiver 25/26 = déc 2025 - mai 2026)
+        isWinter = true;
+        // currentYear reste le même (2025 pour Hiver 25/26)
+      }
+      renderCalendar(currentYear, isWinter);
+    });
+
+    // Rendre le calendrier initial (hiver de l'année courante)
+    renderCalendar(currentYear, isWinter);
+  });
+</script>

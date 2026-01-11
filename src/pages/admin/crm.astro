@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="CRM Clients - Administration Chalet Husky"
+  description="Gestion des contacts clients"
+>
+  <section class="admin-section">
+    <div class="container">
+      <div class="admin-header">
+        <div>
+          <a href="/admin" class="back-link">← Retour</a>
+          <h1>CRM Clients</h1>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
+      </div>
+
+      <div class="crm-container">
+        <div class="crm-filters">
+          <input type="search" id="searchInput" placeholder="Rechercher un contact..." class="search-input" />
+          <select id="statusFilter" class="filter-select">
+            <option value="">Tous les statuts</option>
+            <option value="nouveau">Nouveau</option>
+            <option value="en_cours">En cours</option>
+            <option value="confirme">Confirmé</option>
+            <option value="annule">Annulé</option>
+          </select>
+        </div>
+
+        <div class="crm-table-container">
+          <table class="crm-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
+                <th>Période</th>
+                <th>Personnes</th>
+                <th>Statut</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="contactsTableBody">
+              <tr>
+                <td colspan="8" class="empty-state">Aucun contact pour le moment</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="crm-stats">
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Total contacts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Nouveaux</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">En cours</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Confirmés</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  }
+
+  .admin-section {
+    padding: var(--spacing-xl) 0;
+    min-height: calc(100vh - 200px);
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-sapin);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-base);
+  }
+
+  .back-link:hover {
+    color: var(--color-blue-night);
+  }
+
+  .admin-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin: 0;
+  }
+
+  .crm-container {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .crm-filters {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  .search-input,
+  .filter-select {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: Calibri, sans-serif;
+  }
+
+  .search-input:focus,
+  .filter-select:focus {
+    outline: none;
+    border-color: var(--color-sapin);
+  }
+
+  .crm-table-container {
+    overflow-x: auto;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .crm-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .crm-table thead {
+    background-color: var(--color-cream);
+  }
+
+  .crm-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .crm-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .crm-table tbody tr:hover {
+    background-color: var(--color-cream);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .status-nouveau {
+    background-color: #e3f2fd;
+    color: #1976d2;
+  }
+
+  .status-en_cours {
+    background-color: #fff3e0;
+    color: #f57c00;
+  }
+
+  .status-confirme {
+    background-color: #e8f5e9;
+    color: #388e3c;
+  }
+
+  .status-annule {
+    background-color: #ffebee;
+    color: #d32f2f;
+  }
+
+  .crm-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+  }
+
+  .stat-card {
+    background: var(--color-cream);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .stat-label {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .admin-header h1 {
+      font-size: 1.6rem;
+    }
+
+    .crm-table {
+      font-size: 0.75rem;
+    }
+
+    .crm-table th,
+    .crm-table td {
+      padding: 0.5rem;
+    }
+
+    .crm-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Vérifier l'authentification
+    const auth = sessionStorage.getItem('chalet_admin_auth');
+    if (auth !== 'authenticated') {
+      window.location.href = '/login';
+      return;
+    }
+
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/login';
+      });
+    }
+
+    // Les données seront chargées depuis localStorage ou une API
+    // Pour l'instant, c'est juste la structure
+    const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
+    
+    function renderContacts(contactsToRender = contacts) {
+      const tbody = document.getElementById('contactsTableBody');
+      if (!tbody) return;
+
+      if (contactsToRender.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Aucun contact pour le moment</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = contactsToRender.map((contact: any) => `
+        <tr>
+          <td>${new Date(contact.date).toLocaleDateString('fr-FR')}</td>
+          <td>${contact.nom}</td>
+          <td>${contact.email}</td>
+          <td>${contact.telephone || '-'}</td>
+          <td>${contact.periode || '-'}</td>
+          <td>${contact.personnes || '-'}</td>
+          <td><span class="status-badge status-${contact.statut || 'nouveau'}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></td>
+          <td>
+            <button class="btn-small btn-primary">Voir</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    renderContacts();
+  });
+</script>
+
+<style>
+  .btn-small {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+</style>

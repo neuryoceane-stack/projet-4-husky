@@ -1,0 +1,474 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Synthèse - Administration Chalet Husky"
+  description="Vue d'ensemble et statistiques"
+>
+  <section class="admin-section">
+    <div class="container">
+      <div class="admin-header">
+        <div class="header-left">
+          <a href="/admin" class="back-link">← Retour</a>
+          <h1>Synthèse</h1>
+          <div class="period-selector">
+            <label for="periodSelect" class="period-label">Période :</label>
+            <select id="periodSelect" class="period-select">
+              <!-- Options générées par JavaScript -->
+            </select>
+          </div>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
+      </div>
+
+      <div class="synthese-grid">
+        <div class="synthese-card">
+          <h2>Taux d'occupation</h2>
+          <div class="stat-large" id="occupationRate">0%</div>
+          <p class="stat-change">Sur la période</p>
+        </div>
+
+        <div class="synthese-card">
+          <h2>Revenus totaux</h2>
+          <div class="stat-large" id="totalRevenue">0 €</div>
+          <p class="stat-change">Sur la période</p>
+        </div>
+
+        <div class="synthese-card">
+          <h2>Réservations</h2>
+          <div class="stat-large" id="reservationsCount">0</div>
+          <p class="stat-change">Confirmées</p>
+        </div>
+      </div>
+
+      <div class="synthese-charts">
+        <div class="chart-card">
+          <h2>Réservations par mois</h2>
+          <div class="chart-placeholder">
+            <p>Graphique à venir</p>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <h2>Répartition par plateforme</h2>
+          <div class="chart-placeholder">
+            <p>Graphique à venir</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  }
+
+  .admin-section {
+    padding: var(--spacing-xl) 0;
+    min-height: calc(100vh - 200px);
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+
+  .header-left {
+    flex: 1;
+  }
+
+  .period-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .period-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-blue-night);
+    white-space: nowrap;
+  }
+
+  .period-select {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-family: Calibri, sans-serif;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background-color: white;
+    color: var(--color-blue-night);
+    cursor: pointer;
+    transition: border-color var(--transition-base);
+    min-width: 150px;
+  }
+
+  .period-select:focus {
+    outline: none;
+    border-color: var(--color-sapin);
+  }
+
+  .period-select:hover {
+    border-color: var(--color-text-light);
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-sapin);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-base);
+  }
+
+  .back-link:hover {
+    color: var(--color-blue-night);
+  }
+
+  .admin-header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin: 0;
+  }
+
+  .synthese-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .synthese-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .synthese-card h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .stat-large {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .stat-change {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  .synthese-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .chart-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .chart-card h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .chart-placeholder {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-cream);
+    border-radius: 8px;
+    color: var(--color-text-light);
+  }
+
+  @media (max-width: 768px) {
+    .admin-header h1 {
+      font-size: 1.6rem;
+    }
+
+    .synthese-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .synthese-charts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Vérifier l'authentification
+    const auth = sessionStorage.getItem('chalet_admin_auth');
+    if (auth !== 'authenticated') {
+      window.location.href = '/login';
+      return;
+    }
+
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/login';
+      });
+    }
+
+    // Fonctions pour calculer les semaines (copiées depuis calendrier.astro)
+    function getFirstSaturdayOfDecember(year: number): Date {
+      const firstDay = new Date(year, 11, 1);
+      const dayOfWeek = firstDay.getDay();
+      let daysToAdd;
+      if (dayOfWeek === 6) {
+        daysToAdd = 0;
+      } else {
+        daysToAdd = (6 - dayOfWeek + 7) % 7;
+        if (daysToAdd === 0 && dayOfWeek !== 6) {
+          daysToAdd = 7;
+        }
+      }
+      const result = new Date(year, 11, 1 + daysToAdd);
+      if (result.getDay() !== 6) {
+        const currentDay = result.getDay();
+        const additionalDays = (6 - currentDay + 7) % 7;
+        result.setDate(result.getDate() + additionalDays);
+      }
+      return result;
+    }
+
+    function getFirstSaturdayOfJune(year: number): Date {
+      const firstDay = new Date(year, 5, 1);
+      const dayOfWeek = firstDay.getDay();
+      let daysToAdd;
+      if (dayOfWeek === 6) {
+        daysToAdd = 0;
+      } else {
+        daysToAdd = (6 - dayOfWeek + 7) % 7;
+        if (daysToAdd === 0 && dayOfWeek !== 6) {
+          daysToAdd = 7;
+        }
+      }
+      const result = new Date(year, 5, 1 + daysToAdd);
+      if (result.getDay() !== 6) {
+        const currentDay = result.getDay();
+        const additionalDays = (6 - currentDay + 7) % 7;
+        result.setDate(result.getDate() + additionalDays);
+      }
+      return result;
+    }
+
+    function formatDate(date: Date): string {
+      return date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' });
+    }
+
+    function getWinterWeeks(year: number): Array<{ start: Date; end: Date }> {
+      const weeks: Array<{ start: Date; end: Date }> = [];
+      let current = getFirstSaturdayOfDecember(year);
+      const endDate = new Date(year + 1, 4, 31);
+
+      while (current <= endDate) {
+        if (current.getDay() !== 6) {
+          const day = current.getDay();
+          const adjustment = (6 - day + 7) % 7;
+          current.setDate(current.getDate() + adjustment);
+        }
+        
+        const end = new Date(current);
+        end.setDate(end.getDate() + 6);
+        
+        if (end > endDate) break;
+        
+        if (end.getDay() !== 6) {
+          const day = end.getDay();
+          const adjustment = (6 - day + 7) % 7;
+          end.setDate(end.getDate() + adjustment);
+        }
+        
+        weeks.push({ start: new Date(current), end: new Date(end) });
+        current = new Date(end);
+        current.setDate(current.getDate() + 1);
+      }
+
+      return weeks;
+    }
+
+    function getSummerWeeks(year: number): Array<{ start: Date; end: Date }> {
+      const weeks: Array<{ start: Date; end: Date }> = [];
+      let current = getFirstSaturdayOfJune(year);
+      const endDate = new Date(year, 7, 31);
+
+      while (current <= endDate) {
+        if (current.getDay() !== 6) {
+          const day = current.getDay();
+          const adjustment = (6 - day + 7) % 7;
+          current.setDate(current.getDate() + adjustment);
+        }
+        
+        const end = new Date(current);
+        end.setDate(end.getDate() + 6);
+        
+        if (end > endDate) break;
+        
+        if (end.getDay() !== 6) {
+          const day = end.getDay();
+          const adjustment = (6 - day + 7) % 7;
+          end.setDate(end.getDate() + adjustment);
+        }
+        
+        weeks.push({ start: new Date(current), end: new Date(end) });
+        current = new Date(end);
+        current.setDate(current.getDate() + 1);
+      }
+
+      return weeks;
+    }
+
+    // Générer la liste des périodes disponibles
+    function generatePeriods(): Array<{ value: string; label: string; year: number; isWinter: boolean }> {
+      const periods: Array<{ value: string; label: string; year: number; isWinter: boolean }> = [];
+      const currentYear = new Date().getFullYear();
+      
+      // Générer les périodes pour les 3 dernières années et les 2 prochaines
+      for (let year = currentYear - 2; year <= currentYear + 2; year++) {
+        // Hiver (décembre de l'année jusqu'à mai de l'année suivante)
+        const yearShort = year.toString().slice(-2);
+        const nextYearShort = (year + 1).toString().slice(-2);
+        periods.push({
+          value: `hiver_${year}`,
+          label: `Hiver ${yearShort}/${nextYearShort}`,
+          year: year,
+          isWinter: true
+        });
+        
+        // Été (juin à août de l'année)
+        periods.push({
+          value: `ete_${year}`,
+          label: `Été ${yearShort}`,
+          year: year,
+          isWinter: false
+        });
+      }
+      
+      return periods;
+    }
+
+    // Calculer les statistiques pour une période donnée
+    function calculateStats(year: number, isWinter: boolean) {
+      const storageKey = isWinter 
+        ? `chalet_calendar_hiver_${year}`
+        : `chalet_calendar_ete_${year}`;
+      
+      const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      
+      let weeks: Array<{ start: Date; end: Date }>;
+      if (isWinter) {
+        weeks = getWinterWeeks(year);
+      } else {
+        weeks = getSummerWeeks(year);
+      }
+
+      let totalWeeks = weeks.length;
+      let reservedWeeks = 0;
+      let totalRevenue = 0;
+
+      weeks.forEach(week => {
+        const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
+        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
+        const etat = (weekData.etat || '').trim();
+        
+        if (etat === 'Réservé') {
+          reservedWeeks++;
+          const tarif = parseFloat(weekData.tarif || '0') || 0;
+          totalRevenue += tarif;
+        }
+      });
+
+      // Calculer le taux d'occupation
+      const occupationRate = totalWeeks > 0 ? Math.round((reservedWeeks / totalWeeks) * 100) : 0;
+
+      // Mettre à jour l'affichage
+      const occupationRateEl = document.getElementById('occupationRate');
+      const totalRevenueEl = document.getElementById('totalRevenue');
+      const reservationsCountEl = document.getElementById('reservationsCount');
+
+      if (occupationRateEl) {
+        occupationRateEl.textContent = `${occupationRate}%`;
+      }
+      if (totalRevenueEl) {
+        totalRevenueEl.textContent = `${totalRevenue.toLocaleString('fr-FR')} €`;
+      }
+      if (reservationsCountEl) {
+        reservationsCountEl.textContent = reservedWeeks.toString();
+      }
+    }
+
+    // Remplir le menu déroulant avec les périodes
+    const periodSelect = document.getElementById('periodSelect') as HTMLSelectElement;
+    const periods = generatePeriods();
+    
+    // Sélectionner la période actuelle par défaut (hiver de l'année courante)
+    const currentYear = new Date().getFullYear();
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // 0-11
+    let defaultPeriod = `hiver_${currentYear}`;
+    
+    // Si on est entre juin et août, sélectionner l'été
+    if (currentMonth >= 5 && currentMonth <= 7) {
+      defaultPeriod = `ete_${currentYear}`;
+    }
+    
+    periods.forEach(period => {
+      const option = document.createElement('option');
+      option.value = period.value;
+      option.textContent = period.label;
+      if (period.value === defaultPeriod) {
+        option.selected = true;
+      }
+      if (periodSelect) {
+        periodSelect.appendChild(option);
+      }
+    });
+
+    // Calculer les stats pour la période par défaut
+    const defaultPeriodData = periods.find(p => p.value === defaultPeriod);
+    if (defaultPeriodData) {
+      calculateStats(defaultPeriodData.year, defaultPeriodData.isWinter);
+    }
+
+    // Écouter les changements de période
+    if (periodSelect) {
+      periodSelect.addEventListener('change', (e: Event) => {
+        const target = e.target as HTMLSelectElement;
+        const selectedValue = target.value;
+        const selectedPeriod = periods.find(p => p.value === selectedValue);
+        if (selectedPeriod) {
+          calculateStats(selectedPeriod.year, selectedPeriod.isWinter);
+        }
+      });
+    }
+  });
+</script>
