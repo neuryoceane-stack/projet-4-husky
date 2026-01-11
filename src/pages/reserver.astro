@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Réserver votre séjour - Chalet Husky"
+  description="Réservez votre séjour au Chalet Husky aux 2 Alpes. Contactez-nous pour vérifier les disponibilités et planifier vos vacances de rêve à la montagne."
+>
+  <section class="page-header">
+    <div class="container">
+      <div class="page-header-content">
+        <span class="page-badge">Réservation</span>
+        <h1 class="page-title">Réservez votre séjour</h1>
+        <p class="page-subtitle">Contactez-nous pour vérifier les disponibilités et planifier vos vacances aux 2 Alpes</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-wrapper">
+        <form class="contact-form" action="mailto:contact@chalethusky.com" method="post" enctype="text/plain">
+          <h3>Formulaire de réservation</h3>
+          
+          <div class="form-group">
+            <label for="nom" class="form-label">Nom et Prénom *</label>
+            <input 
+              type="text" 
+              id="nom" 
+              name="nom" 
+              class="form-input" 
+              required
+              placeholder="Votre nom et prénom"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              required
+              placeholder="votre@email.com"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="telephone" class="form-label">Téléphone *</label>
+            <input 
+              type="tel" 
+              id="telephone" 
+              name="telephone" 
+              class="form-input" 
+              required
+              placeholder="+33 X XX XX XX XX"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              class="form-textarea" 
+              rows="6"
+              placeholder="Décrivez votre projet de séjour, vos questions ou vos besoins spécifiques..."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-large">
+            Envoyer la demande
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header {
+    background-color: var(--color-cream);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+  }
+
+  .page-header-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-badge {
+    display: inline-block;
+    background-color: var(--color-sapin);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: var(--font-size-3xl);
+    }
+
+    .page-subtitle {
+      font-size: var(--font-size-base);
+    }
+  }
+
+  .contact-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .contact-form {
+    background-color: white;
+    padding: var(--spacing-xl);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .contact-form h3 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--color-blue-night);
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    border: 2px solid var(--color-border);
+    border-radius: 4px;
+    transition: border-color var(--transition-base);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .form-textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .btn-large {
+    width: 100%;
+    margin-top: var(--spacing-md);
+  }
+
+  @media (max-width: 768px) {
+    .contact-wrapper {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form {
+      padding: var(--spacing-md);
+    }
+  }
+</style>
