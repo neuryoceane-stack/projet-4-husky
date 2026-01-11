@@ -360,6 +360,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     vertical-align: middle;
   }
 
+  .total-row {
+    background-color: var(--color-cream);
+    font-weight: 700;
+  }
+
+  .total-row td {
+    padding: 1rem 0.75rem;
+    border-top: 2px solid var(--color-border);
+  }
+
   .action-buttons {
     display: flex;
     gap: 0.25rem;
@@ -672,10 +682,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       return weeks;
     }
 
-    // Générer le calendrier
-    let currentYear = new Date().getFullYear();
+    // Générer le calendrier - toujours commencer sur Hiver 25/26
+    let currentYear = 2025; // Année fixe pour commencer sur Hiver 25/26
     let isWinter = true; // true = Hiver, false = Été
-    const platforms = ['Perso', 'Booking', 'Airbnb', 'Abritel', 'Centrale de résa'];
+    const platforms = ['Perso', 'Booking', 'Airbnb', 'Abritel', 'Centrale de résa', 'Chalet Montagne'];
     const states = ['Disponible', 'Réservé', 'Hors Loc', 'Privatisé'];
 
     // Gestion de la modal fiche locataire
@@ -794,6 +804,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       });
     }
 
+    // Fonction pour mettre à jour le total
+    function updateTotal(storageKey: string, weeks: Array<{ start: Date; end: Date }>) {
+      const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      let totalRevenue = 0;
+      weeks.forEach(week => {
+        const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
+        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
+        const tarif = parseFloat(weekData.tarif || '0') || 0;
+        totalRevenue += tarif;
+      });
+      
+      const totalRow = document.querySelector('.total-row td:nth-child(2)') as HTMLElement;
+      if (totalRow) {
+        totalRow.textContent = `${totalRevenue.toLocaleString('fr-FR')} €`;
+      }
+    }
+
     function renderCalendar(year: number, winter: boolean) {
       const tbody = document.getElementById('calendarBody');
       const yearDisplay = document.getElementById('currentYear');
@@ -821,24 +848,37 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       // Charger les données sauvegardées
       const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
       
+      // Calculer le total des revenus
+      let totalRevenue = 0;
+      weeks.forEach(week => {
+        const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
+        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
+        const tarif = parseFloat(weekData.tarif || '0') || 0;
+        totalRevenue += tarif;
+      });
+      
       tbody.innerHTML = weeks.map((week, index) => {
         const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
         const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
         const etat = (weekData.etat || '').trim();
         
-        // Déterminer la classe CSS selon l'état
+        // Déterminer la classe CSS et la couleur selon l'état
         let rowClass = '';
+        let bgColor = '';
         if (etat === 'Réservé') {
           rowClass = 'row-reserved';
+          bgColor = '#fee2e2';
         } else if (etat === 'Disponible') {
           rowClass = 'row-available';
+          bgColor = '#dcfce7';
         } else if (etat === 'Privatisé') {
           rowClass = 'row-privatized';
+          bgColor = '#fed7aa';
         }
         // Hors Loc : pas de classe (pas de couleur)
         
         return `
-          <tr class="${rowClass}" data-week-key="${weekKey}">
+          <tr class="${rowClass}" data-week-key="${weekKey}"${bgColor ? ` style="background-color: ${bgColor};"` : ''}>
             <td class="week-cell">
               ${formatDate(week.start)} - ${formatDate(week.end)}
             </td>
@@ -908,7 +948,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             </td>
           </tr>
         `;
-      }).join('');
+      }).join('') + `
+        <tr class="total-row">
+          <td class="week-cell" style="font-weight: 700; border-top: 2px solid var(--color-border);">Total</td>
+          <td style="font-weight: 700; font-size: 1rem; border-top: 2px solid var(--color-border);">${totalRevenue.toLocaleString('fr-FR')} €</td>
+          <td style="border-top: 2px solid var(--color-border);"></td>
+          <td style="border-top: 2px solid var(--color-border);"></td>
+          <td class="action-cell" style="border-top: 2px solid var(--color-border);"></td>
+        </tr>
+      `;
+
+      // Appliquer les couleurs directement aux cellules pour garantir qu'elles s'affichent
+      tbody.querySelectorAll('tr:not(.total-row)').forEach((row: any) => {
+        const weekKey = row.dataset.weekKey;
+        if (!weekKey) return;
+        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
+        const etat = (weekData.etat || '').trim();
+        const cells = row.querySelectorAll('td');
+        
+        let bgColor = '';
+        if (etat === 'Réservé') {
+          bgColor = '#fee2e2';
+        } else if (etat === 'Disponible') {
+          bgColor = '#dcfce7';
+        } else if (etat === 'Privatisé') {
+          bgColor = '#fed7aa';
+        }
+        
+        if (bgColor) {
+          cells.forEach((td: HTMLElement) => {
+            td.style.backgroundColor = bgColor;
+          });
+        }
+      });
 
       // Stocker les données originales pour annuler
       const originalData: { [key: string]: any } = {};
@@ -1011,6 +1083,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
           localStorage.setItem(storageKey, JSON.stringify(data));
 
+          // Mettre à jour le total
+          updateTotal(storageKey, weeks);
+
           // Désactiver le mode édition
           inputs.forEach(input => {
             input.classList.remove('editing');
@@ -1093,34 +1168,34 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       attachCommentButtonListeners();
     }
 
-    // Contrôles de navigation
+    // Contrôles de navigation - chronologique
     document.getElementById('prevYear')?.addEventListener('click', () => {
       if (isWinter) {
-        // Si on est en hiver (ex: Hiver 24/25 = déc 2024 - mai 2025), passer à l'été de l'année précédente (Été 24 = juin 2024 - août 2024)
+        // Si on est en hiver (ex: Hiver 25/26 = déc 2025 - mai 2026), passer à l'été précédent (Été 25 = juin 2025 - août 2025)
         isWinter = false;
-        currentYear--;
+        // currentYear reste le même (2025 pour Été 25)
       } else {
-        // Si on est en été (ex: Été 25 = juin 2025 - août 2025), passer à l'hiver de l'année précédente (Hiver 24/25 = déc 2024 - mai 2025)
+        // Si on est en été (ex: Été 26 = juin 2026 - août 2026), passer à l'hiver précédent (Hiver 25/26 = déc 2025 - mai 2026)
         isWinter = true;
-        currentYear--;
+        currentYear--; // Revenir à l'année précédente (2025 pour Hiver 25/26)
       }
       renderCalendar(currentYear, isWinter);
     });
 
     document.getElementById('nextYear')?.addEventListener('click', () => {
       if (isWinter) {
-        // Si on est en hiver (ex: Hiver 24/25 = déc 2024 - mai 2025), passer à l'été de l'année suivante (Été 25 = juin 2025 - août 2025)
+        // Si on est en hiver (ex: Hiver 25/26 = déc 2025 - mai 2026), passer à l'été suivant (Été 26 = juin 2026 - août 2026)
         isWinter = false;
-        currentYear++; // Pour l'été, on utilise l'année suivante
+        currentYear++; // Passer à l'année suivante (2026 pour Été 26)
       } else {
-        // Si on est en été (ex: Été 25 = juin 2025 - août 2025), passer à l'hiver de la même année (Hiver 25/26 = déc 2025 - mai 2026)
+        // Si on est en été (ex: Été 26 = juin 2026 - août 2026), passer à l'hiver suivant (Hiver 26/27 = déc 2026 - mai 2027)
         isWinter = true;
-        // currentYear reste le même (2025 pour Hiver 25/26)
+        // currentYear reste le même (2026 pour Hiver 26/27)
       }
       renderCalendar(currentYear, isWinter);
     });
 
-    // Rendre le calendrier initial (hiver de l'année courante)
+    // Rendre le calendrier initial (toujours Hiver 25/26)
     renderCalendar(currentYear, isWinter);
   });
 </script>

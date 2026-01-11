@@ -287,30 +287,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
     function getWinterWeeks(year: number): Array<{ start: Date; end: Date }> {
       const weeks: Array<{ start: Date; end: Date }> = [];
-      let current = getFirstSaturdayOfDecember(year);
-      const endDate = new Date(year + 1, 4, 31);
+      let currentSaturday = getFirstSaturdayOfDecember(year);
+      const endDate = new Date(year + 1, 4, 31); // Fin mai de l'année suivante
 
-      while (current <= endDate) {
-        if (current.getDay() !== 6) {
-          const day = current.getDay();
-          const adjustment = (6 - day + 7) % 7;
-          current.setDate(current.getDate() + adjustment);
-        }
+      while (currentSaturday <= endDate) {
+        const weekEnd = new Date(currentSaturday);
+        weekEnd.setDate(weekEnd.getDate() + 6); // Samedi suivant (6 jours plus tard)
         
-        const end = new Date(current);
-        end.setDate(end.getDate() + 6);
+        // Si la fin de la semaine dépasse la date limite, on arrête
+        if (weekEnd > endDate) break;
         
-        if (end > endDate) break;
+        weeks.push({ 
+          start: new Date(currentSaturday), 
+          end: new Date(weekEnd) 
+        });
         
-        if (end.getDay() !== 6) {
-          const day = end.getDay();
-          const adjustment = (6 - day + 7) % 7;
-          end.setDate(end.getDate() + adjustment);
-        }
-        
-        weeks.push({ start: new Date(current), end: new Date(end) });
-        current = new Date(end);
-        current.setDate(current.getDate() + 1);
+        // Passer au samedi suivant (7 jours plus tard)
+        currentSaturday = new Date(currentSaturday);
+        currentSaturday.setDate(currentSaturday.getDate() + 7);
       }
 
       return weeks;
@@ -318,38 +312,32 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
     function getSummerWeeks(year: number): Array<{ start: Date; end: Date }> {
       const weeks: Array<{ start: Date; end: Date }> = [];
-      let current = getFirstSaturdayOfJune(year);
-      const endDate = new Date(year, 7, 31);
+      let currentSaturday = getFirstSaturdayOfJune(year);
+      const endDate = new Date(year, 7, 31); // Fin août (mois 7)
 
-      while (current <= endDate) {
-        if (current.getDay() !== 6) {
-          const day = current.getDay();
-          const adjustment = (6 - day + 7) % 7;
-          current.setDate(current.getDate() + adjustment);
-        }
+      while (currentSaturday <= endDate) {
+        const weekEnd = new Date(currentSaturday);
+        weekEnd.setDate(weekEnd.getDate() + 6); // Samedi suivant (6 jours plus tard)
         
-        const end = new Date(current);
-        end.setDate(end.getDate() + 6);
+        // Si la fin de la semaine dépasse la date limite, on arrête
+        if (weekEnd > endDate) break;
         
-        if (end > endDate) break;
+        weeks.push({ 
+          start: new Date(currentSaturday), 
+          end: new Date(weekEnd) 
+        });
         
-        if (end.getDay() !== 6) {
-          const day = end.getDay();
-          const adjustment = (6 - day + 7) % 7;
-          end.setDate(end.getDate() + adjustment);
-        }
-        
-        weeks.push({ start: new Date(current), end: new Date(end) });
-        current = new Date(end);
-        current.setDate(current.getDate() + 1);
+        // Passer au samedi suivant (7 jours plus tard)
+        currentSaturday = new Date(currentSaturday);
+        currentSaturday.setDate(currentSaturday.getDate() + 7);
       }
 
       return weeks;
     }
 
-    // Générer la liste des périodes disponibles
+    // Générer la liste des périodes disponibles (ordre chronologique)
     function generatePeriods(): Array<{ value: string; label: string; year: number; isWinter: boolean }> {
-      const periods: Array<{ value: string; label: string; year: number; isWinter: boolean }> = [];
+      const periods: Array<{ value: string; label: string; year: number; isWinter: boolean; startDate: Date }> = [];
       const currentYear = new Date().getFullYear();
       
       // Générer les périodes pour les 3 dernières années et les 2 prochaines
@@ -357,23 +345,38 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         // Hiver (décembre de l'année jusqu'à mai de l'année suivante)
         const yearShort = year.toString().slice(-2);
         const nextYearShort = (year + 1).toString().slice(-2);
+        const winterStart = getFirstSaturdayOfDecember(year);
         periods.push({
           value: `hiver_${year}`,
           label: `Hiver ${yearShort}/${nextYearShort}`,
           year: year,
-          isWinter: true
+          isWinter: true,
+          startDate: winterStart
         });
         
         // Été (juin à août de l'année)
+        const summerStart = getFirstSaturdayOfJune(year);
         periods.push({
           value: `ete_${year}`,
           label: `Été ${yearShort}`,
           year: year,
-          isWinter: false
+          isWinter: false,
+          startDate: summerStart
         });
       }
       
-      return periods;
+      // Trier les périodes par date de début (ordre chronologique)
+      periods.sort((a, b) => {
+        return a.startDate.getTime() - b.startDate.getTime();
+      });
+      
+      // Retirer startDate avant de retourner
+      return periods.map(period => ({
+        value: period.value,
+        label: period.label,
+        year: period.year,
+        isWinter: period.isWinter
+      }));
     }
 
     // Calculer les statistiques pour une période donnée
@@ -399,15 +402,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
         const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
         const etat = (weekData.etat || '').trim();
+        const tarif = parseFloat(weekData.tarif || '0') || 0;
         
-        if (etat === 'Réservé') {
+        // Compter les semaines réservées ou privatisées pour l'occupation
+        if (etat === 'Réservé' || etat === 'Privatisé') {
           reservedWeeks++;
-          const tarif = parseFloat(weekData.tarif || '0') || 0;
+        }
+        
+        // Compter les revenus pour les semaines réservées ou privatisées
+        if (etat === 'Réservé' || etat === 'Privatisé') {
           totalRevenue += tarif;
         }
       });
 
-      // Calculer le taux d'occupation
+      // Calculer le taux d'occupation (semaines réservées + privatisées)
       const occupationRate = totalWeeks > 0 ? Math.round((reservedWeeks / totalWeeks) * 100) : 0;
 
       // Mettre à jour l'affichage
@@ -430,16 +438,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     const periodSelect = document.getElementById('periodSelect') as HTMLSelectElement;
     const periods = generatePeriods();
     
-    // Sélectionner la période actuelle par défaut (hiver de l'année courante)
-    const currentYear = new Date().getFullYear();
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth(); // 0-11
-    let defaultPeriod = `hiver_${currentYear}`;
-    
-    // Si on est entre juin et août, sélectionner l'été
-    if (currentMonth >= 5 && currentMonth <= 7) {
-      defaultPeriod = `ete_${currentYear}`;
-    }
+    // Sélectionner Hiver 25/26 par défaut
+    const defaultPeriod = 'hiver_2025';
     
     periods.forEach(period => {
       const option = document.createElement('option');
