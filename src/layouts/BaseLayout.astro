@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import LoadingScreen from '../components/LoadingScreen.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -30,10 +31,10 @@ try {
     <link rel="apple-touch-icon" href="/assets/logo/logo.png" />
     <meta name="generator" content={Astro.generator} />
     
-    <!-- Google Fonts - Lobster -->
+    <!-- Google Fonts - Playfair Display (style AIRELLES) et Montserrat (style COURCHEVEL) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500&family=Lobster&display=swap" rel="stylesheet">
     
     <!-- SEO Meta Tags -->
     <title>{title}</title>
@@ -54,6 +55,7 @@ try {
     <meta name="twitter:image" content={image.startsWith('http') ? image : `${siteURL}${image}`} />
   </head>
   <body>
+    <LoadingScreen />
     <Header />
     <main>
       <slot />

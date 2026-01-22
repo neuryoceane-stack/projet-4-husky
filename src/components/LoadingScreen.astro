@@ -1,0 +1,191 @@
+---
+// Loading screen component
+---
+
+<div class="loading-screen" id="loadingScreen">
+  <svg style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <filter id="white-filter" x="0" y="0" width="100%" height="100%">
+        <!-- Préserver la transparence et transformer seulement les pixels opaques en blanc -->
+        <feColorMatrix
+          in="SourceGraphic"
+          type="matrix"
+          values="0 0 0 0 1
+                  0 0 0 0 1
+                  0 0 0 0 1
+                  0 0 0 1 0"/>
+      </filter>
+    </defs>
+  </svg>
+  <div class="door-left"></div>
+  <div class="door-right"></div>
+  <div class="loading-content">
+    <div class="loading-logo-wrapper">
+      <img src="/assets/logo/logo husky transparent.png" alt="Chalet Husky" class="loading-logo" />
+    </div>
+    <h1 class="loading-title">Chalet Husky</h1>
+    <p class="loading-subtitle">Les Deux Alpes</p>
+  </div>
+</div>
+
+<style>
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-blue-night);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  
+  .door-left,
+  .door-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: var(--color-blue-night);
+    z-index: 10000;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .door-left {
+    left: 0;
+    transform-origin: left center;
+  }
+  
+  .door-right {
+    right: 0;
+    transform-origin: right center;
+  }
+  
+  .loading-screen.hidden .door-left {
+    transform: translateX(-100%);
+  }
+  
+  .loading-screen.hidden .door-right {
+    transform: translateX(100%);
+  }
+  
+  .loading-screen:not(.hidden) .door-left {
+    transform: translateX(0);
+  }
+  
+  .loading-screen:not(.hidden) .door-right {
+    transform: translateX(0);
+  }
+  
+  .loading-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    position: relative;
+    z-index: 10001;
+    opacity: 1;
+    transition: opacity 0.6s ease-in-out;
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .loading-screen.hidden .loading-content {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+  }
+  
+  .loading-logo-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .loading-logo {
+    height: 300px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: brightness(0) invert(1);
+    /* Le filtre transforme le logo en blanc tout en préservant la transparence du fond */
+  }
+  
+  .loading-title {
+    font-family: 'Playfair Display', 'Didot', 'Bodoni', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: white;
+    margin: 0;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+  
+  .loading-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: white;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+  
+  @media (max-width: 768px) {
+    .loading-logo {
+      height: 220px;
+    }
+    
+    .loading-title {
+      font-size: 2rem;
+    }
+    
+    .loading-subtitle {
+      font-size: 0.875rem;
+    }
+  }
+</style>
+
+<script>
+  // Masquer l'écran de chargement une fois la page chargée
+  document.addEventListener('DOMContentLoaded', () => {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+      // Attendre un délai plus long pour apprécier l'animation
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        // Retirer complètement après l'animation
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 1200);
+      }, 1500);
+    }
+  });
+  
+  // Gérer les transitions entre pages (pour Astro View Transitions)
+  document.addEventListener('astro:page-load', () => {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+      loadingScreen.style.display = 'flex';
+      loadingScreen.classList.remove('hidden');
+      setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 1200);
+      }, 1000);
+    }
+  });
+</script>
