@@ -107,8 +107,14 @@ if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -
   .nav-left {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm); /* Réduit de md à sm pour mobile par défaut */
     z-index: 1002;
+  }
+
+  @media (min-width: 769px) {
+    .nav-left {
+      gap: var(--spacing-md);
+    }
   }
   
   .lang-switcher {

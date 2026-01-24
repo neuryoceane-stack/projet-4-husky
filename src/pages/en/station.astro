@@ -769,19 +769,214 @@ import CTA from '../../components/CTA.astro';
 
   @media (max-width: 768px) {
     :global(.hero-title) {
-      font-size: 2rem !important;
+      font-size: 2rem !important; /* Réduction pour les titres longs */
+      line-height: 1.2 !important;
+      padding: 0 10px !important;
     }
 
+    :global(.hero-subtitle) {
+      font-size: 0.9rem !important;
+      max-width: 280px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    
+    :global(.hero) {
+      height: 80vh !important; /* Un peu plus de hauteur pour laisser de la place aux stats */
+      min-height: 550px !important;
+    }
+    
+    :global(.hero-content) {
+      padding-top: 60px !important; /* Moins de padding haut pour remonter le contenu */
+      justify-content: flex-start !important;
+    }
+    
     .station-stats {
-      bottom: 150px;
+      bottom: 150px; /* Remonté beaucoup plus haut pour être bien dans la photo */
     }
-
+    
+    .stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 90%;
+      margin: 0 auto;
+    }
+    
+    .stat-card {
+      padding: 0.5rem 0.25rem;
+      min-height: 70px;
+      background-color: rgba(20, 20, 20, 0.8); /* Un peu plus sombre pour la lisibilité */
+    }
+    
+    .stat-number {
+      font-size: 1.125rem;
+    }
+    
+    .stat-label {
+      font-size: 0.7rem;
+    }
+    
+    .station-village-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .station-logo-container {
+      order: -1;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .station-logo {
+      max-width: 200px;
+    }
+    
+    .station-images-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+    
+    .station-gallery-image {
+      border-radius: 12px;
+    }
+    
+    .station-year-round-box {
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+    
+    .station-year-round-title {
+      font-size: 1.75rem;
+    }
+    
+    .station-year-round-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .station-year-round-item {
+      padding: var(--spacing-sm);
+    }
+    
+    .station-year-round-item h3 {
+      font-size: 1.25rem;
+    }
+    
+    .station-year-round-item p {
+      font-size: 1rem;
+    }
+    
+    .section-365-days {
+      padding: 2.5rem 0;
+      margin: 2rem 0;
+    }
+    
+    .section-365-title {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      padding: 0 var(--spacing-sm);
+    }
+    
+    .section-365-subtitle {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      padding: 0 var(--spacing-md);
+      margin-bottom: 2.5rem;
+    }
+    
+    .section-365-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 0 var(--spacing-sm);
+    }
+    
     .section-incontournables-grid {
       grid-template-columns: 1fr;
+      gap: var(--spacing-md);
     }
-
+    
+    .section-incontournables-title {
+      font-size: 2rem;
+    }
+    
     .section-comment-venir-grid {
       grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .section-comment-venir-title {
+      font-size: 1.75rem;
+    }
+    
+    .section-comment-venir-item {
+      padding: var(--spacing-md);
+    }
+    
+    .section-comment-venir-depart {
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-md);
+      padding-bottom: var(--spacing-xs);
+    }
+    
+    .section-comment-venir-depart::after {
+      width: 40px;
+    }
+    
+    .section-comment-venir-step {
+      padding: var(--spacing-sm);
+    }
+    
+    .section-comment-venir-step:not(:last-child)::after {
+      bottom: -18px;
+      font-size: 1rem;
+    }
+    
+    .section-comment-venir-duration {
+      font-size: 1rem;
+    }
+    
+    .section-comment-venir-route {
+      font-size: 0.875rem;
+    }
+    
+    .section-365-season {
+      font-size: 1.75rem;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+    }
+    
+    .section-365-season::after {
+      width: 50px;
+      height: 2px;
+    }
+    
+    .section-365-images {
+      gap: 1.25rem;
+    }
+    
+    .section-365-image {
+      height: 220px;
+      border-radius: 14px;
+    }
+    
+    .section-365-image-wrapper:hover .section-365-image {
+      transform: translateY(-4px) scale(1.01);
+      border-radius: 16px;
+    }
+    
+    .section-365-image-wrapper .section-365-image-rando {
+      object-position: center 30%;
+      min-height: 220px;
+      max-height: 220px;
+    }
+    
+    .section-365-caption {
+      bottom: 0.75rem;
+      left: 0.75rem;
+      padding: 0;
+      font-size: 0.9rem;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.6);
     }
   }
 </style>

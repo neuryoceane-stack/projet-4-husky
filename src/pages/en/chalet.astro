@@ -619,16 +619,49 @@ import CTA from '../../components/CTA.astro';
   }
 
   @media (max-width: 768px) {
-    .chalet-main-title { font-size: 2rem; }
-    .chalet-section-title { font-size: 1.75rem; }
-    .chalet-main-text, .chalet-section-text { font-size: 1.125rem; }
-    .chalet-rooms-grid, .chalet-kitchen-grid, .chalet-services-grid, .chalet-spaces-grid, .chalet-ext-grid, .chalet-bathrooms-grid, .chalet-other-grid {
+    .chalet-main-title {
+      font-size: 2rem;
+    }
+
+    .chalet-section-title {
+      font-size: 1.75rem;
+    }
+
+    .chalet-main-text,
+    .chalet-section-text {
+      font-size: 1.125rem;
+    }
+
+    .chalet-rooms-grid {
       grid-template-columns: 1fr;
     }
-    .chalet-equipment-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .chalet-kitchen-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chalet-services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chalet-spaces-grid,
+    .chalet-ext-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chalet-bathrooms-grid,
+    .chalet-other-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chalet-equipment-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 480px) {
-    .chalet-equipment-grid { grid-template-columns: 1fr; }
+    .chalet-equipment-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
