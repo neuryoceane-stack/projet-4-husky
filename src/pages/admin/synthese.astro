@@ -380,57 +380,50 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     }
 
     // Calculer les statistiques pour une période donnée
-    function calculateStats(year: number, isWinter: boolean) {
-      const storageKey = isWinter 
-        ? `chalet_calendar_hiver_${year}`
-        : `chalet_calendar_ete_${year}`;
-      
-      const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
-      
-      let weeks: Array<{ start: Date; end: Date }>;
-      if (isWinter) {
-        weeks = getWinterWeeks(year);
-      } else {
-        weeks = getSummerWeeks(year);
-      }
-
-      let totalWeeks = weeks.length;
-      let reservedWeeks = 0;
-      let totalRevenue = 0;
-
-      weeks.forEach(week => {
-        const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
-        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
-        const etat = (weekData.etat || '').trim();
-        const tarif = parseFloat(weekData.tarif || '0') || 0;
+    async function calculateStats(year: number, isWinter: boolean) {
+      try {
+        const season = isWinter ? 'hiver' : 'ete';
+        const response = await fetch(`/api/admin/calendar?year=${year}&season=${season}`);
+        const data = await response.json();
+        const savedData = data.reservations || {};
         
-        // Compter les semaines réservées ou privatisées pour l'occupation
-        if (etat === 'Réservé' || etat === 'Privatisé') {
-          reservedWeeks++;
+        let weeks: Array<{ start: Date; end: Date }>;
+        if (isWinter) {
+          weeks = getWinterWeeks(year);
+        } else {
+          weeks = getSummerWeeks(year);
         }
-        
-        // Compter les revenus pour les semaines réservées ou privatisées
-        if (etat === 'Réservé' || etat === 'Privatisé') {
-          totalRevenue += tarif;
-        }
-      });
 
-      // Calculer le taux d'occupation (semaines réservées + privatisées)
-      const occupationRate = totalWeeks > 0 ? Math.round((reservedWeeks / totalWeeks) * 100) : 0;
+        let totalWeeks = weeks.length;
+        let reservedWeeks = 0;
+        let totalRevenue = 0;
 
-      // Mettre à jour l'affichage
-      const occupationRateEl = document.getElementById('occupationRate');
-      const totalRevenueEl = document.getElementById('totalRevenue');
-      const reservationsCountEl = document.getElementById('reservationsCount');
+        weeks.forEach(week => {
+          const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
+          const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
+          const etat = (weekData.etat || '').trim();
+          const tarif = parseFloat(weekData.tarif || '0') || 0;
+          
+          // Compter les semaines réservées ou privatisées pour l'occupation
+          if (etat === 'Réservé' || etat === 'Privatisé') {
+            reservedWeeks++;
+            totalRevenue += tarif;
+          }
+        });
 
-      if (occupationRateEl) {
-        occupationRateEl.textContent = `${occupationRate}%`;
-      }
-      if (totalRevenueEl) {
-        totalRevenueEl.textContent = `${totalRevenue.toLocaleString('fr-FR')} €`;
-      }
-      if (reservationsCountEl) {
-        reservationsCountEl.textContent = reservedWeeks.toString();
+        // Calculer le taux d'occupation
+        const occupationRate = totalWeeks > 0 ? Math.round((reservedWeeks / totalWeeks) * 100) : 0;
+
+        // Mettre à jour l'affichage
+        const occupationRateEl = document.getElementById('occupationRate');
+        const totalRevenueEl = document.getElementById('totalRevenue');
+        const reservationsCountEl = document.getElementById('reservationsCount');
+
+        if (occupationRateEl) occupationRateEl.textContent = `${occupationRate}%`;
+        if (totalRevenueEl) totalRevenueEl.textContent = `${totalRevenue.toLocaleString('fr-FR')} €`;
+        if (reservationsCountEl) reservationsCountEl.textContent = reservedWeeks.toString();
+      } catch (error) {
+        console.error('Erreur calcul stats:', error);
       }
     }
 

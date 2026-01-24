@@ -278,7 +278,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     // Supprimer cette ligne car on charge maintenant via API
     // const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
     
-    function updateStats(contactsToStat = contacts) {
+    function updateStats(contactsToStat: any[]) {
       const totalValue = document.querySelector('.stat-card:nth-child(1) .stat-value');
       const nouveauValue = document.querySelector('.stat-card:nth-child(2) .stat-value');
       const enCoursValue = document.querySelector('.stat-card:nth-child(3) .stat-value');
