@@ -371,9 +371,36 @@ import CTA from '../components/CTA.astro';
     buttonLink="/chalet"
     variant="alt"
   />
+
+  <!-- Animation de flocon au scroll -->
+  <div class="scroll-snowflake" id="scrollSnowflake">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93"></path>
+    </svg>
+  </div>
 </BaseLayout>
 
 <style>
+  /* Styles pour le flocon au scroll */
+  .scroll-snowflake {
+    position: fixed;
+    top: -50px;
+    right: 5%;
+    z-index: 1000;
+    color: var(--color-blue-night);
+    opacity: 0.2;
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+    filter: blur(0.5px);
+  }
+
+  @media (max-width: 768px) {
+    .scroll-snowflake {
+      right: 10px;
+      opacity: 0.15;
+    }
+  }
+
   :global(.hero-title) {
     font-size: 4.5rem !important;
   }
@@ -1234,3 +1261,28 @@ import CTA from '../components/CTA.astro';
     }
   }
 </style>
+
+<script>
+  // Animation du flocon au scroll
+  const snowflake = document.getElementById('scrollSnowflake');
+  
+  if (snowflake) {
+    window.addEventListener('scroll', () => {
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      const viewportHeight = window.innerHeight;
+      const totalScroll = document.documentElement.scrollHeight;
+      
+      // Position verticale proportionnelle au scroll
+      // On multiplie par 1.2 pour qu'il aille un peu plus vite ou couvre plus de distance
+      const yPos = scrollPercent * (viewportHeight + 100);
+      
+      // Petit balancement horizontal (sinusoïdal)
+      const xSway = Math.sin(window.scrollY / 100) * 20;
+      
+      // Rotation lente
+      const rotation = window.scrollY / 5;
+      
+      snowflake.style.transform = `translate(${xSway}px, ${yPos}px) rotate(${rotation}deg)`;
+    });
+  }
+</script>
