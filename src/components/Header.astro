@@ -47,17 +47,19 @@ if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -
         <span></span>
         <span></span>
       </button>
-      
-      <a href={langSwitcherUrl} class="lang-switcher">
-        <span class="lang-flag">{isEn ? '🇫🇷' : '🇬🇧'}</span>
-        <span class="lang-text">{t.lang}</span>
-      </a>
     </div>
     
     <a href={t.homeLink} class="nav-logo-center">
       <h1 class="nav-logo-title">Chalet Husky</h1>
       <p class="nav-logo-subtitle">Les Deux Alpes</p>
     </a>
+
+    <div class="nav-right">
+      <a href={langSwitcherUrl} class="lang-switcher">
+        <span class="lang-flag">{isEn ? '🇫🇷' : '🇬🇧'}</span>
+        <span class="lang-text">{t.lang}</span>
+      </a>
+    </div>
   </nav>
 </header>
 
@@ -107,14 +109,13 @@ if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -
   .nav-left {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm); /* Réduit de md à sm pour mobile par défaut */
     z-index: 1002;
   }
 
-  @media (min-width: 769px) {
-    .nav-left {
-      gap: var(--spacing-md);
-    }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    z-index: 1002;
   }
   
   .lang-switcher {
