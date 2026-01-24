@@ -126,90 +126,73 @@ import CTA from '../components/CTA.astro';
   <!-- Section 365 jours par an -->
   <section class="section-365-days">
     <div class="container">
-      <h2 class="section-365-title">365 jours par an</h2>
-      <p class="section-365-subtitle">Hiver comme été, la station propose une multitude d'activités pour des vacances riches en émotions</p>
+      <div class="section-365-header">
+        <h2 class="section-365-title">365 jours par an</h2>
+        <div class="section-365-line"></div>
+        <p class="section-365-subtitle">Entre sommets enneigés et alpages ensoleillés, Les 2 Alpes vibrent au rythme des saisons. Une destination d'exception, toute l'année.</p>
+      </div>
       
       <div class="section-365-content">
-        <div class="section-365-column">
-          <h3 class="section-365-season">HIVER</h3>
-          <div class="section-365-images">
-            <div class="section-365-image-wrapper">
-              <img 
-                src="/assets/station/skieur pro.jpg" 
-                alt="Skieur professionnel descendant les pistes enneigées des 2 Alpes en hiver"
-                class="section-365-image"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-              />
-              <span class="section-365-caption">Ski alpin</span>
+        <!-- HIVER -->
+        <div class="section-365-side hiver">
+          <div class="season-label-wrapper">
+            <span class="season-label">Saison d'Hiver</span>
+          </div>
+          <div class="season-grid">
+            <div class="season-main-img">
+              <div class="image-inner">
+                <img src="/assets/station/skieur pro.jpg" alt="Ski alpin" />
+                <div class="image-overlay">
+                  <h4>Le Grand Domaine</h4>
+                  <p>220 km de pistes entre 1300m et 3600m</p>
+                </div>
+              </div>
             </div>
-            <div class="section-365-image-wrapper">
-              <img 
-                src="/assets/station/montagne test.jpg" 
-                alt="Paysage montagnard hivernal des 2 Alpes avec neige immaculée"
-                class="section-365-image"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-              />
-              <span class="section-365-caption">Paysages enneigés</span>
-            </div>
-            <div class="section-365-image-wrapper">
-              <img 
-                src="/assets/station/2 Alps oeufs blancs.jpg" 
-                alt="Station de ski des 2 Alpes enneigée avec infrastructures modernes"
-                class="section-365-image"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-              />
-              <span class="section-365-caption">Station de ski</span>
+            <div class="season-sub-imgs">
+              <div class="image-inner">
+                <img src="/assets/station/montagne test.jpg" alt="Paysages enneigés" />
+                <div class="image-overlay">
+                  <h4>Sérénité</h4>
+                </div>
+              </div>
+              <div class="image-inner">
+                <img src="/assets/station/2 Alps oeufs blancs.jpg" alt="Station de ski" />
+                <div class="image-overlay">
+                  <h4>Modernité</h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div class="section-365-column">
-          <h3 class="section-365-season">ÉTÉ</h3>
-          <div class="section-365-images">
-            <div class="section-365-image-wrapper">
-              <img 
-                src="/assets/station/parapente.jpg" 
-                alt="Parapente aux 2 Alpes - vol libre avec vue panoramique sur les montagnes"
-                class="section-365-image"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-              />
-              <span class="section-365-caption">Parapente</span>
+        <!-- ÉTÉ -->
+        <div class="section-365-side ete">
+          <div class="season-label-wrapper">
+            <span class="season-label">Saison d'Été</span>
+          </div>
+          <div class="season-grid">
+            <div class="season-main-img">
+              <div class="image-inner">
+                <img src="/assets/station/vtt bike park.jpg" alt="VTT Bike Park" />
+                <div class="image-overlay">
+                  <h4>Bike Park</h4>
+                  <p>L'un des meilleurs spots de VTT en Europe</p>
+                </div>
+              </div>
             </div>
-            <div class="section-365-image-wrapper">
-              <img 
-                src="/assets/station/vtt bike park.jpg" 
-                alt="VTT Bike Park des 2 Alpes - descente de montagne en vélo tout terrain"
-                class="section-365-image"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-              />
-              <span class="section-365-caption">VTT Bike Park</span>
-            </div>
-            <div class="section-365-image-wrapper">
-              <img 
-                src="/assets/station/randonnee.jpg" 
-                alt="Randonnée pédestre aux 2 Alpes - sentiers de montagne en été"
-                class="section-365-image section-365-image-rando"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="400"
-              />
-              <span class="section-365-caption">Randonnée</span>
+            <div class="season-sub-imgs">
+              <div class="image-inner">
+                <img src="/assets/station/parapente.jpg" alt="Parapente" />
+                <div class="image-overlay">
+                  <h4>Liberté</h4>
+                </div>
+              </div>
+              <div class="image-inner">
+                <img src="/assets/station/randonnee.jpg" alt="Randonnée" class="section-365-image-rando" />
+                <div class="image-overlay">
+                  <h4>Exploration</h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -632,146 +615,174 @@ import CTA from '../components/CTA.astro';
     margin: 0;
   }
 
-  /* Section 365 jours par an */
+  /* Section 365 jours par an - PRO RE-DESIGN */
   .section-365-days {
-    background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #2C3E50 100%);
-    padding: 4rem 0;
-    margin: 3.5rem 0;
+    background-color: var(--color-blue-night);
+    padding: var(--spacing-xl) 0;
+    color: white;
+    overflow: hidden;
   }
-  
-  .section-365-title {
+
+  .section-365-header {
     text-align: center;
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-365-title {
+    font-family: 'Playfair Display', serif;
     font-size: 3.5rem;
     font-weight: 900;
-    color: #D4AF37;
-    margin-bottom: 1.5rem;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-    letter-spacing: 2px;
-    line-height: 1.2;
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: none;
+    letter-spacing: normal;
+  }
+
+  .section-365-line {
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-accent);
+    margin: 0 auto var(--spacing-md);
   }
 
   .section-365-subtitle {
-    text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 3.5rem;
-    max-width: 950px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 var(--spacing-md);
-    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0;
   }
 
   .section-365-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    gap: var(--spacing-xl);
   }
-  
-  .section-365-column {
+
+  .section-365-side {
     display: flex;
     flex-direction: column;
+    gap: var(--spacing-md);
   }
-  
-  .section-365-season {
-    font-size: 2.25rem;
-    font-weight: 900;
-    color: white;
-    text-align: center;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    position: relative;
-    padding-bottom: 0.875rem;
-  }
-  
-  .section-365-season::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
-  }
-  
-  .section-365-images {
+
+  .season-label-wrapper {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: var(--spacing-sm);
   }
-  
-  .section-365-image-wrapper {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 16px;
-  }
-  
-  .section-365-image {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-    will-change: transform;
-    background-color: rgba(0, 0, 0, 0.2);
-    display: block;
-  }
-  
-  .section-365-image-wrapper:hover .section-365-image {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-    border-radius: 18px;
-  }
-  
-  .section-365-caption {
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    background: none;
-    color: white;
-    padding: 0;
-    border-radius: 0;
-    font-size: 1rem;
+
+  .season-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 0.5px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    box-shadow: none;
-    backdrop-filter: none;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 8px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
   }
-  
-  .section-365-image-wrapper:hover .section-365-caption {
-    opacity: 1;
-    transform: translateY(0);
+
+  .season-grid {
+    display: grid;
+    grid-template-columns: 1fr 120px;
+    gap: 15px;
+    height: 500px;
   }
-  
-  .section-365-image:focus {
-    outline: 3px solid #D4AF37;
-    outline-offset: 3px;
+
+  .season-main-img {
+    height: 100%;
   }
-  
-  .section-365-image-wrapper .section-365-image-rando {
-    object-fit: cover;
-    object-position: center 35%;
-    min-height: 280px;
-    max-height: 280px;
+
+  .season-sub-imgs {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    height: 100%;
+  }
+
+  .image-inner {
+    position: relative;
     width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .image-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.8) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    opacity: 0.9;
+    transition: opacity 0.4s ease;
+  }
+
+  .image-overlay h4 {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+  }
+
+  .image-overlay p {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  .image-inner:hover img {
+    transform: scale(1.1);
+  }
+
+  .image-inner:hover .image-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.9) 0%, rgba(15, 37, 64, 0.2) 100%);
+  }
+
+  @media (max-width: 1024px) {
+    .section-365-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+    
+    .season-grid {
+      height: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-365-title {
+      font-size: 2.5rem;
+    }
+
+    .season-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 150px;
+      height: 600px;
+    }
+
+    .season-sub-imgs {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+    }
   }
   
   /* Section Les incontournables */
