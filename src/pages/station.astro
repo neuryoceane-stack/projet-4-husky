@@ -8,30 +8,32 @@ import CTA from '../components/CTA.astro';
   title="Les 2 Alpes - Station de ski d'exception"
   description="Découvrez les 2 Alpes, l'une des stations de ski les plus réputées des Alpes. Domaine skiable exceptionnel, activités variées et accessibilité facilitée."
 >
-  <Hero 
-    title="Au cœur d'un domaine skiable exceptionnel"
-    subtitle="Une station mythique au cœur des Alpes françaises"
-    image="/assets/station/montagne test.jpg"
-  />
+  <div class="station-hero-wrapper">
+    <Hero 
+      title="Au cœur d'un domaine skiable exceptionnel"
+      subtitle="Une station mythique au cœur des Alpes françaises"
+      image="/assets/station/montagne test.jpg"
+    />
 
-  <section class="station-stats">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-number">89</span><br />
-          <span class="stat-label">pistes</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">220</span><br />
-          <span class="stat-label">km</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">3600</span><br />
-          <span class="stat-label">m d'altitude</span>
+    <section class="station-stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-number">89</span><br />
+            <span class="stat-label">pistes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">220</span><br />
+            <span class="stat-label">km</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">3600</span><br />
+            <span class="stat-label">m d'altitude</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <section class="section">
     <div class="container">
@@ -449,6 +451,11 @@ import CTA from '../components/CTA.astro';
     }
   }
   
+  .station-hero-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
   .station-stats {
     position: absolute;
     top: auto;
