@@ -224,31 +224,31 @@ import Hero from '../components/Hero.astro';
   }
   
   .cta-card {
-    background-color: white;
-    border-radius: 16px;
-    padding: var(--spacing-lg);
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 0;
+    padding: 1.5rem 2rem;
     text-align: center;
     text-decoration: none;
-    color: var(--color-blue-night);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: white;
     transition: all var(--transition-base);
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 150px;
+    min-height: 80px;
+    font-family: 'Playfair Display', serif;
   }
   
   .cta-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    background-color: var(--color-blue-night);
+    background-color: rgba(255, 255, 255, 0.1);
     color: white;
   }
   
   .cta-card-text {
     font-size: var(--font-size-xl);
     font-weight: 600;
-    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 0.05em;
   }
 
   .localisation-card {
@@ -450,12 +450,12 @@ import Hero from '../components/Hero.astro';
     }
     
     .cta-card {
-      min-height: 120px;
-      padding: var(--spacing-md);
+      min-height: 60px;
+      padding: 1rem;
     }
     
     .cta-card-text {
-      font-size: var(--font-size-lg);
+      font-size: 1.125rem;
     }
 
     .section-cta {
