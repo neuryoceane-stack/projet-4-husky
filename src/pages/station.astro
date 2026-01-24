@@ -37,7 +37,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 900px; margin: 0 auto;">
         <h2 class="text-center">Au cœur du massif des Écrins</h2>
-        <p class="text-center" style="font-size: 1.25rem; line-height: 1.8; margin-bottom: var(--spacing-lg); color: var(--color-blue-night);">
+        <p class="text-center station-body-text" style="margin-bottom: var(--spacing-lg);">
           7 secteurs incontournables à découvrir. Pistes, secteurs et espaces ludiques, c'est le terrain de jeu idéal pour pimenter vos descentes et partager des défis en famille ou entre amis. Sensations garanties pour de la glisse 100% plaisir !
         </p>
         <div class="plan-pistes-container">
@@ -66,10 +66,10 @@ import CTA from '../components/CTA.astro';
             />
           </div>
           <div class="station-village-text">
-            <p style="font-size: 1.25rem; line-height: 1.8; text-align: justify; color: var(--color-blue-night);">
+            <p class="station-body-text" style="text-align: justify;">
               Les 2 Alpes, c'est bien plus qu'une simple station de ski. C'est un véritable village de montagne qui bat au rythme de la vie alpine. Dynamique et chaleureuse, la station offre une expérience unique où se mêlent tradition montagnarde et modernité. Avec ses commerces animés, ses restaurants conviviaux, ses bars et ses animations, Les 2 Alpes vit jour et nuit pour le plus grand plaisir de ses visiteurs.
             </p>
-            <p style="font-size: 1.25rem; line-height: 1.8; text-align: justify; margin-top: var(--spacing-md); color: var(--color-blue-night);">
+            <p class="station-body-text" style="text-align: justify; margin-top: var(--spacing-md);">
               Que vous soyez en quête de sensations fortes sur les pistes ou de moments de détente après le ski, la station vous accueille dans une ambiance authentique et festive. Un séjour aux 2 Alpes, c'est l'assurance de vivre des vacances inoubliables dans un cadre exceptionnel.
             </p>
           </div>
@@ -616,13 +616,22 @@ import CTA from '../components/CTA.astro';
     margin-bottom: var(--spacing-sm);
   }
   
+  .station-body-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: #0F2540;
+    font-weight: 400;
+  }
+
   .station-year-round-item p {
-    font-size: 1.125rem;
-    line-height: 1.6;
-    color: var(--color-blue-night);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #0F2540;
     margin: 0;
   }
-  
+
   /* Section 365 jours par an */
   .section-365-days {
     background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #2C3E50 100%);
@@ -640,11 +649,12 @@ import CTA from '../components/CTA.astro';
     letter-spacing: 2px;
     line-height: 1.2;
   }
-  
+
   .section-365-subtitle {
     text-align: center;
-    font-size: 1.35rem;
-    line-height: 1.9;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
     color: rgba(255, 255, 255, 0.95);
     margin-bottom: 3.5rem;
     max-width: 950px;
@@ -653,7 +663,7 @@ import CTA from '../components/CTA.astro';
     padding: 0 var(--spacing-md);
     font-weight: 400;
   }
-  
+
   .section-365-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -836,9 +846,10 @@ import CTA from '../components/CTA.astro';
     color: var(--color-blue-night);
     margin-bottom: var(--spacing-xs);
   }
-  
+
   .section-incontournables-subtitle {
-    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
     color: var(--color-text-light);
     margin: 0;
   }
@@ -949,22 +960,27 @@ import CTA from '../components/CTA.astro';
     justify-content: center;
     gap: var(--spacing-xs);
   }
-  
+
   .section-comment-venir-route {
-    font-size: 0.9375rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
     color: var(--color-text-light);
     font-weight: 500;
     letter-spacing: 0.2px;
   }
-  
+
   /* Augmentation de la taille des textes (sauf titres) */
   .section p,
   .card p {
-    font-size: 1.125rem !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem !important;
+    color: #0F2540;
   }
   
   .section ul li {
-    font-size: 1.125rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: #0F2540;
   }
   
   @media (max-width: 1024px) {

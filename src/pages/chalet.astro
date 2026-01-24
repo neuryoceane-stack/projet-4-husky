@@ -19,8 +19,8 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-main-title">Un refuge chaleureux aux 2 Alpes</h2>
-        <p class="chalet-main-text">
-          Tout a été pensé pour vous accueillir dans un décor chaleureux de bois et de pierres. Des chambres confortables avec chacune un accès sur la terrasse avec vue panoramique. Une cuisine entièrement équipée pour préparer de bons petits plats à déguster soit à la salle à manger soit sur la terrasse aménagée.
+        <p class="chalet-main-text chalet-body-text">
+          Tout a été pensé pour vous accueillir dans un décor chaleureux de bois et de pierres. Des chambres confortables avec chacune un accès sur la terrasse avec vue panoramique. Une cuisine entièrement équipée pour préparer de bons petits plats à degusté soit à la salle à manger soit sur la terrasse aménagée.
         </p>
       </div>
     </div>
@@ -31,7 +31,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-section-title">5 Chambres sur 2 niveaux</h2>
-        <p class="chalet-section-text">
+        <p class="chalet-section-text chalet-body-text">
           Toutes les chambres disposent d'un accès sur la terrasse avec vue panoramique et de leur propre salle de bain.
         </p>
         
@@ -100,7 +100,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-section-title">Cuisine entièrement équipée</h2>
-        <p class="chalet-section-text">
+        <p class="chalet-section-text chalet-body-text">
           La cuisine est entièrement équipée pour préparer de bons petits plats à déguster soit à la salle à manger soit sur la terrasse aménagée.
         </p>
         
@@ -210,7 +210,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-section-title">Espaces de vie</h2>
-        <p class="chalet-section-text">
+        <p class="chalet-section-text chalet-body-text">
           Des espaces spacieux et chaleureux pour se détendre et se retrouver en famille ou entre amis.
         </p>
         <div class="chalet-spaces-gallery">
@@ -261,7 +261,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-section-title">Vues extérieures</h2>
-        <p class="chalet-section-text">
+        <p class="chalet-section-text chalet-body-text">
           Découvrez le chalet sous tous les angles et profitez de la vue panoramique exceptionnelle.
         </p>
         <div class="chalet-ext-gallery">
@@ -319,7 +319,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-section-title">Salles de bain</h2>
-        <p class="chalet-section-text">
+        <p class="chalet-section-text chalet-body-text">
           Chaque chambre dispose de sa propre salle de bain pour votre confort et votre intimité.
         </p>
         <div class="chalet-bathrooms-gallery">
@@ -349,7 +349,7 @@ import CTA from '../components/CTA.astro';
     <div class="container">
       <div style="max-width: 1000px; margin: 0 auto;">
         <h2 class="chalet-section-title">Autres espaces</h2>
-        <p class="chalet-section-text">
+        <p class="chalet-section-text chalet-body-text">
           Des espaces pratiques pour faciliter votre séjour et votre équipement de ski.
         </p>
         <div class="chalet-other-gallery">
@@ -391,6 +391,14 @@ import CTA from '../components/CTA.astro';
     color: var(--color-blue-night);
     text-align: center;
     margin-bottom: 0;
+  }
+
+  .chalet-body-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--font-size-base) !important;
+    line-height: 1.5 !important;
+    color: #0F2540 !important;
+    font-weight: 400 !important;
   }
 
   .chalet-section-title {
@@ -490,7 +498,8 @@ import CTA from '../components/CTA.astro';
   }
 
   .chalet-equipment-item p {
-    font-size: 1.125rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
     color: var(--color-blue-night);
     margin: 0;
     text-align: center;
@@ -567,7 +576,8 @@ import CTA from '../components/CTA.astro';
   }
 
   .chalet-service-card p {
-    font-size: 1.125rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
     color: var(--color-blue-night);
     margin: 0;
   }
