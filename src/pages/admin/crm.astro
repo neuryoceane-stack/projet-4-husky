@@ -275,9 +275,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       });
     }
 
-    // Les données seront chargées depuis localStorage ou une API
-    // Pour l'instant, c'est juste la structure
-    const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
+    // Supprimer cette ligne car on charge maintenant via API
+    // const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
     
     function updateStats(contactsToStat = contacts) {
       const totalValue = document.querySelector('.stat-card:nth-child(1) .stat-value');
@@ -291,17 +290,29 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       if (confirmeValue) confirmeValue.textContent = contactsToStat.filter((c: any) => c.statut === 'confirme').length.toString();
     }
 
-    function renderContacts(contactsToRender = contacts) {
+    async function renderContacts(contactsToRender?: any[]) {
       const tbody = document.getElementById('contactsTableBody');
       if (!tbody) return;
 
-      if (contactsToRender.length === 0) {
+      let currentContacts = contactsToRender;
+      
+      if (!currentContacts) {
+        try {
+          const response = await fetch('/api/admin/contacts');
+          currentContacts = await response.json();
+        } catch (error) {
+          console.error('Erreur chargement contacts:', error);
+          currentContacts = [];
+        }
+      }
+
+      if (currentContacts.length === 0) {
         tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Aucun contact pour le moment</td></tr>';
-        updateStats(contactsToRender);
+        updateStats(currentContacts);
         return;
       }
 
-      tbody.innerHTML = contactsToRender.map((contact: any) => `
+      tbody.innerHTML = currentContacts.map((contact: any) => `
         <tr>
           <td>${new Date(contact.date).toLocaleDateString('fr-FR')}</td>
           <td>${contact.nom}</td>
@@ -316,29 +327,36 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </tr>
       `).join('');
       
-      updateStats(contactsToRender);
+      updateStats(currentContacts);
     }
 
     // Gestion de la recherche
     const searchInput = document.getElementById('searchInput') as HTMLInputElement;
     const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
 
-    function filterContacts() {
+    async function filterContacts() {
       const searchTerm = searchInput.value.toLowerCase();
       const statusValue = statusFilter.value;
 
-      const filtered = contacts.filter((contact: any) => {
-        const matchesSearch = 
-          contact.nom.toLowerCase().includes(searchTerm) || 
-          contact.email.toLowerCase().includes(searchTerm) ||
-          (contact.telephone && contact.telephone.includes(searchTerm));
+      try {
+        const response = await fetch('/api/admin/contacts');
+        const allContacts = await response.json();
         
-        const matchesStatus = statusValue === '' || contact.statut === statusValue;
+        const filtered = allContacts.filter((contact: any) => {
+          const matchesSearch = 
+            contact.nom.toLowerCase().includes(searchTerm) || 
+            contact.email.toLowerCase().includes(searchTerm) ||
+            (contact.telephone && contact.telephone.includes(searchTerm));
+          
+          const matchesStatus = statusValue === '' || contact.statut === statusValue;
 
-        return matchesSearch && matchesStatus;
-      });
+          return matchesSearch && matchesStatus;
+        });
 
-      renderContacts(filtered);
+        renderContacts(filtered);
+      } catch (error) {
+        console.error('Erreur filtrage:', error);
+      }
     }
 
     if (searchInput) searchInput.addEventListener('input', filterContacts);

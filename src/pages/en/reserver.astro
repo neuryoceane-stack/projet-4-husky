@@ -183,19 +183,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('reservationForm');
+    const form = document.getElementById('reservationForm') as HTMLFormElement;
     if (form) {
-      form.addEventListener('submit', () => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
         const nom = (document.getElementById('nom') as HTMLInputElement).value;
         const email = (document.getElementById('email') as HTMLInputElement).value;
         const telephone = (document.getElementById('telephone') as HTMLInputElement).value;
         const message = (document.getElementById('message') as HTMLTextAreaElement).value;
 
-        const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
-        
         const newContact = {
-          id: Date.now().toString(),
-          date: new Date().toISOString(),
           nom: nom,
           email: email,
           telephone: telephone,
@@ -206,8 +204,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           message: message
         };
 
-        contacts.unshift(newContact);
-        localStorage.setItem('chalet_contacts', JSON.stringify(contacts));
+        try {
+          const response = await fetch('/api/admin/contacts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newContact)
+          });
+
+          if (response.ok) {
+            alert('Your request has been successfully sent. We will contact you shortly.');
+            form.reset();
+          } else {
+            throw new Error('Error during sending');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('An error occurred while sending your request. Please try again later.');
+        }
       });
     }
   });

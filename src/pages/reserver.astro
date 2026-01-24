@@ -209,21 +209,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('reservationForm');
+    const form = document.getElementById('reservationForm') as HTMLFormElement;
     if (form) {
-      form.addEventListener('submit', () => {
-        // Récupérer les données via les IDs car FormData avec mailto peut être capricieux
+      form.addEventListener('submit', async (e) => {
+        // Empêcher l'action mailto par défaut pour gérer via API
+        e.preventDefault();
+        
         const nom = (document.getElementById('nom') as HTMLInputElement).value;
         const email = (document.getElementById('email') as HTMLInputElement).value;
         const telephone = (document.getElementById('telephone') as HTMLInputElement).value;
         const message = (document.getElementById('message') as HTMLTextAreaElement).value;
 
-        // Créer un nouveau contact CRM
-        const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
-        
         const newContact = {
-          id: Date.now().toString(),
-          date: new Date().toISOString(),
           nom: nom,
           email: email,
           telephone: telephone,
@@ -234,8 +231,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           message: message
         };
 
-        contacts.unshift(newContact);
-        localStorage.setItem('chalet_contacts', JSON.stringify(contacts));
+        try {
+          const response = await fetch('/api/admin/contacts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newContact)
+          });
+
+          if (response.ok) {
+            alert('Votre demande a bien été envoyée. Nous vous recontacterons très prochainement.');
+            form.reset();
+          } else {
+            throw new Error('Erreur lors de l\'envoi');
+          }
+        } catch (error) {
+          console.error('Erreur:', error);
+          alert('Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer plus tard.');
+        }
       });
     }
   });

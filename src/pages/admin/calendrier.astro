@@ -695,37 +695,39 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     const tenantForm = document.getElementById('tenantForm') as HTMLFormElement;
     let currentWeekKey = '';
 
-    function openTenantModal(weekKey: string) {
+    async function openTenantModal(weekKey: string) {
       currentWeekKey = weekKey;
       
-      // Déterminer la clé de stockage (hiver ou été)
-      const currentStorageKey = isWinter 
-        ? `chalet_calendar_hiver_${currentYear}`
-        : `chalet_calendar_ete_${currentYear}`;
-      
-      // Charger les données du locataire
-      const tenantStorageKey = `${currentStorageKey}_tenant`;
-      const tenantData = JSON.parse(localStorage.getItem(tenantStorageKey) || '{}');
-      const weekTenantData = tenantData[weekKey] || {
-        nom: '',
-        prenom: '',
-        nationalite: '',
-        email: '',
-        telephone: '',
-        note: ''
-      };
+      try {
+        // Charger les données depuis l'API SQL
+        const season = isWinter ? 'hiver' : 'ete';
+        const response = await fetch(`/api/admin/calendar?year=${currentYear}&season=${season}`);
+        const data = await response.json();
+        
+        const weekTenantData = data.tenants[weekKey] || {
+          nom: '',
+          prenom: '',
+          nationalite: '',
+          email: '',
+          telephone: '',
+          note: ''
+        };
 
-      // Remplir le formulaire
-      (document.getElementById('tenantNom') as HTMLInputElement).value = weekTenantData.nom || '';
-      (document.getElementById('tenantPrenom') as HTMLInputElement).value = weekTenantData.prenom || '';
-      (document.getElementById('tenantNationalite') as HTMLInputElement).value = weekTenantData.nationalite || '';
-      (document.getElementById('tenantEmail') as HTMLInputElement).value = weekTenantData.email || '';
-      (document.getElementById('tenantTelephone') as HTMLInputElement).value = weekTenantData.telephone || '';
-      (document.getElementById('tenantNote') as HTMLTextAreaElement).value = weekTenantData.note || '';
+        // Remplir le formulaire
+        (document.getElementById('tenantNom') as HTMLInputElement).value = weekTenantData.nom || '';
+        (document.getElementById('tenantPrenom') as HTMLInputElement).value = weekTenantData.prenom || '';
+        (document.getElementById('tenantNationalite') as HTMLInputElement).value = weekTenantData.nationalite || '';
+        (document.getElementById('tenantEmail') as HTMLInputElement).value = weekTenantData.email || '';
+        (document.getElementById('tenantTelephone') as HTMLInputElement).value = weekTenantData.telephone || '';
+        (document.getElementById('tenantNote') as HTMLTextAreaElement).value = weekTenantData.note || '';
 
-      // Afficher la modal
-      if (tenantModal) {
-        tenantModal.style.display = 'flex';
+        // Afficher la modal
+        if (tenantModal) {
+          tenantModal.style.display = 'flex';
+        }
+      } catch (error) {
+        console.error('Erreur chargement locataire:', error);
+        alert('Erreur lors du chargement des données du locataire.');
       }
     }
 
@@ -760,18 +762,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
     // Sauvegarder les données du locataire
     if (tenantForm) {
-      tenantForm.addEventListener('submit', (e: Event) => {
+      tenantForm.addEventListener('submit', async (e: Event) => {
         e.preventDefault();
         
         if (!currentWeekKey) return;
-
-        // Déterminer la clé de stockage
-        const currentStorageKey = isWinter 
-          ? `chalet_calendar_hiver_${currentYear}`
-          : `chalet_calendar_ete_${currentYear}`;
-        
-        const tenantStorageKey = `${currentStorageKey}_tenant`;
-        const tenantData = JSON.parse(localStorage.getItem(tenantStorageKey) || '{}');
 
         // Récupérer les valeurs du formulaire
         const nom = (document.getElementById('tenantNom') as HTMLInputElement).value;
@@ -781,7 +775,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const telephone = (document.getElementById('tenantTelephone') as HTMLInputElement).value;
         const note = (document.getElementById('tenantNote') as HTMLTextAreaElement).value;
 
-        tenantData[currentWeekKey] = {
+        const tenantData = {
           nom,
           prenom,
           nationalite,
@@ -790,44 +784,47 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           note
         };
 
-        // Sauvegarder dans localStorage (Calendrier)
-        localStorage.setItem(tenantStorageKey, JSON.stringify(tenantData));
+        try {
+          // Sauvegarder dans la base de données SQL via l'API
+          const response = await fetch('/api/admin/calendar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              year: currentYear,
+              season: isWinter ? 'hiver' : 'ete',
+              week_key: currentWeekKey,
+              type: 'tenant',
+              data: tenantData
+            })
+          });
 
-        // MISE À JOUR DU CRM CLIENT
-        const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
-        
-        // Formater la période (ex: 20/12 - 27/12)
-        const periode = currentWeekKey.replace('_', ' - ');
-        
-        // Chercher si ce contact existe déjà pour cette période précise (doublon de réservation)
-        const existingIndex = contacts.findIndex((c: any) => 
-          c.email === email && c.periode === periode
-        );
+          if (!response.ok) throw new Error('Erreur lors de la sauvegarde');
 
-        const newContact = {
-          id: Date.now().toString(),
-          date: new Date().toISOString(),
-          nom: `${nom} ${prenom}`.trim(),
-          email: email,
-          telephone: telephone,
-          periode: periode,
-          personnes: '12', // Par défaut pour le chalet
-          statut: 'confirme',
-          source: 'Calendrier'
-        };
+          // MISE À JOUR DU CRM CLIENT via l'API
+          const periode = currentWeekKey.replace('_', ' - ');
+          await fetch('/api/admin/contacts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              nom: `${nom} ${prenom}`.trim(),
+              email: email,
+              telephone: telephone,
+              periode: periode,
+              personnes: '12',
+              statut: 'confirme',
+              source: 'Calendrier'
+            })
+          });
 
-        if (existingIndex > -1) {
-          // Mettre à jour le contact existant
-          contacts[existingIndex] = { ...contacts[existingIndex], ...newContact, id: contacts[existingIndex].id };
-        } else {
-          // Ajouter le nouveau contact
-          contacts.unshift(newContact);
+          // Fermer la modal
+          closeModal();
+          
+          // Recharger les données pour être sûr
+          renderCalendar(currentYear, isWinter);
+        } catch (error) {
+          console.error('Erreur:', error);
+          alert('Erreur lors de l\'enregistrement des données.');
         }
-
-        localStorage.setItem('chalet_contacts', JSON.stringify(contacts));
-
-        // Fermer la modal
-        closeModal();
       });
     }
 
@@ -861,32 +858,37 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }
     }
 
-    function renderCalendar(year: number, winter: boolean) {
+    async function renderCalendar(year: number, winter: boolean) {
       const tbody = document.getElementById('calendarBody');
       const yearDisplay = document.getElementById('currentYear');
       if (!tbody || !yearDisplay) return;
 
       let weeks: Array<{ start: Date; end: Date }>;
-      let storageKey: string;
       let displayTitle: string;
+      const season = winter ? 'hiver' : 'ete';
 
       if (winter) {
         weeks = getWinterWeeks(year);
         const yearShort = year.toString().slice(-2);
         const nextYearShort = (year + 1).toString().slice(-2);
         displayTitle = `Hiver ${yearShort}/${nextYearShort}`;
-        storageKey = `chalet_calendar_hiver_${year}`;
       } else {
         weeks = getSummerWeeks(year);
         const yearShort = year.toString().slice(-2);
         displayTitle = `Été ${yearShort}`;
-        storageKey = `chalet_calendar_ete_${year}`;
       }
 
       yearDisplay.textContent = displayTitle;
       
-      // Charger les données sauvegardées
-      const savedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      // Charger les données depuis l'API SQL
+      let savedData: any = {};
+      try {
+        const response = await fetch(`/api/admin/calendar?year=${year}&season=${season}`);
+        const data = await response.json();
+        savedData = data.reservations || {};
+      } catch (error) {
+        console.error('Erreur chargement calendrier:', error);
+      }
       
       // Calculer le total des revenus
       let totalRevenue = 0;
@@ -915,7 +917,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           rowClass = 'row-privatized';
           bgColor = '#fed7aa';
         }
-        // Hors Loc : pas de classe (pas de couleur)
         
         return `
           <tr class="${rowClass}" data-week-key="${weekKey}"${bgColor ? ` style="background-color: ${bgColor};"` : ''}>
@@ -998,7 +999,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         </tr>
       `;
 
-      // Appliquer les couleurs directement aux cellules pour garantir qu'elles s'affichent
+      // Appliquer les couleurs directement aux cellules
       tbody.querySelectorAll('tr:not(.total-row)').forEach((row: any) => {
         const weekKey = row.dataset.weekKey;
         if (!weekKey) return;
@@ -1035,7 +1036,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           const row = target.closest('tr') as HTMLTableRowElement;
           if (!row) return;
 
-          // Récupérer les valeurs actuelles et les sauvegarder comme originales
           const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
           originalData[weekKey] = {};
           inputs.forEach(input => {
@@ -1045,7 +1045,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             }
           });
 
-          // Activer le mode édition
           inputs.forEach(input => {
             input.classList.add('editing');
             if (input.tagName === 'INPUT') {
@@ -1055,7 +1054,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             }
           });
 
-          // Afficher les boutons d'action et masquer le bouton d'édition
           target.style.display = 'none';
           const saveBtn = row.querySelector('.btn-save') as HTMLElement;
           const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
@@ -1066,7 +1064,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       // Bouton d'enregistrement
       tbody.querySelectorAll('.btn-save').forEach((btn: any) => {
-        btn.addEventListener('click', (e: Event) => {
+        btn.addEventListener('click', async (e: Event) => {
           const target = e.target.closest('.btn-save') as HTMLElement;
           const weekKey = target.dataset.week;
           if (!weekKey) return;
@@ -1074,75 +1072,38 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           const row = target.closest('tr') as HTMLTableRowElement;
           if (!row) return;
 
-          // Récupérer les nouvelles valeurs et sauvegarder
           const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
-          const data = JSON.parse(localStorage.getItem(storageKey) || '{}');
-          if (!data[weekKey]) data[weekKey] = {};
-
-          // Récupérer toutes les valeurs
-          const rowCells = row.querySelectorAll('td');
-          let etatValue = '';
+          const weekData: any = {};
           
           inputs.forEach(input => {
             const field = input.dataset.field;
             if (field) {
-              const value = input.value.trim();
-              data[weekKey][field] = value;
-              if (field === 'etat') {
-                etatValue = value;
-              }
+              weekData[field] = input.value.trim();
             }
           });
 
-          // Appliquer la couleur de la ligne selon l'état
-          row.classList.remove('row-reserved', 'row-available', 'row-privatized');
-          
-          let bgColor = '';
-          if (etatValue === 'Réservé') {
-            row.classList.add('row-reserved');
-            bgColor = '#fee2e2';
-          } else if (etatValue === 'Disponible') {
-            row.classList.add('row-available');
-            bgColor = '#dcfce7';
-          } else if (etatValue === 'Privatisé') {
-            row.classList.add('row-privatized');
-            bgColor = '#fed7aa';
-          }
-          
-          // Appliquer la couleur directement aux cellules si nécessaire
-          if (bgColor) {
-            rowCells.forEach(td => {
-              (td as HTMLElement).style.backgroundColor = bgColor;
+          try {
+            // Sauvegarder via l'API SQL
+            const response = await fetch('/api/admin/calendar', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                year: year,
+                season: winter ? 'hiver' : 'ete',
+                week_key: weekKey,
+                type: 'reservation',
+                data: weekData
+              })
             });
-          } else {
-            // Pas de couleur pour Hors Loc
-            rowCells.forEach(td => {
-              (td as HTMLElement).style.backgroundColor = '';
-            });
+
+            if (!response.ok) throw new Error('Erreur sauvegarde');
+
+            // Recharger tout le calendrier pour mettre à jour les couleurs et totaux
+            renderCalendar(year, winter);
+          } catch (error) {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la sauvegarde.');
           }
-
-          localStorage.setItem(storageKey, JSON.stringify(data));
-
-          // Mettre à jour le total
-          updateTotal(storageKey, weeks);
-
-          // Désactiver le mode édition
-          inputs.forEach(input => {
-            input.classList.remove('editing');
-            if (input.tagName === 'INPUT') {
-              (input as HTMLInputElement).readOnly = true;
-            } else {
-              (input as HTMLSelectElement).disabled = true;
-            }
-          });
-
-          // Masquer les boutons d'action et afficher le bouton d'édition
-          const saveBtn = row.querySelector('.btn-save') as HTMLElement;
-          const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
-          const editBtn = row.querySelector('.btn-edit') as HTMLElement;
-          if (saveBtn) saveBtn.style.display = 'none';
-          if (cancelBtn) cancelBtn.style.display = 'none';
-          if (editBtn) editBtn.style.display = 'inline-flex';
         });
       });
 
@@ -1158,33 +1119,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
           const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
 
-          // Restaurer les valeurs originales
           if (originalData[weekKey]) {
-            let etatValue = '';
-            
             inputs.forEach(input => {
               const field = input.dataset.field;
               if (field && originalData[weekKey][field] !== undefined) {
                 input.value = originalData[weekKey][field];
-                if (field === 'etat') {
-                  etatValue = (originalData[weekKey][field] || '').trim();
-                }
               }
             });
-
-            // Mettre à jour la couleur de la ligne selon l'état original
-            row.classList.remove('row-reserved', 'row-available', 'row-privatized');
-            if (etatValue === 'Réservé') {
-              row.classList.add('row-reserved');
-            } else if (etatValue === 'Disponible') {
-              row.classList.add('row-available');
-            } else if (etatValue === 'Privatisé') {
-              row.classList.add('row-privatized');
-            }
-            // Hors Loc : pas de classe (pas de couleur)
           }
 
-          // Désactiver le mode édition
           inputs.forEach(input => {
             input.classList.remove('editing');
             if (input.tagName === 'INPUT') {
@@ -1194,7 +1137,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             }
           });
 
-          // Masquer les boutons d'action et afficher le bouton d'édition
           const saveBtn = row.querySelector('.btn-save') as HTMLElement;
           const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
           const editBtn = row.querySelector('.btn-edit') as HTMLElement;
@@ -1204,7 +1146,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         });
       });
 
-      // Attacher les listeners pour les boutons commentaire
       attachCommentButtonListeners();
     }
 
@@ -1237,5 +1178,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
     // Rendre le calendrier initial (toujours Hiver 25/26)
     renderCalendar(currentYear, isWinter);
+
+    // Initialiser la base de données (création des tables si besoin)
+    fetch('/api/admin/init-db').catch(err => console.error('Init DB error:', err));
   });
 </script>
