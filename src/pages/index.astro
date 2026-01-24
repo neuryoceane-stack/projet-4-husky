@@ -135,8 +135,9 @@ import Hero from '../components/Hero.astro';
   </section>
 
   <section class="section section-cta">
-    <div class="container">
-      <h2 class="text-center mb-lg">Et si vos plus beaux souvenirs commençaient ici ?</h2>
+    <div class="cta-overlay"></div>
+    <div class="container" style="position: relative; z-index: 2;">
+      <h2 class="text-center mb-lg" style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">Et si vos plus beaux souvenirs commençaient ici ?</h2>
       
       <div class="cta-cards">
         <a href="/station" class="cta-card">
@@ -195,8 +196,23 @@ import Hero from '../components/Hero.astro';
   }
 
   .section-cta {
+    position: relative;
     padding: var(--spacing-xl) 0;
-    background-color: var(--color-cream);
+    background-image: url('/assets/acceuil/glacier.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Effet parallaxe élégant */
+    overflow: hidden;
+  }
+
+  .cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(15, 37, 64, 0.6), rgba(15, 37, 64, 0.4));
+    z-index: 1;
   }
   
   .cta-cards {
@@ -440,6 +456,11 @@ import Hero from '../components/Hero.astro';
     
     .cta-card-text {
       font-size: var(--font-size-lg);
+    }
+
+    .section-cta {
+      background-attachment: scroll;
+      padding: var(--spacing-lg) 0;
     }
 
     .experience-section-title {
