@@ -2,6 +2,7 @@
 // Header component for Chalet Husky
 const currentPath = Astro.url.pathname;
 const isEn = currentPath.startsWith('/en');
+const isAdmin = currentPath.includes('/admin') || currentPath === '/login';
 const locale = isEn ? 'en' : 'fr';
 
 const translations = {
@@ -33,10 +34,13 @@ const translations = {
 
 const t = translations[locale];
 
-// Logic for language switcher target URL
-let langSwitcherUrl = isEn ? currentPath.replace('/en', '') : `/en${currentPath}`;
-if (langSwitcherUrl === '') langSwitcherUrl = '/';
-if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -1);
+// Logic for language switcher target URL - Only for public pages
+let langSwitcherUrl = "#";
+if (!isAdmin) {
+  langSwitcherUrl = isEn ? currentPath.replace('/en', '') : `/en${currentPath}`;
+  if (langSwitcherUrl === '') langSwitcherUrl = '/';
+  if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -1);
+}
 ---
 
 <header class="header">
@@ -49,16 +53,18 @@ if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -
       </button>
     </div>
     
-    <a href={t.homeLink} class="nav-logo-center">
+    <a href={isAdmin ? "/admin" : t.homeLink} class="nav-logo-center">
       <h1 class="nav-logo-title">Chalet Husky</h1>
       <p class="nav-logo-subtitle">Les Deux Alpes</p>
     </a>
 
     <div class="nav-right">
-      <a href={langSwitcherUrl} class="lang-switcher">
-        <span class="lang-flag">{isEn ? '🇫🇷' : '🇬🇧'}</span>
-        <span class="lang-text">{t.lang}</span>
-      </a>
+      {!isAdmin && (
+        <a href={langSwitcherUrl} class="lang-switcher">
+          <span class="lang-flag">{isEn ? '🇫🇷' : '🇬🇧'}</span>
+          <span class="lang-text">{t.lang}</span>
+        </a>
+      )}
     </div>
   </nav>
 </header>
@@ -110,12 +116,21 @@ if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -
     display: flex;
     align-items: center;
     z-index: 1002;
+    min-width: 120px; /* Équilibre le logo au centre */
   }
 
   .nav-right {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     z-index: 1002;
+    min-width: 120px; /* Équilibre le logo au centre */
+  }
+
+  @media (max-width: 768px) {
+    .nav-left, .nav-right {
+      min-width: auto;
+    }
   }
   
   .lang-switcher {

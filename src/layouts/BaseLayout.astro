@@ -52,6 +52,13 @@ try {
     <meta property="og:image" content={image.startsWith('http') ? image : `${siteURL}${image}`} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={localeFull} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Chalet Husky" />
+    
+    <!-- Alternate languages -->
+    <link rel="alternate" hreflang="fr" href={siteURL + (currentPath.startsWith('/en') ? currentPath.replace('/en', '') : currentPath)} />
+    <link rel="alternate" hreflang="en" href={siteURL + (currentPath.startsWith('/en') ? currentPath : `/en${currentPath}`)} />
+    <link rel="alternate" hreflang="x-default" href={siteURL + (currentPath.startsWith('/en') ? currentPath.replace('/en', '') : currentPath)} />
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
