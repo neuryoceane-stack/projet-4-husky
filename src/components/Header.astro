@@ -1,16 +1,60 @@
 ---
 // Header component for Chalet Husky
+const currentPath = Astro.url.pathname;
+const isEn = currentPath.startsWith('/en');
+const locale = isEn ? 'en' : 'fr';
+
+const translations = {
+  fr: {
+    station: "Station 2 Alpes",
+    chalet: "Le Chalet",
+    reserver: "Réserver",
+    admin: "Espace administration",
+    lang: "EN",
+    langTarget: "en",
+    homeLink: "/",
+    stationLink: "/station",
+    chaletLink: "/chalet",
+    reserverLink: "/reserver"
+  },
+  en: {
+    station: "2 Alpes Resort",
+    chalet: "The Chalet",
+    reserver: "Book Now",
+    admin: "Admin Space",
+    lang: "FR",
+    langTarget: "fr",
+    homeLink: "/en",
+    stationLink: "/en/station",
+    chaletLink: "/en/chalet",
+    reserverLink: "/en/reserver"
+  }
+};
+
+const t = translations[locale];
+
+// Logic for language switcher target URL
+let langSwitcherUrl = isEn ? currentPath.replace('/en', '') : `/en${currentPath}`;
+if (langSwitcherUrl === '') langSwitcherUrl = '/';
+if (langSwitcherUrl.endsWith('//')) langSwitcherUrl = langSwitcherUrl.slice(0, -1);
 ---
 
 <header class="header">
   <nav class="nav container">
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav-left">
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <a href={langSwitcherUrl} class="lang-switcher">
+        <span class="lang-flag">{isEn ? '🇫🇷' : '🇬🇧'}</span>
+        <span class="lang-text">{t.lang}</span>
+      </a>
+    </div>
     
-    <a href="/" class="nav-logo-center">
+    <a href={t.homeLink} class="nav-logo-center">
       <h1 class="nav-logo-title">Chalet Husky</h1>
       <p class="nav-logo-subtitle">Les Deux Alpes</p>
     </a>
@@ -24,11 +68,11 @@
     <img src="/assets/logo/logo husky.png" alt="Chalet Husky" class="sidebar-logo" />
   </div>
   <nav class="sidebar-nav">
-    <a href="/station" class="sidebar-link">Station 2 Alpes</a>
-    <a href="/chalet" class="sidebar-link">Le Chalet</a>
-    <a href="/reserver" class="sidebar-link">Réserver</a>
+    <a href={t.stationLink} class="sidebar-link">{t.station}</a>
+    <a href={t.chaletLink} class="sidebar-link">{t.chalet}</a>
+    <a href={t.reserverLink} class="sidebar-link">{t.reserver}</a>
   </nav>
-  <a href="/login" class="sidebar-admin" title="Espace administration">
+  <a href="/login" class="sidebar-admin" title={t.admin}>
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -58,6 +102,45 @@
     justify-content: space-between;
     padding: 1.5rem var(--spacing-md);
     position: relative;
+  }
+
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    z-index: 1002;
+  }
+  
+  .lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .header.scrolled .lang-switcher {
+    color: var(--color-blue-night);
+    border-color: rgba(15, 37, 64, 0.2);
+  }
+
+  .lang-switcher:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .header.scrolled .lang-switcher:hover {
+    background-color: rgba(15, 37, 64, 0.05);
+  }
+
+  .lang-flag {
+    font-size: 1.1rem;
   }
   
   .nav-logo-center {
@@ -108,7 +191,6 @@
     border: none;
     cursor: pointer;
     padding: 0.75rem;
-    z-index: 1002;
     transition: transform var(--transition-base);
   }
   
@@ -173,8 +255,8 @@
     display: flex;
     flex-direction: column;
     padding: var(--spacing-lg);
-    overflow-y: auto; /* Permet le scroll si le contenu dépasse */
-    scrollbar-width: thin; /* Pour Firefox */
+    overflow-y: auto;
+    scrollbar-width: thin;
     scrollbar-color: var(--color-blue-night) transparent;
   }
   
@@ -255,8 +337,8 @@
     transition: color var(--transition-base), transform var(--transition-base);
     border-top: 1px solid var(--color-border);
     padding-top: var(--spacing-md);
-    margin-top: var(--spacing-xl); /* Changé de auto à un espacement fixe pour forcer le scroll si besoin */
-    flex-shrink: 0; /* Empêche le bouton de s'écraser */
+    margin-top: var(--spacing-xl);
+    flex-shrink: 0;
   }
   
   .sidebar-admin:hover {
@@ -289,6 +371,14 @@
     
     .nav-logo-subtitle {
       font-size: 0.75rem;
+    }
+
+    .lang-text {
+      display: none;
+    }
+
+    .lang-switcher {
+      padding: 6px 8px;
     }
   }
 </style>

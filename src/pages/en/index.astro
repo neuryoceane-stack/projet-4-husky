@@ -1,0 +1,540 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+---
+
+<BaseLayout 
+  title="Chalet Husky - Premium Rental in Les 2 Alpes"
+  description="Discover Chalet Husky, an exceptional rental in the heart of Les 2 Alpes. Comfort, panoramic views, and ski-in/ski-out proximity for a memorable mountain holiday."
+>
+  <Hero 
+    badge="Ski-in / Ski-out"
+    title="A stay in paradise"
+    subtitle="Luxury chalet for 12 people"
+    image="/assets/acceuil/Muzelle.jpg"
+    ctaPrimary={{ text: "Discover the chalet", link: "/en/chalet" }}
+    ctaSecondary={{ text: "Les 2 Alpes Resort", link: "/en/station" }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="hero-intro-container">
+        <h2 class="hero-section-title">
+          The art of mountain living,<br />with complete elegance
+        </h2>
+        
+        <div class="hero-section-text">
+          <p>Designed as an exclusive refuge for your reunions, our luxury chalet for 12 people offers the privilege of a "ski-in/ski-out" stay. After a day on the peaks, enjoy the panorama and the serenity of a breathtaking view. Everything has been designed for you to do only one thing: disconnect.</p>
+        </div>
+        
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              <img src="/assets/icons/ski.png" alt="Ski-in/ski-out" class="feature-icon" />
+            </div>
+            <h3 class="feature-title">Ski-in/Ski-out</h3>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              <img src="/assets/icons/family.png" alt="12 people" class="feature-icon" />
+            </div>
+            <h3 class="feature-title">12 people</h3>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              <img src="/assets/icons/spa.png" alt="Hammam" class="feature-icon" />
+            </div>
+            <h3 class="feature-title">Hammam</h3>
+          </div>
+        </div>
+        
+        <div class="hero-section-text hero-section-text-alt">
+          <p>
+            Put on your skis, you've already arrived. Our 12-person chalet is the perfect setting for your holidays: generous spaces to gather without crowding each other, a hammam to soothe muscles after effort, and a south-facing terrace for lunches facing the peaks. Welcome to your mountain home, designed for the happiness of both children and adults.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="experience-section-title">
+        <img src="/assets/logo/logo husky transparent.png" alt="" class="experience-title-logo" />
+        Destination: Les 2 Alpes
+      </h2>
+      
+      <div class="experience-content">
+        <div class="experience-image-container">
+          <img 
+            src="/assets/station/2 Alps oeufs blancs.jpg" 
+            alt="Les 2 Alpes - Cable cars" 
+            class="experience-image"
+          />
+        </div>
+        
+        <div class="experience-grid">
+          <div class="experience-item">
+            <h3 class="experience-title">
+              <img src="/assets/icons/domaine skiable.png" alt="" class="experience-item-icon" />
+              Ski Domain
+            </h3>
+            <p class="experience-text">200 km of slopes, guaranteed snow, and breathtaking panoramas. Whether you are a relaxed skier or a vertical drop enthusiast, the Les 2 Alpes playground starts here.</p>
+          </div>
+          
+          <div class="experience-item">
+            <h3 class="experience-title">
+              <img src="/assets/icons/restaurant.png" alt="" class="experience-item-icon" />
+              Mountain Restaurants
+            </h3>
+            <p class="experience-text">From Michelin-starred tables to warm mountain refuges, taste the best of the Alps. Fondue, crozets, or fine dining: extend the magic of skiing with a gourmet stopover.</p>
+          </div>
+          
+          <div class="experience-item">
+            <h3 class="experience-title">
+              <img src="/assets/icons/bien etre.png" alt="" class="experience-item-icon" />
+              Wellness Activities
+            </h3>
+            <p class="experience-text">Time to relax. Take advantage of the resort's wellness areas or our private hammam to close your skiing days in a bubble of serenity.</p>
+          </div>
+          
+          <div class="experience-item">
+            <h3 class="experience-title">
+              <img src="/assets/icons/climbing.png" alt="" class="experience-item-icon" />
+              Summer Activities
+            </h3>
+            <p class="experience-text">A green paradise under the Alpine sun. From hiking trails to mountain bike tracks, live summer intensely in the heart of wild and preserved nature.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="experience-actions">
+        <a href="/en/station" class="btn btn-primary">Discover the resort</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="localisation-card">
+        <h2>Privileged Location</h2>
+        <p class="localisation-text">
+          Chalet Husky is ideally located in Les 2 Alpes, just steps away from the ski lifts and the resort's shops.
+        </p>
+        
+        <div class="map-container">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11261.21557053538!2d6.115867451954845!3d45.00860292723381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478a13f707f43c8d%3A0x408ab2ae4ba01e0!2s38860%20Les%20Deux%20Alpes!5e0!3m2!1sfr!2sfr!4v1716300000000!5m2!1sfr!2sfr" 
+            width="100%" 
+            height="450" 
+            style="border:0; border-radius: 12px;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-cta">
+    <div class="cta-overlay"></div>
+    <div class="container" style="position: relative; z-index: 2;">
+      <h2 class="text-center mb-lg" style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">What if your best memories started here?</h2>
+      
+      <div class="cta-cards">
+        <a href="/en/station" class="cta-card">
+          <span class="cta-card-text">Les 2 Alpes Resort</span>
+        </a>
+        
+        <a href="/en/chalet" class="cta-card">
+          <span class="cta-card-text">Your Chalet</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-intro-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-section-title {
+    font-family: 'Playfair Display', 'Didot', 'Bodoni', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-blue-night);
+    line-height: 1.2;
+  }
+  
+  .hero-section-text {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg) auto;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: #0F2540;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+  
+  .hero-section-text p {
+    margin-bottom: var(--spacing-sm);
+    color: #0F2540;
+  }
+  
+  .hero-section-text p:last-child {
+    margin-bottom: 0;
+    color: #0F2540;
+  }
+  
+  .hero-section-text-alt {
+    margin-top: var(--spacing-md);
+    margin-bottom: 0;
+  }
+
+  .section-cta {
+    position: relative;
+    padding: var(--spacing-xl) 0;
+    background-image: url('/assets/acceuil/Alps by night.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+
+  .cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(15, 37, 64, 0.6), rgba(15, 37, 64, 0.4));
+    z-index: 1;
+  }
+  
+  .cta-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .cta-card {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 0;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    transition: all var(--transition-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .cta-card:hover {
+    transform: translateY(-4px);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+  
+  .cta-card-text {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .localisation-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .localisation-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: #0F2540;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+  }
+
+  .map-container {
+    width: 100%;
+    margin-top: var(--spacing-md);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-cream);
+    line-height: 0;
+  }
+
+  /* Section Expérience */
+  .experience-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    text-align: center;
+  }
+
+  .experience-title-logo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1) drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+    opacity: 0.9;
+    margin-right: -10px;
+  }
+
+  .experience-section-title:hover .experience-title-logo {
+    transform: scale(1.05);
+  }
+
+  .experience-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+
+  .experience-image-container {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .experience-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .experience-content:hover .experience-image {
+    transform: scale(1.05);
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .experience-item {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+  }
+
+  .experience-item:hover {
+    transform: translateX(10px);
+    border-left: 4px solid var(--color-sapin);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .experience-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-blue-night);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .experience-item-icon {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(13%) sepia(35%) saturate(1637%) hue-rotate(189deg) brightness(96%) contrast(97%);
+  }
+
+  .experience-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8125rem;
+    color: #0F2540;
+    line-height: 1.5;
+    margin: 0;
+  }
+  
+  .experience-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-xl);
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
+  }
+  
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .feature-icon-wrapper {
+    height: 60px;
+    margin-bottom: var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .feature-icon {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(13%) sepia(35%) saturate(1637%) hue-rotate(189deg) brightness(96%) contrast(97%);
+  }
+
+  .feature-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-blue-night);
+  }
+  
+  @media (max-width: 768px) {
+    .hero-section-title {
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .hero-section-text {
+      font-size: 0.875rem;
+      padding: 0 var(--spacing-sm);
+      line-height: 1.4;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+      margin: var(--spacing-md) 0;
+    }
+    
+    .feature-icon-wrapper {
+      height: 50px;
+    }
+
+    .feature-icon-wrapper img {
+      height: 35px !important;
+    }
+
+    .feature-title {
+      font-size: 1.125rem;
+    }
+    
+    .cta-cards {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+    
+    .cta-card {
+      min-height: 60px;
+      padding: 1rem;
+    }
+    
+    .cta-card-text {
+      font-size: 1.125rem;
+    }
+
+    .section-cta {
+      background-attachment: scroll;
+      padding: var(--spacing-lg) 0;
+    }
+
+    .experience-section-title {
+      font-size: 1.25rem;
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: var(--spacing-md);
+      flex-wrap: wrap;
+    }
+
+    .experience-title-logo {
+      height: 40px;
+      margin-right: 0;
+      margin-bottom: 0;
+    }
+
+    .experience-content {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .experience-image-container {
+      min-height: 250px;
+      order: -1;
+      border-radius: 16px;
+    }
+
+    .experience-item {
+      padding: var(--spacing-sm);
+    }
+
+    .experience-title {
+      font-size: 1rem;
+      gap: 8px;
+    }
+
+    .experience-item-icon {
+      height: 24px;
+    }
+
+    .experience-text {
+      font-size: 0.75rem;
+    }
+
+    .localisation-card {
+      padding: var(--spacing-sm);
+      border-radius: 12px;
+    }
+
+    .localisation-text {
+      font-size: 0.75rem;
+    }
+
+    .map-container {
+      height: 300px;
+    }
+
+    .map-container iframe {
+      height: 300px !important;
+    }
+
+    .experience-actions {
+      margin-top: var(--spacing-lg);
+    }
+  }
+</style>

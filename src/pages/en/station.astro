@@ -1,0 +1,801 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import CTA from '../../components/CTA.astro';
+---
+
+<BaseLayout 
+  title="Les 2 Alpes - Exceptional Ski Resort"
+  description="Discover Les 2 Alpes, one of the most famous ski resorts in the Alps. Exceptional ski area, varied activities, and easy accessibility."
+>
+  <Hero 
+    title="In the heart of an exceptional ski area"
+    subtitle="A legendary resort in the heart of the French Alps"
+    image="/assets/station/montagne test.jpg"
+  />
+
+  <section class="station-stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">89</span><br />
+          <span class="stat-label">slopes</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">220</span><br />
+          <span class="stat-label">km</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3600</span><br />
+          <span class="stat-label">m altitude</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="text-center">In the heart of the Écrins Massif</h2>
+        <p class="text-center station-body-text" style="margin-bottom: var(--spacing-lg);">
+          7 essential sectors to discover. Slopes, sectors, and fun areas: it's the ideal playground to spice up your runs and share challenges with family or friends. Guaranteed sensations for 100% pleasure skiing!
+        </p>
+        <div class="plan-pistes-container">
+          <img 
+            src="/assets/station/Plan des pistes.jpg" 
+            alt="Les 2 Alpes ski map"
+            class="plan-pistes-image"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 1100px; margin: 0 auto;">
+        <h2 class="text-center mb-lg">Les 2 Alpes, a village resort</h2>
+        <div class="station-village-content">
+          <div class="station-logo-container">
+            <img 
+              src="/assets/station/logo 2 Alpes.png" 
+              alt="Les 2 Alpes Logo"
+              class="station-logo"
+              loading="lazy"
+            />
+          </div>
+          <div class="station-village-text">
+            <p class="station-body-text" style="text-align: justify;">
+              Les 2 Alpes is much more than just a ski resort. It's a true mountain village that beats to the rhythm of Alpine life. Dynamic and warm, the resort offers a unique experience where mountain tradition and modernity blend. With its lively shops, friendly restaurants, bars, and entertainment, Les 2 Alpes lives day and night for the greatest pleasure of its visitors.
+            </p>
+            <p class="station-body-text" style="text-align: justify; margin-top: var(--spacing-md);">
+              Whether you are looking for thrills on the slopes or relaxing moments after skiing, the resort welcomes you in an authentic and festive atmosphere. A stay in Les 2 Alpes is the guarantee of living unforgettable holidays in an exceptional setting.
+            </p>
+          </div>
+        </div>
+        
+        <div class="station-images-gallery">
+          <div class="station-images-row">
+            <img 
+              src="/assets/station/2 Alps vintage.jpg" 
+              alt="Les 2 Alpes - Vintage view"
+              class="station-gallery-image"
+              loading="lazy"
+            />
+            <img 
+              src="/assets/station/2 Alps enseigne.jpg" 
+              alt="Les 2 Alpes - Sign"
+              class="station-gallery-image"
+              loading="lazy"
+            />
+          </div>
+          <div class="station-images-single">
+            <img 
+              src="/assets/station/Les2Alpes.jpg" 
+              alt="Les 2 Alpes - Panoramic view"
+              class="station-gallery-image"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        
+        <div class="station-year-round-box">
+          <h2 class="station-year-round-title">A resort that lives all year round</h2>
+          <div class="station-year-round-grid">
+            <div class="station-year-round-item">
+              <h3>Events</h3>
+              <p>Events and festivities all year round for young and old</p>
+            </div>
+            <div class="station-year-round-item">
+              <h3>Shops</h3>
+              <p>Boutiques, restaurants, and services in the immediate vicinity</p>
+            </div>
+            <div class="station-year-round-item">
+              <h3>Friendliness</h3>
+              <p>Warm atmosphere and authentic mountain welcome</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-365-days">
+    <div class="container">
+      <div class="section-365-header">
+        <h2 class="section-365-title">365 days a year</h2>
+        <div class="section-365-line"></div>
+        <p class="section-365-subtitle">Between snow-capped peaks and sunny Alpine pastures, Les 2 Alpes vibrate with the rhythm of the seasons. An exceptional destination, all year round.</p>
+      </div>
+      
+      <div class="section-365-content">
+        <!-- WINTER -->
+        <div class="section-365-side hiver">
+          <div class="season-label-wrapper">
+            <span class="season-label">Winter Season</span>
+          </div>
+          <div class="season-grid">
+            <div class="season-main-img">
+              <div class="image-inner">
+                <img src="/assets/station/skieur pro.jpg" alt="Alpine skiing" />
+                <div class="image-overlay">
+                  <h4>The Great Domain</h4>
+                  <p>220 km of slopes between 1300m and 3600m</p>
+                </div>
+              </div>
+            </div>
+            <div class="season-sub-imgs">
+              <div class="image-inner">
+                <img src="/assets/station/montagne test.jpg" alt="Snowy landscapes" />
+                <div class="image-overlay">
+                  <h4>Serenity</h4>
+                </div>
+              </div>
+              <div class="image-inner">
+                <img src="/assets/station/2 Alps oeufs blancs.jpg" alt="Ski resort" />
+                <div class="image-overlay">
+                  <h4>Modernity</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SUMMER -->
+        <div class="section-365-side ete">
+          <div class="season-label-wrapper">
+            <span class="season-label">Summer Season</span>
+          </div>
+          <div class="season-grid">
+            <div class="season-main-img">
+              <div class="image-inner">
+                <img src="/assets/station/vtt bike park.jpg" alt="MTB Bike Park" />
+                <div class="image-overlay">
+                  <h4>Bike Park</h4>
+                  <p>One of the best MTB spots in Europe</p>
+                </div>
+              </div>
+            </div>
+            <div class="season-sub-imgs">
+              <div class="image-inner">
+                <img src="/assets/station/parapente.jpg" alt="Paragliding" />
+                <div class="image-overlay">
+                  <h4>Freedom</h4>
+                </div>
+              </div>
+              <div class="image-inner">
+                <img src="/assets/station/randonnee.jpg" alt="Hiking" class="section-365-image-rando" />
+                <div class="image-overlay">
+                  <h4>Exploration</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-incontournables">
+    <div class="container">
+      <h2 class="section-incontournables-title">Must-sees</h2>
+      
+      <div class="section-incontournables-grid">
+        <div class="section-incontournables-item">
+          <div class="section-incontournables-image-wrapper">
+            <img src="/assets/station/La Fee.jpg" alt="La Fée - Mountain restaurant" class="section-incontournables-image" loading="lazy" />
+          </div>
+          <div class="section-incontournables-caption">
+            <h3 class="section-incontournables-name">La Fée</h3>
+            <p class="section-incontournables-subtitle">Mountain restaurant</p>
+          </div>
+        </div>
+        
+        <div class="section-incontournables-item">
+          <div class="section-incontournables-image-wrapper">
+            <img src="/assets/station/La Grange.jpg" alt="La Grange - Restaurant" class="section-incontournables-image" loading="lazy" />
+          </div>
+          <div class="section-incontournables-caption">
+            <h3 class="section-incontournables-name">La Grange</h3>
+            <p class="section-incontournables-subtitle">Restaurant</p>
+          </div>
+        </div>
+        
+        <div class="section-incontournables-item">
+          <div class="section-incontournables-image-wrapper">
+            <img src="/assets/station/Raisin d'Ours.jpg" alt="Raisin d'Ours - Restaurant" class="section-incontournables-image" loading="lazy" />
+          </div>
+          <div class="section-incontournables-caption">
+            <h3 class="section-incontournables-name">Raisin d'Ours</h3>
+            <p class="section-incontournables-subtitle">Restaurant</p>
+          </div>
+        </div>
+        
+        <div class="section-incontournables-item">
+          <div class="section-incontournables-image-wrapper">
+            <img src="/assets/station/Trappeur.webp" alt="Le Trappeur - Restaurant" class="section-incontournables-image" loading="lazy" />
+          </div>
+          <div class="section-incontournables-caption">
+            <h3 class="section-incontournables-name">Le Trappeur</h3>
+            <p class="section-incontournables-subtitle">Restaurant</p>
+          </div>
+        </div>
+        
+        <div class="section-incontournables-item">
+          <div class="section-incontournables-image-wrapper">
+            <img src="/assets/station/Cellier.jpg" alt="Le Cellier - Restaurant" class="section-incontournables-image" loading="lazy" />
+          </div>
+          <div class="section-incontournables-caption">
+            <h3 class="section-incontournables-name">Le Cellier</h3>
+            <p class="section-incontournables-subtitle">Restaurant</p>
+          </div>
+        </div>
+        
+        <div class="section-incontournables-item">
+          <div class="section-incontournables-image-wrapper">
+            <img src="/assets/station/Chez Boris.jpg" alt="Chez Boris - Bar" class="section-incontournables-image" loading="lazy" />
+          </div>
+          <div class="section-incontournables-caption">
+            <h3 class="section-incontournables-name">Chez Boris</h3>
+            <p class="section-incontournables-subtitle">Bar</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-comment-venir">
+    <div class="container">
+      <h2 class="section-comment-venir-title">How to get to Les 2 Alpes?</h2>
+      
+      <div class="section-comment-venir-grid">
+        <div class="section-comment-venir-item">
+          <h3 class="section-comment-venir-depart">From London</h3>
+          <div class="section-comment-venir-journey">
+            <div class="section-comment-venir-step">
+              <div class="section-comment-venir-duration">1h30 flight</div>
+              <div class="section-comment-venir-route">London → Grenoble</div>
+            </div>
+            <div class="section-comment-venir-step">
+              <div class="section-comment-venir-duration">1h drive</div>
+              <div class="section-comment-venir-route">Grenoble → 2 Alpes</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-comment-venir-item">
+          <h3 class="section-comment-venir-depart">From Paris</h3>
+          <div class="section-comment-venir-journey">
+            <div class="section-comment-venir-step">
+              <div class="section-comment-venir-duration">2h30 train</div>
+              <div class="section-comment-venir-route">Paris → Grenoble</div>
+            </div>
+            <div class="section-comment-venir-step">
+              <div class="section-comment-venir-duration">1h drive</div>
+              <div class="section-comment-venir-route">Grenoble → 2 Alpes</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-comment-venir-item">
+          <h3 class="section-comment-venir-depart">From Lyon</h3>
+          <div class="section-comment-venir-journey">
+            <div class="section-comment-venir-step">
+              <div class="section-comment-venir-duration">2h drive</div>
+              <div class="section-comment-venir-route">Lyon → 2 Alpes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA 
+    title="Stay at Chalet Husky"
+    text="Enjoy your stay in Les 2 Alpes by staying in our exceptional chalet, ideally located to take advantage of all the resort's benefits."
+    buttonText="Discover the chalet"
+    buttonLink="/en/chalet"
+    variant="alt"
+  />
+
+  <div class="scroll-snowflake" id="scrollSnowflake">
+    <img src="/assets/icons/snowflake.png" alt="" />
+  </div>
+</BaseLayout>
+
+<style>
+  .scroll-snowflake {
+    position: fixed;
+    top: -100px;
+    right: 5%;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+    mix-blend-mode: difference;
+    filter: brightness(0) invert(1);
+  }
+
+  .scroll-snowflake img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .scroll-snowflake {
+      width: 40px;
+      height: 40px;
+      right: 10px;
+    }
+  }
+
+  :global(.hero-title) {
+    font-size: 4.5rem !important;
+  }
+  
+  :global(.hero) {
+    height: 90vh !important;
+    min-height: 700px !important;
+  }
+  
+  :global(.hero-image) {
+    background-color: var(--color-blue-night);
+    overflow: hidden;
+  }
+  
+  :global(.hero-image img) {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .station-stats {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+  
+  :global(.hero-content) {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: var(--spacing-xl) !important;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 700px;
+    margin: var(--spacing-lg) auto 0;
+    width: 100%;
+  }
+  
+  .stat-card {
+    background-color: rgba(40, 40, 40, 0.75);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: auto;
+    width: 100%;
+  }
+  
+  .stat-card:hover {
+    background-color: rgba(50, 50, 50, 0.85);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  }
+  
+  .stat-number {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.1;
+  }
+  
+  .stat-label {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .plan-pistes-container {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+  }
+  
+  .plan-pistes-image {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .station-village-content {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+  }
+  
+  .station-logo {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+  
+  .station-images-gallery {
+    margin-top: var(--spacing-xl);
+  }
+  
+  .station-images-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .station-gallery-image {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    object-fit: cover;
+  }
+  
+  .station-gallery-image:hover {
+    transform: scale(1.02);
+  }
+  
+  .station-year-round-box {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--color-blue-night);
+    border-radius: 16px;
+  }
+  
+  .station-year-round-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .station-year-round-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+  }
+  
+  .station-year-round-item {
+    text-align: center;
+  }
+  
+  .station-year-round-item h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .station-body-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: #0F2540;
+  }
+
+  /* Section 365 days */
+  .section-365-days {
+    background-color: var(--color-blue-night);
+    padding: var(--spacing-xl) 0;
+    color: white;
+    overflow: hidden;
+  }
+
+  .section-365-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-365-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: white;
+  }
+
+  .section-365-line {
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-accent);
+    margin: 0 auto var(--spacing-md);
+  }
+
+  .section-365-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .section-365-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+  }
+
+  .section-365-side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .season-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 6px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .season-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 15px;
+    min-height: 450px;
+  }
+
+  .image-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .image-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+  }
+
+  .image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px 20px 15px;
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.85) 0%, rgba(15, 37, 64, 0.4) 50%, transparent 100%);
+    color: white;
+  }
+
+  .image-overlay h4 {
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .image-overlay p {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+  }
+
+  .image-inner:hover img {
+    transform: scale(1.08);
+  }
+
+  @media (max-width: 1024px) {
+    .section-365-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .section-365-title {
+      font-size: 2.25rem;
+    }
+
+    .season-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 280px 180px;
+    }
+
+    .season-sub-imgs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }
+
+  /* Must-sees */
+  .section-incontournables {
+    padding: var(--spacing-xl) 0;
+    background-color: var(--color-snow);
+  }
+
+  .section-incontournables-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .section-incontournables-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .section-incontournables-item {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-incontournables-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .section-incontournables-caption {
+    padding: var(--spacing-md);
+    text-align: center;
+  }
+
+  .section-incontournables-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+  }
+
+  .section-incontournables-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+
+  /* How to get here */
+  .section-comment-venir {
+    padding: var(--spacing-lg) 0;
+    background-color: var(--color-cream);
+  }
+
+  .section-comment-venir-title {
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .section-comment-venir-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-comment-venir-item {
+    background: white;
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-comment-venir-depart {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-comment-venir-step {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: rgba(15, 37, 64, 0.05);
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .section-comment-venir-duration {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+  }
+
+  .section-comment-venir-route {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+
+  @media (max-width: 768px) {
+    :global(.hero-title) {
+      font-size: 2rem !important;
+    }
+
+    .station-stats {
+      bottom: 150px;
+    }
+
+    .section-incontournables-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-comment-venir-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const snowflake = document.getElementById('scrollSnowflake');
+  if (snowflake) {
+    window.addEventListener('scroll', () => {
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      const viewportHeight = window.innerHeight;
+      const yPos = scrollPercent * (viewportHeight + 150);
+      const xSway = Math.sin(window.scrollY / 120) * 25;
+      const rotation = window.scrollY / 6;
+      snowflake.style.transform = `translate(${xSway}px, ${yPos}px) rotate(${rotation}deg)`;
+    });
+  }
+</script>

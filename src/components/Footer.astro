@@ -1,4 +1,34 @@
 ---
+const currentPath = Astro.url.pathname;
+const isEn = currentPath.startsWith('/en');
+const locale = isEn ? 'en' : 'fr';
+
+const translations = {
+  fr: {
+    description: "Location premium au cœur des 2 Alpes. Un chalet d'exception pour vos vacances à la montagne.",
+    nav: "Navigation",
+    home: "Accueil",
+    station: "Les 2 Alpes",
+    chalet: "Le Chalet",
+    rights: "Tous droits réservés.",
+    homeLink: "/",
+    stationLink: "/station",
+    chaletLink: "/chalet"
+  },
+  en: {
+    description: "Premium rental in the heart of Les 2 Alpes. An exceptional chalet for your mountain holidays.",
+    nav: "Navigation",
+    home: "Home",
+    station: "Les 2 Alpes",
+    chalet: "The Chalet",
+    rights: "All rights reserved.",
+    homeLink: "/en",
+    stationLink: "/en/station",
+    chaletLink: "/en/chalet"
+  }
+};
+
+const t = translations[locale];
 ---
 
 <footer class="footer">
@@ -6,21 +36,21 @@
     <div class="footer-grid">
       <div class="footer-col">
         <h3>Chalet Husky</h3>
-        <p>Location premium au cœur des 2 Alpes. Un chalet d'exception pour vos vacances à la montagne.</p>
+        <p>{t.description}</p>
       </div>
       
       <div class="footer-col">
-        <h4>Navigation</h4>
+        <h4>{t.nav}</h4>
         <ul class="footer-links">
-          <li><a href="/">Accueil</a></li>
-          <li><a href="/station">Les 2 Alpes</a></li>
-          <li><a href="/chalet">Le Chalet</a></li>
+          <li><a href={t.homeLink}>{t.home}</a></li>
+          <li><a href={t.stationLink}>{t.station}</a></li>
+          <li><a href={t.chaletLink}>{t.chalet}</a></li>
         </ul>
       </div>
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; 2024 Chalet Husky. Tous droits réservés.</p>
+      <p>&copy; 2024 Chalet Husky. {t.rights}</p>
     </div>
   </div>
 </footer>
