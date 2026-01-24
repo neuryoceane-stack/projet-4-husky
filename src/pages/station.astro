@@ -372,35 +372,26 @@ import CTA from '../components/CTA.astro';
     variant="alt"
   />
 
-  <!-- Animation de 3 flocons au scroll -->
-  <div class="scroll-snowflake snowflake-1" id="snowflake1">
-    <img src="/assets/icons/snowflake.png" alt="" />
-  </div>
-  <div class="scroll-snowflake snowflake-2" id="snowflake2">
-    <img src="/assets/icons/snowflake.png" alt="" />
-  </div>
-  <div class="scroll-snowflake snowflake-3" id="snowflake3">
+  <!-- Animation d'un flocon au scroll -->
+  <div class="scroll-snowflake" id="scrollSnowflake">
     <img src="/assets/icons/snowflake.png" alt="" />
   </div>
 </BaseLayout>
 
 <style>
-  /* Styles pour les flocons au scroll */
+  /* Styles pour le flocon au scroll */
   .scroll-snowflake {
     position: fixed;
     top: -100px;
+    right: 5%;
     z-index: 1000;
-    width: 80px; /* Flocons plus gros */
-    height: 80px;
+    width: 60px; /* Taille intermédiaire */
+    height: 60px;
     pointer-events: none;
-    transition: transform 0.15s ease-out;
+    transition: transform 0.1s ease-out;
     mix-blend-mode: difference;
     filter: brightness(0) invert(1);
   }
-
-  .snowflake-1 { right: 5%; }
-  .snowflake-2 { right: 15%; opacity: 0.6; width: 60px; height: 60px; }
-  .snowflake-3 { right: 2%; opacity: 0.4; width: 40px; height: 40px; }
 
   .scroll-snowflake img {
     width: 100%;
@@ -411,12 +402,10 @@ import CTA from '../components/CTA.astro';
 
   @media (max-width: 768px) {
     .scroll-snowflake {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
+      right: 10px;
     }
-    .snowflake-1 { right: 5px; }
-    .snowflake-2 { right: 40px; width: 35px; height: 35px; }
-    .snowflake-3 { display: none; } /* On en garde 2 sur mobile pour ne pas encombrer */
   }
 
   :global(.hero-title) {
@@ -1281,30 +1270,24 @@ import CTA from '../components/CTA.astro';
 </style>
 
 <script>
-  // Animation des 3 flocons au scroll
-  const snowflakes = [
-    { el: document.getElementById('snowflake1'), speed: 1.1, offset: 0 },
-    { el: document.getElementById('snowflake2'), speed: 0.8, offset: 50 },
-    { el: document.getElementById('snowflake3'), speed: 1.3, offset: -30 }
-  ];
+  // Animation d'un seul flocon au scroll
+  const snowflake = document.getElementById('scrollSnowflake');
   
-  window.addEventListener('scroll', () => {
-    const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-    const viewportHeight = window.innerHeight;
-    
-    snowflakes.forEach((sf, index) => {
-      if (sf.el) {
-        // Position verticale différée pour chaque flocon
-        const yPos = (scrollPercent * (viewportHeight + 200)) * sf.speed + sf.offset;
-        
-        // Balancement horizontal unique
-        const xSway = Math.sin((window.scrollY + (index * 500)) / (100 + index * 20)) * (20 + index * 10);
-        
-        // Rotation
-        const rotation = window.scrollY / (4 + index);
-        
-        sf.el.style.transform = `translate(${xSway}px, ${yPos}px) rotate(${rotation}deg)`;
-      }
+  if (snowflake) {
+    window.addEventListener('scroll', () => {
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+      const viewportHeight = window.innerHeight;
+      
+      // Position verticale
+      const yPos = scrollPercent * (viewportHeight + 150);
+      
+      // Balancement horizontal
+      const xSway = Math.sin(window.scrollY / 120) * 25;
+      
+      // Rotation
+      const rotation = window.scrollY / 6;
+      
+      snowflake.style.transform = `translate(${xSway}px, ${yPos}px) rotate(${rotation}deg)`;
     });
-  });
+  }
 </script>
