@@ -279,12 +279,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     // Pour l'instant, c'est juste la structure
     const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
     
+    function updateStats(contactsToStat = contacts) {
+      const totalValue = document.querySelector('.stat-card:nth-child(1) .stat-value');
+      const nouveauValue = document.querySelector('.stat-card:nth-child(2) .stat-value');
+      const enCoursValue = document.querySelector('.stat-card:nth-child(3) .stat-value');
+      const confirmeValue = document.querySelector('.stat-card:nth-child(4) .stat-value');
+
+      if (totalValue) totalValue.textContent = contactsToStat.length.toString();
+      if (nouveauValue) nouveauValue.textContent = contactsToStat.filter((c: any) => (c.statut || 'nouveau') === 'nouveau').length.toString();
+      if (enCoursValue) enCoursValue.textContent = contactsToStat.filter((c: any) => c.statut === 'en_cours').length.toString();
+      if (confirmeValue) confirmeValue.textContent = contactsToStat.filter((c: any) => c.statut === 'confirme').length.toString();
+    }
+
     function renderContacts(contactsToRender = contacts) {
       const tbody = document.getElementById('contactsTableBody');
       if (!tbody) return;
 
       if (contactsToRender.length === 0) {
         tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Aucun contact pour le moment</td></tr>';
+        updateStats(contactsToRender);
         return;
       }
 
@@ -302,7 +315,34 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           </td>
         </tr>
       `).join('');
+      
+      updateStats(contactsToRender);
     }
+
+    // Gestion de la recherche
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const statusFilter = document.getElementById('statusFilter') as HTMLSelectElement;
+
+    function filterContacts() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const statusValue = statusFilter.value;
+
+      const filtered = contacts.filter((contact: any) => {
+        const matchesSearch = 
+          contact.nom.toLowerCase().includes(searchTerm) || 
+          contact.email.toLowerCase().includes(searchTerm) ||
+          (contact.telephone && contact.telephone.includes(searchTerm));
+        
+        const matchesStatus = statusValue === '' || contact.statut === statusValue;
+
+        return matchesSearch && matchesStatus;
+      });
+
+      renderContacts(filtered);
+    }
+
+    if (searchInput) searchInput.addEventListener('input', filterContacts);
+    if (statusFilter) statusFilter.addEventListener('change', filterContacts);
 
     renderContacts();
   });

@@ -774,17 +774,57 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const tenantData = JSON.parse(localStorage.getItem(tenantStorageKey) || '{}');
 
         // Récupérer les valeurs du formulaire
+        const nom = (document.getElementById('tenantNom') as HTMLInputElement).value;
+        const prenom = (document.getElementById('tenantPrenom') as HTMLInputElement).value;
+        const nationalite = (document.getElementById('tenantNationalite') as HTMLInputElement).value;
+        const email = (document.getElementById('tenantEmail') as HTMLInputElement).value;
+        const telephone = (document.getElementById('tenantTelephone') as HTMLInputElement).value;
+        const note = (document.getElementById('tenantNote') as HTMLTextAreaElement).value;
+
         tenantData[currentWeekKey] = {
-          nom: (document.getElementById('tenantNom') as HTMLInputElement).value,
-          prenom: (document.getElementById('tenantPrenom') as HTMLInputElement).value,
-          nationalite: (document.getElementById('tenantNationalite') as HTMLInputElement).value,
-          email: (document.getElementById('tenantEmail') as HTMLInputElement).value,
-          telephone: (document.getElementById('tenantTelephone') as HTMLInputElement).value,
-          note: (document.getElementById('tenantNote') as HTMLTextAreaElement).value
+          nom,
+          prenom,
+          nationalite,
+          email,
+          telephone,
+          note
         };
 
-        // Sauvegarder dans localStorage
+        // Sauvegarder dans localStorage (Calendrier)
         localStorage.setItem(tenantStorageKey, JSON.stringify(tenantData));
+
+        // MISE À JOUR DU CRM CLIENT
+        const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
+        
+        // Formater la période (ex: 20/12 - 27/12)
+        const periode = currentWeekKey.replace('_', ' - ');
+        
+        // Chercher si ce contact existe déjà pour cette période précise (doublon de réservation)
+        const existingIndex = contacts.findIndex((c: any) => 
+          c.email === email && c.periode === periode
+        );
+
+        const newContact = {
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          nom: `${nom} ${prenom}`.trim(),
+          email: email,
+          telephone: telephone,
+          periode: periode,
+          personnes: '12', // Par défaut pour le chalet
+          statut: 'confirme',
+          source: 'Calendrier'
+        };
+
+        if (existingIndex > -1) {
+          // Mettre à jour le contact existant
+          contacts[existingIndex] = { ...contacts[existingIndex], ...newContact, id: contacts[existingIndex].id };
+        } else {
+          // Ajouter le nouveau contact
+          contacts.unshift(newContact);
+        }
+
+        localStorage.setItem('chalet_contacts', JSON.stringify(contacts));
 
         // Fermer la modal
         closeModal();

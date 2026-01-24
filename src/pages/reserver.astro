@@ -19,7 +19,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="section">
     <div class="container">
       <div class="contact-wrapper">
-        <form class="contact-form" action="mailto:contact@chalethusky.com" method="post" enctype="text/plain">
+        <form id="reservationForm" class="contact-form" action="mailto:contact@chalethusky.com" method="post" enctype="text/plain">
           <h3>Formulaire de réservation</h3>
           
           <div class="form-group">
@@ -206,3 +206,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('reservationForm');
+    if (form) {
+      form.addEventListener('submit', () => {
+        // Récupérer les données via les IDs car FormData avec mailto peut être capricieux
+        const nom = (document.getElementById('nom') as HTMLInputElement).value;
+        const email = (document.getElementById('email') as HTMLInputElement).value;
+        const telephone = (document.getElementById('telephone') as HTMLInputElement).value;
+        const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+
+        // Créer un nouveau contact CRM
+        const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
+        
+        const newContact = {
+          id: Date.now().toString(),
+          date: new Date().toISOString(),
+          nom: nom,
+          email: email,
+          telephone: telephone,
+          periode: 'Demande à préciser',
+          personnes: '-',
+          statut: 'nouveau',
+          source: 'Formulaire de contact',
+          message: message
+        };
+
+        contacts.unshift(newContact);
+        localStorage.setItem('chalet_contacts', JSON.stringify(contacts));
+      });
+    }
+  });
+</script>
