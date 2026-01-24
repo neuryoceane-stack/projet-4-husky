@@ -3,6 +3,12 @@
 ---
 
 <div class="loading-screen" id="loadingScreen">
+  <script is:inline>
+    // Script d'exécution immédiate pour éviter le flash bleu si déjà vu
+    if (sessionStorage.getItem('hasShownLoading')) {
+      document.getElementById('loadingScreen').style.display = 'none';
+    }
+  </script>
   <svg style="position: absolute; width: 0; height: 0;">
     <defs>
       <filter id="white-filter" x="0" y="0" width="100%" height="100%">
@@ -162,30 +168,28 @@
   // Masquer l'écran de chargement une fois la page chargée
   document.addEventListener('DOMContentLoaded', () => {
     const loadingScreen = document.getElementById('loadingScreen');
+    
+    // Vérifier si l'écran de chargement a déjà été affiché dans cette session
+    const hasShownLoading = sessionStorage.getItem('hasShownLoading');
+    
     if (loadingScreen) {
-      // Attendre un délai plus long pour apprécier l'animation
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-        // Retirer complètement après l'animation
+      if (hasShownLoading) {
+        // Déjà affiché, on le cache immédiatement sans animation
+        loadingScreen.style.display = 'none';
+      } else {
+        // Premier affichage de la session
         setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 1200);
-      }, 1500);
+          loadingScreen.classList.add('hidden');
+          // Marquer comme affiché dans la session
+          sessionStorage.setItem('hasShownLoading', 'true');
+          // Retirer complètement après l'animation
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 1200);
+        }, 1500);
+      }
     }
   });
   
-  // Gérer les transitions entre pages (pour Astro View Transitions)
-  document.addEventListener('astro:page-load', () => {
-    const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
-      loadingScreen.style.display = 'flex';
-      loadingScreen.classList.remove('hidden');
-      setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => {
-          loadingScreen.style.display = 'none';
-        }, 1200);
-      }, 1000);
-    }
-  });
+  // Suppression de l'événement 'astro:page-load' pour éviter l'affichage entre les pages
 </script>
