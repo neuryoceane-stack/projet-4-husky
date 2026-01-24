@@ -400,25 +400,32 @@ import Hero from '../components/Hero.astro';
   
   @media (max-width: 768px) {
     .hero-section-title {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
+      margin-bottom: var(--spacing-sm);
     }
     
     .hero-section-text {
-      font-size: var(--font-size-base);
+      font-size: 0.875rem;
       padding: 0 var(--spacing-sm);
+      line-height: 1.4;
     }
     
     .features-grid {
       grid-template-columns: 1fr;
-      gap: var(--spacing-lg);
+      gap: var(--spacing-md);
+      margin: var(--spacing-md) 0;
     }
     
+    .feature-icon-wrapper {
+      height: 50px;
+    }
+
     .feature-icon-wrapper img {
-      height: 40px !important;
+      height: 35px !important;
     }
 
     .feature-title {
-      font-size: var(--font-size-lg);
+      font-size: 1.125rem;
     }
     
     .cta-cards {
@@ -436,15 +443,16 @@ import Hero from '../components/Hero.astro';
     }
 
     .experience-section-title {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       flex-direction: column;
       gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-md);
     }
 
     .experience-title-logo {
-      height: 55px;
+      height: 50px;
       margin-right: 0;
-      margin-bottom: -5px;
+      margin-bottom: 0;
     }
 
     .experience-content {
@@ -453,20 +461,43 @@ import Hero from '../components/Hero.astro';
     }
 
     .experience-image-container {
-      min-height: 300px;
+      min-height: 250px;
       order: -1;
+      border-radius: 16px;
     }
 
-    .experience-item:hover {
-      transform: translateY(-5px);
+    .experience-item {
+      padding: var(--spacing-sm);
+    }
+
+    .experience-title {
+      font-size: 1rem;
+      gap: 8px;
+    }
+
+    .experience-item-icon {
+      height: 24px;
+    }
+
+    .experience-text {
+      font-size: 0.75rem;
     }
 
     .localisation-card {
-      padding: var(--spacing-md);
+      padding: var(--spacing-sm);
+      border-radius: 12px;
     }
 
     .localisation-text {
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
+    }
+
+    .map-container {
+      height: 300px;
+    }
+
+    .map-container iframe {
+      height: 300px !important;
     }
   }
 </style>
