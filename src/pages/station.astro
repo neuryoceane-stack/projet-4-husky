@@ -979,38 +979,50 @@ import CTA from '../components/CTA.astro';
   
   @media (max-width: 768px) {
     :global(.hero-title) {
-      font-size: 2.75rem !important;
+      font-size: 2rem !important; /* Réduction pour les titres longs */
+      line-height: 1.2 !important;
+      padding: 0 10px !important;
+    }
+
+    :global(.hero-subtitle) {
+      font-size: 0.9rem !important;
+      max-width: 280px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
     
     :global(.hero) {
-      height: 75vh !important;
-      min-height: 500px !important;
+      height: 80vh !important; /* Un peu plus de hauteur pour laisser de la place aux stats */
+      min-height: 550px !important;
     }
     
     :global(.hero-content) {
-      padding-top: var(--spacing-lg) !important;
+      padding-top: 60px !important; /* Moins de padding haut pour remonter le contenu */
+      justify-content: flex-start !important;
     }
     
     .station-stats {
-      bottom: 40px;
+      bottom: 30px;
     }
     
     .stats-grid {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-sm);
-      margin-top: var(--spacing-md);
+      grid-template-columns: repeat(3, 1fr); /* Garder 3 colonnes mais plus petit */
+      gap: 5px;
+      max-width: 95%;
+      margin: 0 auto;
     }
     
     .stat-card {
-      padding: 0.5rem 0.75rem;
+      padding: 0.4rem 0.2rem;
+      min-height: 60px;
     }
     
     .stat-number {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
     
     .stat-label {
-      font-size: 1rem;
+      font-size: 0.75rem;
     }
     
     .station-village-content {
