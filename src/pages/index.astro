@@ -13,6 +13,7 @@ import Hero from '../components/Hero.astro';
     subtitle="Chalet de standing pour 12 personnes"
     image="/assets/acceuil/Muzelle.jpg"
     ctaPrimary={{ text: "Découvrir le chalet", link: "/chalet" }}
+    ctaSecondary={{ text: "La station des 2 Alpes", link: "/station" }}
   />
 
   <section class="section">
@@ -107,6 +108,10 @@ import Hero from '../components/Hero.astro';
             <p class="experience-text">Un paradis vert sous le soleil des Alpes. Des sentiers de randonnée aux pistes de VTT, vivez l'été intensément au cœur d'une nature sauvage et préservée.</p>
           </div>
         </div>
+      </div>
+      
+      <div class="experience-actions">
+        <a href="/station" class="btn btn-primary">Découvrir la station</a>
       </div>
     </div>
   </section>
@@ -379,6 +384,12 @@ import Hero from '../components/Hero.astro';
     margin: 0;
   }
   
+  .experience-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-xl);
+  }
+  
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -520,6 +531,10 @@ import Hero from '../components/Hero.astro';
 
     .map-container iframe {
       height: 300px !important;
+    }
+
+    .experience-actions {
+      margin-top: var(--spacing-lg);
     }
   }
 </style>
