@@ -76,23 +76,50 @@ import CTA from '../components/CTA.astro';
             </p>
           </div>
         </div>
+
+        <!-- Section Webcams en direct -->
+        <div class="station-webcams">
+          <h2 class="station-webcams-title">Webcams en direct</h2>
+          <p class="station-webcams-subtitle station-body-text">Découvrez la station en temps réel grâce aux webcams officielles des 2 Alpes.</p>
+          <div class="station-webcams-embed">
+            <iframe 
+              src="https://www.skipass-2alpes.com/fr/webcams" 
+              title="Webcams Les 2 Alpes en direct"
+              class="station-webcams-iframe"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <a 
+            href="https://www.skipass-2alpes.com/fr/webcams" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="station-webcams-link"
+          >
+            Voir toutes les webcams sur Skipass Les 2 Alpes →
+          </a>
+        </div>
+
+        <!-- Bande engagement RSE / éco -->
+        <div class="station-eco-band">
+          <div class="station-eco-item">
+            <span class="station-eco-number">5 000</span>
+            <span class="station-eco-label">ARBRES PLANTÉS</span>
+            <span class="station-eco-desc">Sur le domaine des 2 Alpes depuis 2020</span>
+          </div>
+          <div class="station-eco-item">
+            <span class="station-eco-number">90%</span>
+            <span class="station-eco-label">EN MOINS DE CO₂</span>
+            <span class="station-eco-desc">Grâce au biocarburant HVO pour nos dameuses</span>
+          </div>
+          <div class="station-eco-item">
+            <span class="station-eco-number">100%</span>
+            <span class="station-eco-label">ÉLECTRIQUE</span>
+            <span class="station-eco-desc">Pour alimenter nos remontées mécaniques</span>
+          </div>
+        </div>
         
         <!-- Galerie d'images avec coins arrondis -->
         <div class="station-images-gallery">
-          <div class="station-images-row">
-            <img 
-              src="/assets/station/2 Alps vintage.jpg" 
-              alt="Les 2 Alpes - Vue vintage"
-              class="station-gallery-image"
-              loading="lazy"
-            />
-            <img 
-              src="/assets/station/2 Alps enseigne.jpg" 
-              alt="Les 2 Alpes - Enseigne"
-              class="station-gallery-image"
-              loading="lazy"
-            />
-          </div>
           <div class="station-images-single">
             <img 
               src="/assets/station/Les2Alpes.jpg" 
@@ -100,25 +127,6 @@ import CTA from '../components/CTA.astro';
               class="station-gallery-image"
               loading="lazy"
             />
-          </div>
-        </div>
-        
-        <!-- Section "Une station qui vit toute l'année" -->
-        <div class="station-year-round-box">
-          <h2 class="station-year-round-title">Une station qui vit toute l'année</h2>
-          <div class="station-year-round-grid">
-            <div class="station-year-round-item">
-              <h3>Animations</h3>
-              <p>Événements et festivités toute l'année pour petits et grands</p>
-            </div>
-            <div class="station-year-round-item">
-              <h3>Commerces</h3>
-              <p>Boutiques, restaurants et services à proximité immédiate</p>
-            </div>
-            <div class="station-year-round-item">
-              <h3>Convivialité</h3>
-              <p>Ambiance chaleureuse et accueil authentique de la montagne</p>
-            </div>
           </div>
         </div>
       </div>
@@ -129,9 +137,27 @@ import CTA from '../components/CTA.astro';
   <section class="section-365-days">
     <div class="container">
       <div class="section-365-header">
-        <h2 class="section-365-title">365 jours par an</h2>
+        <h2 class="section-365-title">Domaine 4 saisons</h2>
         <div class="section-365-line"></div>
-        <p class="section-365-subtitle">Entre sommets enneigés et alpages ensoleillés, Les 2 Alpes vibrent au rythme des saisons. Une destination d'exception, toute l'année.</p>
+        <p class="section-365-subtitle">Des sommets éternels aux alpages baignés de lumière, Les 2 Alpes vibrent au fil des saisons. Une parenthèse d'exception, à vivre intensément toute l'année.</p>
+        <div class="section-365-seasons-bar">
+          <div class="season-date-card">
+            <span class="season-date-name">Hiver</span>
+            <span class="season-date-range">30 nov. 2025 – 3 mai 2026</span>
+          </div>
+          <div class="season-date-card">
+            <span class="season-date-name">Printemps</span>
+            <span class="season-date-range">4 mai – 5 juil. 2026</span>
+          </div>
+          <div class="season-date-card">
+            <span class="season-date-name">Été</span>
+            <span class="season-date-range">13 juin – 30 août 2026</span>
+          </div>
+          <div class="season-date-card">
+            <span class="season-date-name">Automne</span>
+            <span class="season-date-range">18 oct. – 2 nov. 2025</span>
+          </div>
+        </div>
       </div>
       
       <div class="section-365-content">
@@ -140,28 +166,12 @@ import CTA from '../components/CTA.astro';
           <div class="season-label-wrapper">
             <span class="season-label">Saison d'Hiver</span>
           </div>
-          <div class="season-grid">
-            <div class="season-main-img">
-              <div class="image-inner">
-                <img src="/assets/station/skieur pro.jpg" alt="Ski alpin" />
-                <div class="image-overlay">
-                  <h4>Le Grand Domaine</h4>
-                  <p>220 km de pistes entre 1300m et 3600m</p>
-                </div>
-              </div>
-            </div>
-            <div class="season-sub-imgs">
-              <div class="image-inner">
-                <img src="/assets/station/montagne test.jpg" alt="Paysages enneigés" />
-                <div class="image-overlay">
-                  <h4>Sérénité</h4>
-                </div>
-              </div>
-              <div class="image-inner">
-                <img src="/assets/station/2 Alps oeufs blancs.jpg" alt="Station de ski" />
-                <div class="image-overlay">
-                  <h4>Modernité</h4>
-                </div>
+          <div class="season-single-img">
+            <div class="image-inner">
+              <img src="/assets/station/skieur pro.jpg" alt="Ski alpin - Le Grand Domaine" />
+              <div class="image-overlay">
+                <h4>Le Grand Domaine</h4>
+                <p>220 km de pistes entre 1300m et 3600m</p>
               </div>
             </div>
           </div>
@@ -172,28 +182,12 @@ import CTA from '../components/CTA.astro';
           <div class="season-label-wrapper">
             <span class="season-label">Saison d'Été</span>
           </div>
-          <div class="season-grid">
-            <div class="season-main-img">
-              <div class="image-inner">
-                <img src="/assets/station/vtt bike park.jpg" alt="VTT Bike Park" />
-                <div class="image-overlay">
-                  <h4>Bike Park</h4>
-                  <p>L'un des meilleurs spots de VTT en Europe</p>
-                </div>
-              </div>
-            </div>
-            <div class="season-sub-imgs">
-              <div class="image-inner">
-                <img src="/assets/station/parapente.jpg" alt="Parapente" />
-                <div class="image-overlay">
-                  <h4>Liberté</h4>
-                </div>
-              </div>
-              <div class="image-inner">
-                <img src="/assets/station/randonnee.jpg" alt="Randonnée" class="section-365-image-rando" />
-                <div class="image-overlay">
-                  <h4>Exploration</h4>
-                </div>
+          <div class="season-single-img">
+            <div class="image-inner">
+              <img src="/assets/station/vtt bike park.jpg" alt="VTT Bike Park - Les 2 Alpes" />
+              <div class="image-overlay">
+                <h4>Bike Park</h4>
+                <p>L'un des meilleurs spots de VTT en Europe</p>
               </div>
             </div>
           </div>
@@ -219,10 +213,10 @@ import CTA from '../components/CTA.astro';
               width="400"
               height="300"
             />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">La Fée</h3>
-            <p class="section-incontournables-subtitle">Restaurant d'altitude</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">La Fée</h3>
+              <p class="section-incontournables-subtitle">Restaurant d'altitude</p>
+            </div>
           </div>
         </div>
         
@@ -237,10 +231,10 @@ import CTA from '../components/CTA.astro';
               width="400"
               height="300"
             />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">La Grange</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">La Grange</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
@@ -255,10 +249,10 @@ import CTA from '../components/CTA.astro';
               width="400"
               height="300"
             />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Raisin d'Ours</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Raisin d'Ours</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
@@ -273,10 +267,10 @@ import CTA from '../components/CTA.astro';
               width="400"
               height="300"
             />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Le Trappeur</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Le Trappeur</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
@@ -291,10 +285,10 @@ import CTA from '../components/CTA.astro';
               width="400"
               height="300"
             />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Le Cellier</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Le Cellier</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
@@ -309,10 +303,10 @@ import CTA from '../components/CTA.astro';
               width="400"
               height="300"
             />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Chez Boris</h3>
-            <p class="section-incontournables-subtitle">Bar</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Chez Boris</h3>
+              <p class="section-incontournables-subtitle">Bar</p>
+            </div>
           </div>
         </div>
       </div>
@@ -570,6 +564,110 @@ import CTA from '../components/CTA.astro';
   .station-village-text {
     flex: 1;
   }
+
+  /* Section Webcams */
+  .station-webcams {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    background: linear-gradient(135deg, rgba(15, 37, 64, 0.03) 0%, rgba(74, 144, 226, 0.05) 100%);
+    border: 1px solid rgba(15, 37, 64, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 37, 64, 0.08);
+  }
+
+  .station-webcams-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .station-webcams-subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .station-webcams-embed {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(15, 37, 64, 0.1);
+    background: white;
+  }
+
+  .station-webcams-iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    display: block;
+  }
+
+  .station-webcams-link {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .station-webcams-link:hover {
+    color: var(--color-blue-night);
+    text-decoration: underline;
+  }
+
+  /* Bande engagement RSE / éco */
+  .station-eco-band {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--color-blue-night) 0%, #0a1e33 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(15, 37, 64, 0.2);
+  }
+
+  .station-eco-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-md);
+  }
+
+  .station-eco-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .station-eco-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: white;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .station-eco-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+  }
   
   .station-images-gallery {
     margin-top: var(--spacing-xl);
@@ -605,55 +703,12 @@ import CTA from '../components/CTA.astro';
     width: 100%;
   }
   
-  .station-year-round-box {
-    margin-top: var(--spacing-xl);
-    padding: var(--spacing-xl);
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 2px solid var(--color-blue-night);
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(15, 37, 64, 0.15);
-  }
-  
-  .station-year-round-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--color-blue-night);
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .station-year-round-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-lg);
-  }
-  
-  .station-year-round-item {
-    text-align: center;
-    padding: var(--spacing-md);
-  }
-  
-  .station-year-round-item h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-blue-night);
-    margin-bottom: var(--spacing-sm);
-  }
-  
   .station-body-text {
     font-family: 'Montserrat', sans-serif;
     font-size: var(--font-size-base);
     line-height: 1.5;
     color: #0F2540;
     font-weight: 400;
-  }
-
-  .station-year-round-item p {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    line-height: 1.5;
-    color: #0F2540;
-    margin: 0;
   }
 
   /* Section 365 jours par an - PRO RE-DESIGN */
@@ -697,6 +752,50 @@ import CTA from '../components/CTA.astro';
     margin-bottom: 0;
   }
 
+  .section-365-seasons-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .season-date-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    text-align: center;
+    transition: all var(--transition-base);
+  }
+
+  .season-date-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .season-date-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .season-date-range {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+  }
+
   .section-365-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -727,22 +826,10 @@ import CTA from '../components/CTA.astro';
     color: rgba(255, 255, 255, 0.9);
   }
 
-  .season-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr; /* Plus d'espace pour les images secondaires */
-    gap: 15px;
-    min-height: 450px;
-  }
-
-  .season-main-img {
-    height: 100%;
-  }
-
-  .season-sub-imgs {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    gap: 15px;
-    height: 100%;
+  .season-single-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 380px;
   }
 
   .image-inner {
@@ -761,9 +848,8 @@ import CTA from '../components/CTA.astro';
     transition: transform 1s ease;
   }
 
-  /* Ajustements spécifiques pour éviter les visages ou sujets coupés */
-  .hiver .season-main-img img { object-position: center 20%; }
-  .ete .season-main-img img { object-position: center; }
+  .hiver .image-inner img { object-position: center 25%; }
+  .ete .image-inner img { object-position: center; }
 
   .image-overlay {
     position: absolute;
@@ -803,9 +889,9 @@ import CTA from '../components/CTA.astro';
       gap: var(--spacing-xl);
     }
     
-    .season-grid {
-      height: 400px;
-      min-height: unset;
+    .season-single-img {
+      max-height: 350px;
+      aspect-ratio: 16 / 10;
     }
   }
 
@@ -822,16 +908,9 @@ import CTA from '../components/CTA.astro';
       font-size: 0.9rem;
     }
 
-    .season-grid {
-      grid-template-columns: 1fr;
-      grid-template-rows: 280px 180px; /* Moins de hauteur totale sur mobile */
-      height: auto;
-    }
-
-    .season-sub-imgs {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr;
-      gap: 10px;
+    .season-single-img {
+      max-height: 280px;
+      aspect-ratio: 4 / 3;
     }
 
     .image-overlay {
@@ -868,8 +947,6 @@ import CTA from '../components/CTA.astro';
   }
   
   .section-incontournables-item {
-    display: flex;
-    flex-direction: column;
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -883,9 +960,10 @@ import CTA from '../components/CTA.astro';
   }
   
   .section-incontournables-image-wrapper {
+    position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 16px 16px 0 0;
+    border-radius: 16px;
   }
   
   .section-incontournables-image {
@@ -893,7 +971,6 @@ import CTA from '../components/CTA.astro';
     height: 250px;
     object-fit: cover;
     object-position: center;
-    border-radius: 16px 16px 0 0;
     display: block;
     transition: transform var(--transition-base);
   }
@@ -901,26 +978,41 @@ import CTA from '../components/CTA.astro';
   .section-incontournables-item:hover .section-incontournables-image {
     transform: scale(1.05);
   }
-  
-  .section-incontournables-caption {
-    background-color: white;
-    padding: var(--spacing-md);
-    border-radius: 0 0 16px 16px;
+
+  .section-incontournables-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 20px 16px;
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.85) 0%, rgba(15, 37, 64, 0.3) 50%, transparent 100%);
     text-align: center;
+    transition: background var(--transition-base);
+  }
+
+  .section-incontournables-item:hover .section-incontournables-overlay {
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.9) 0%, rgba(15, 37, 64, 0.4) 50%, transparent 100%);
   }
   
   .section-incontournables-name {
-    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.375rem;
     font-weight: 700;
-    color: var(--color-blue-night);
-    margin-bottom: var(--spacing-xs);
+    color: white;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 
   .section-incontournables-subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    color: var(--color-text-light);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
     margin: 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
   
   /* Section Comment venir aux 2 Alpes */
@@ -1124,6 +1216,38 @@ import CTA from '../components/CTA.astro';
     .station-logo {
       max-width: 200px;
     }
+
+    .station-webcams {
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .station-webcams-title {
+      font-size: 1.5rem;
+    }
+
+    .station-webcams-iframe {
+      height: 500px;
+    }
+
+    .station-eco-band {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .station-eco-number {
+      font-size: 2rem;
+    }
+
+    .station-eco-label {
+      font-size: 0.7rem;
+    }
+
+    .station-eco-desc {
+      font-size: 0.8rem;
+    }
     
     .station-images-row {
       grid-template-columns: 1fr;
@@ -1132,32 +1256,6 @@ import CTA from '../components/CTA.astro';
     
     .station-gallery-image {
       border-radius: 12px;
-    }
-    
-    .station-year-round-box {
-      padding: var(--spacing-lg);
-      margin-top: var(--spacing-lg);
-    }
-    
-    .station-year-round-title {
-      font-size: 1.75rem;
-    }
-    
-    .station-year-round-grid {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-md);
-    }
-    
-    .station-year-round-item {
-      padding: var(--spacing-sm);
-    }
-    
-    .station-year-round-item h3 {
-      font-size: 1.25rem;
-    }
-    
-    .station-year-round-item p {
-      font-size: 1rem;
     }
     
     .section-365-days {
@@ -1177,6 +1275,25 @@ import CTA from '../components/CTA.astro';
       line-height: 1.7;
       padding: 0 var(--spacing-md);
       margin-bottom: 2.5rem;
+    }
+
+    .section-365-seasons-bar {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-lg);
+      padding: 0 var(--spacing-sm);
+    }
+
+    .season-date-card {
+      padding: var(--spacing-sm);
+    }
+
+    .season-date-name {
+      font-size: 0.8rem;
+    }
+
+    .season-date-range {
+      font-size: 0.65rem;
     }
     
     .section-365-content {

@@ -15,7 +15,8 @@
   "dependencies": {
     "@astrojs/vercel": "^7.8.2",
     "@vercel/postgres": "^0.10.0",
-    "astro": "^4.0.0"
+    "astro": "^4.0.0",
+    "resend": "^6.9.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.0",

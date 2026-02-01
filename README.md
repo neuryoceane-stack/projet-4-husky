@@ -115,13 +115,20 @@ npm run dev
 - Les meta tags sont définis dans chaque page via `BaseLayout`
 - Personnalisez `title` et `description` pour chaque page
 
-## 📧 Formulaire de contact
+## 📧 Formulaire de réservation
 
-Le formulaire de contact utilise un système de mailto (client de messagerie local). Pour une solution plus robuste en production, vous pouvez :
+Le formulaire de réservation envoie les demandes à **chalet.husky.2alpes@gmail.com**.
 
-1. Intégrer un service de formulaire (Formspree, Netlify Forms, etc.)
-2. Configurer un endpoint backend pour traiter les soumissions
-3. Utiliser un service email (SendGrid, Mailgun, etc.)
+### Envoi par email (production)
+
+1. Créez un compte sur [Resend](https://resend.com) (gratuit)
+2. Récupérez votre clé API
+3. Dans Vercel, ajoutez la variable d'environnement : `RESEND_API_KEY=re_xxxxxxxxx`
+4. Les demandes seront envoyées automatiquement par email à chalet.husky.2alpes@gmail.com
+
+### En cas d'erreur
+
+Si l'envoi API échoue, le formulaire ouvre le client mail de l'utilisateur avec l'adresse chalet.husky.2alpes@gmail.com et les données pré-remplies.
 
 ## 🚀 Déploiement
 

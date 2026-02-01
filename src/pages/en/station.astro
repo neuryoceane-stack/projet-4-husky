@@ -76,22 +76,49 @@ import CTA from '../../components/CTA.astro';
             </p>
           </div>
         </div>
+
+        <!-- Live Webcams Section -->
+        <div class="station-webcams">
+          <h2 class="station-webcams-title">Live Webcams</h2>
+          <p class="station-webcams-subtitle station-body-text">Discover the resort in real time with the official Les 2 Alpes webcams.</p>
+          <div class="station-webcams-embed">
+            <iframe 
+              src="https://www.skipass-2alpes.com/fr/webcams" 
+              title="Les 2 Alpes live webcams"
+              class="station-webcams-iframe"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <a 
+            href="https://www.skipass-2alpes.com/fr/webcams" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="station-webcams-link"
+          >
+            View all webcams on Skipass Les 2 Alpes →
+          </a>
+        </div>
+
+        <!-- RSE / Eco commitment band -->
+        <div class="station-eco-band">
+          <div class="station-eco-item">
+            <span class="station-eco-number">5 000</span>
+            <span class="station-eco-label">TREES PLANTED</span>
+            <span class="station-eco-desc">On the Les 2 Alpes domain since 2020</span>
+          </div>
+          <div class="station-eco-item">
+            <span class="station-eco-number">90%</span>
+            <span class="station-eco-label">LESS CO₂</span>
+            <span class="station-eco-desc">Thanks to HVO biofuel for our snow groomers</span>
+          </div>
+          <div class="station-eco-item">
+            <span class="station-eco-number">100%</span>
+            <span class="station-eco-label">ELECTRIC</span>
+            <span class="station-eco-desc">To power our ski lifts</span>
+          </div>
+        </div>
         
         <div class="station-images-gallery">
-          <div class="station-images-row">
-            <img 
-              src="/assets/station/2 Alps vintage.jpg" 
-              alt="Les 2 Alpes - Vintage view"
-              class="station-gallery-image"
-              loading="lazy"
-            />
-            <img 
-              src="/assets/station/2 Alps enseigne.jpg" 
-              alt="Les 2 Alpes - Sign"
-              class="station-gallery-image"
-              loading="lazy"
-            />
-          </div>
           <div class="station-images-single">
             <img 
               src="/assets/station/Les2Alpes.jpg" 
@@ -101,24 +128,6 @@ import CTA from '../../components/CTA.astro';
             />
           </div>
         </div>
-        
-        <div class="station-year-round-box">
-          <h2 class="station-year-round-title">A resort that lives all year round</h2>
-          <div class="station-year-round-grid">
-            <div class="station-year-round-item">
-              <h3>Events</h3>
-              <p>Events and festivities all year round for young and old</p>
-            </div>
-            <div class="station-year-round-item">
-              <h3>Shops</h3>
-              <p>Boutiques, restaurants, and services in the immediate vicinity</p>
-            </div>
-            <div class="station-year-round-item">
-              <h3>Friendliness</h3>
-              <p>Warm atmosphere and authentic mountain welcome</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -126,9 +135,27 @@ import CTA from '../../components/CTA.astro';
   <section class="section-365-days">
     <div class="container">
       <div class="section-365-header">
-        <h2 class="section-365-title">365 days a year</h2>
+        <h2 class="section-365-title">4-season domain</h2>
         <div class="section-365-line"></div>
-        <p class="section-365-subtitle">Between snow-capped peaks and sunny Alpine pastures, Les 2 Alpes vibrate with the rhythm of the seasons. An exceptional destination, all year round.</p>
+        <p class="section-365-subtitle">From eternal peaks to sun-kissed Alpine pastures, Les 2 Alpes come alive with the seasons. An exceptional escape, to be lived intensely all year round.</p>
+        <div class="section-365-seasons-bar">
+          <div class="season-date-card">
+            <span class="season-date-name">Winter</span>
+            <span class="season-date-range">Nov 30, 2025 – May 3, 2026</span>
+          </div>
+          <div class="season-date-card">
+            <span class="season-date-name">Spring</span>
+            <span class="season-date-range">May 4 – Jul 5, 2026</span>
+          </div>
+          <div class="season-date-card">
+            <span class="season-date-name">Summer</span>
+            <span class="season-date-range">Jun 13 – Aug 30, 2026</span>
+          </div>
+          <div class="season-date-card">
+            <span class="season-date-name">Autumn</span>
+            <span class="season-date-range">Oct 18 – Nov 2, 2025</span>
+          </div>
+        </div>
       </div>
       
       <div class="section-365-content">
@@ -137,28 +164,12 @@ import CTA from '../../components/CTA.astro';
           <div class="season-label-wrapper">
             <span class="season-label">Winter Season</span>
           </div>
-          <div class="season-grid">
-            <div class="season-main-img">
-              <div class="image-inner">
-                <img src="/assets/station/skieur pro.jpg" alt="Alpine skiing" />
-                <div class="image-overlay">
-                  <h4>The Great Domain</h4>
-                  <p>220 km of slopes between 1300m and 3600m</p>
-                </div>
-              </div>
-            </div>
-            <div class="season-sub-imgs">
-              <div class="image-inner">
-                <img src="/assets/station/montagne test.jpg" alt="Snowy landscapes" />
-                <div class="image-overlay">
-                  <h4>Serenity</h4>
-                </div>
-              </div>
-              <div class="image-inner">
-                <img src="/assets/station/2 Alps oeufs blancs.jpg" alt="Ski resort" />
-                <div class="image-overlay">
-                  <h4>Modernity</h4>
-                </div>
+          <div class="season-single-img">
+            <div class="image-inner">
+              <img src="/assets/station/skieur pro.jpg" alt="Alpine skiing - The Great Domain" />
+              <div class="image-overlay">
+                <h4>The Great Domain</h4>
+                <p>220 km of slopes between 1300m and 3600m</p>
               </div>
             </div>
           </div>
@@ -169,28 +180,12 @@ import CTA from '../../components/CTA.astro';
           <div class="season-label-wrapper">
             <span class="season-label">Summer Season</span>
           </div>
-          <div class="season-grid">
-            <div class="season-main-img">
-              <div class="image-inner">
-                <img src="/assets/station/vtt bike park.jpg" alt="MTB Bike Park" />
-                <div class="image-overlay">
-                  <h4>Bike Park</h4>
-                  <p>One of the best MTB spots in Europe</p>
-                </div>
-              </div>
-            </div>
-            <div class="season-sub-imgs">
-              <div class="image-inner">
-                <img src="/assets/station/parapente.jpg" alt="Paragliding" />
-                <div class="image-overlay">
-                  <h4>Freedom</h4>
-                </div>
-              </div>
-              <div class="image-inner">
-                <img src="/assets/station/randonnee.jpg" alt="Hiking" class="section-365-image-rando" />
-                <div class="image-overlay">
-                  <h4>Exploration</h4>
-                </div>
+          <div class="season-single-img">
+            <div class="image-inner">
+              <img src="/assets/station/vtt bike park.jpg" alt="MTB Bike Park - Les 2 Alpes" />
+              <div class="image-overlay">
+                <h4>Bike Park</h4>
+                <p>One of the best MTB spots in Europe</p>
               </div>
             </div>
           </div>
@@ -207,60 +202,60 @@ import CTA from '../../components/CTA.astro';
         <div class="section-incontournables-item">
           <div class="section-incontournables-image-wrapper">
             <img src="/assets/station/La Fee.jpg" alt="La Fée - Mountain restaurant" class="section-incontournables-image" loading="lazy" />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">La Fée</h3>
-            <p class="section-incontournables-subtitle">Mountain restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">La Fée</h3>
+              <p class="section-incontournables-subtitle">Mountain restaurant</p>
+            </div>
           </div>
         </div>
         
         <div class="section-incontournables-item">
           <div class="section-incontournables-image-wrapper">
             <img src="/assets/station/La Grange.jpg" alt="La Grange - Restaurant" class="section-incontournables-image" loading="lazy" />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">La Grange</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">La Grange</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
         <div class="section-incontournables-item">
           <div class="section-incontournables-image-wrapper">
             <img src="/assets/station/Raisin d'Ours.jpg" alt="Raisin d'Ours - Restaurant" class="section-incontournables-image" loading="lazy" />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Raisin d'Ours</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Raisin d'Ours</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
         <div class="section-incontournables-item">
           <div class="section-incontournables-image-wrapper">
             <img src="/assets/station/Trappeur.webp" alt="Le Trappeur - Restaurant" class="section-incontournables-image" loading="lazy" />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Le Trappeur</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Le Trappeur</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
         <div class="section-incontournables-item">
           <div class="section-incontournables-image-wrapper">
             <img src="/assets/station/Cellier.jpg" alt="Le Cellier - Restaurant" class="section-incontournables-image" loading="lazy" />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Le Cellier</h3>
-            <p class="section-incontournables-subtitle">Restaurant</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Le Cellier</h3>
+              <p class="section-incontournables-subtitle">Restaurant</p>
+            </div>
           </div>
         </div>
         
         <div class="section-incontournables-item">
           <div class="section-incontournables-image-wrapper">
             <img src="/assets/station/Chez Boris.jpg" alt="Chez Boris - Bar" class="section-incontournables-image" loading="lazy" />
-          </div>
-          <div class="section-incontournables-caption">
-            <h3 class="section-incontournables-name">Chez Boris</h3>
-            <p class="section-incontournables-subtitle">Bar</p>
+            <div class="section-incontournables-overlay">
+              <h3 class="section-incontournables-name">Chez Boris</h3>
+              <p class="section-incontournables-subtitle">Bar</p>
+            </div>
           </div>
         </div>
       </div>
@@ -468,6 +463,110 @@ import CTA from '../../components/CTA.astro';
     max-width: 100%;
     border-radius: 12px;
   }
+
+  /* Webcams Section */
+  .station-webcams {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl);
+    background: linear-gradient(135deg, rgba(15, 37, 64, 0.03) 0%, rgba(74, 144, 226, 0.05) 100%);
+    border: 1px solid rgba(15, 37, 64, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 37, 64, 0.08);
+  }
+
+  .station-webcams-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .station-webcams-subtitle {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .station-webcams-embed {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(15, 37, 64, 0.1);
+    background: white;
+  }
+
+  .station-webcams-iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    display: block;
+  }
+
+  .station-webcams-link {
+    display: inline-block;
+    margin-top: var(--spacing-md);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .station-webcams-link:hover {
+    color: var(--color-blue-night);
+    text-decoration: underline;
+  }
+
+  /* RSE / Eco commitment band */
+  .station-eco-band {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--color-blue-night) 0%, #0a1e33 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(15, 37, 64, 0.2);
+  }
+
+  .station-eco-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-md);
+  }
+
+  .station-eco-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .station-eco-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: white;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .station-eco-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+  }
   
   .station-images-gallery {
     margin-top: var(--spacing-xl);
@@ -490,39 +589,6 @@ import CTA from '../../components/CTA.astro';
   
   .station-gallery-image:hover {
     transform: scale(1.02);
-  }
-  
-  .station-year-round-box {
-    margin-top: var(--spacing-xl);
-    padding: var(--spacing-xl);
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 2px solid var(--color-blue-night);
-    border-radius: 16px;
-  }
-  
-  .station-year-round-title {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--color-blue-night);
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .station-year-round-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-lg);
-  }
-  
-  .station-year-round-item {
-    text-align: center;
-  }
-  
-  .station-year-round-item h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-blue-night);
-    margin-bottom: var(--spacing-sm);
   }
   
   .station-body-text {
@@ -569,6 +635,50 @@ import CTA from '../../components/CTA.astro';
     color: rgba(255, 255, 255, 0.8);
   }
 
+  .section-365-seasons-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .season-date-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-sm);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    text-align: center;
+    transition: all var(--transition-base);
+  }
+
+  .season-date-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .season-date-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .season-date-range {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
+  }
+
   .section-365-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -593,11 +703,10 @@ import CTA from '../../components/CTA.astro';
     color: rgba(255, 255, 255, 0.9);
   }
 
-  .season-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 15px;
-    min-height: 450px;
+  .season-single-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 380px;
   }
 
   .image-inner {
@@ -615,6 +724,9 @@ import CTA from '../../components/CTA.astro';
     object-fit: cover;
     transition: transform 1s ease;
   }
+
+  .hiver .image-inner img { object-position: center 25%; }
+  .ete .image-inner img { object-position: center; }
 
   .image-overlay {
     position: absolute;
@@ -647,6 +759,11 @@ import CTA from '../../components/CTA.astro';
     .section-365-content {
       grid-template-columns: 1fr;
     }
+
+    .season-single-img {
+      max-height: 350px;
+      aspect-ratio: 16 / 10;
+    }
   }
 
   @media (max-width: 768px) {
@@ -654,15 +771,9 @@ import CTA from '../../components/CTA.astro';
       font-size: 2.25rem;
     }
 
-    .season-grid {
-      grid-template-columns: 1fr;
-      grid-template-rows: 280px 180px;
-    }
-
-    .season-sub-imgs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+    .season-single-img {
+      max-height: 280px;
+      aspect-ratio: 4 / 3;
     }
   }
 
@@ -693,29 +804,67 @@ import CTA from '../../components/CTA.astro';
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .section-incontournables-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .section-incontournables-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
   }
 
   .section-incontournables-image {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform var(--transition-base);
   }
 
-  .section-incontournables-caption {
-    padding: var(--spacing-md);
+  .section-incontournables-item:hover .section-incontournables-image {
+    transform: scale(1.05);
+  }
+
+  .section-incontournables-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 20px 16px;
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.85) 0%, rgba(15, 37, 64, 0.3) 50%, transparent 100%);
     text-align: center;
+    transition: background var(--transition-base);
+  }
+
+  .section-incontournables-item:hover .section-incontournables-overlay {
+    background: linear-gradient(to top, rgba(15, 37, 64, 0.9) 0%, rgba(15, 37, 64, 0.4) 50%, transparent 100%);
   }
 
   .section-incontournables-name {
-    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.375rem;
     font-weight: 700;
-    color: var(--color-blue-night);
+    color: white;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 
   .section-incontournables-subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.875rem;
-    color: var(--color-text-light);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
   /* How to get here */
@@ -837,6 +986,38 @@ import CTA from '../../components/CTA.astro';
     .station-logo {
       max-width: 200px;
     }
+
+    .station-webcams {
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .station-webcams-title {
+      font-size: 1.5rem;
+    }
+
+    .station-webcams-iframe {
+      height: 500px;
+    }
+
+    .station-eco-band {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-lg);
+    }
+
+    .station-eco-number {
+      font-size: 2rem;
+    }
+
+    .station-eco-label {
+      font-size: 0.7rem;
+    }
+
+    .station-eco-desc {
+      font-size: 0.8rem;
+    }
     
     .station-images-row {
       grid-template-columns: 1fr;
@@ -845,32 +1026,6 @@ import CTA from '../../components/CTA.astro';
     
     .station-gallery-image {
       border-radius: 12px;
-    }
-    
-    .station-year-round-box {
-      padding: var(--spacing-lg);
-      margin-top: var(--spacing-lg);
-    }
-    
-    .station-year-round-title {
-      font-size: 1.75rem;
-    }
-    
-    .station-year-round-grid {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-md);
-    }
-    
-    .station-year-round-item {
-      padding: var(--spacing-sm);
-    }
-    
-    .station-year-round-item h3 {
-      font-size: 1.25rem;
-    }
-    
-    .station-year-round-item p {
-      font-size: 1rem;
     }
     
     .section-365-days {
@@ -890,6 +1045,25 @@ import CTA from '../../components/CTA.astro';
       line-height: 1.7;
       padding: 0 var(--spacing-md);
       margin-bottom: 2.5rem;
+    }
+
+    .section-365-seasons-bar {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-lg);
+      padding: 0 var(--spacing-sm);
+    }
+
+    .season-date-card {
+      padding: var(--spacing-sm);
+    }
+
+    .season-date-name {
+      font-size: 0.8rem;
+    }
+
+    .season-date-range {
+      font-size: 0.65rem;
     }
     
     .section-365-content {
