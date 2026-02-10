@@ -215,10 +215,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         // Empêcher l'action mailto par défaut pour gérer via API
         e.preventDefault();
         
-        const nom = (document.getElementById('nom') as HTMLInputElement).value;
-        const email = (document.getElementById('email') as HTMLInputElement).value;
-        const telephone = (document.getElementById('telephone') as HTMLInputElement).value;
-        const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+        const nom = (document.getElementById('nom') as HTMLInputElement).value.trim();
+        const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+        const telephone = (document.getElementById('telephone') as HTMLInputElement).value.trim();
+        const message = (document.getElementById('message') as HTMLTextAreaElement).value.trim();
+
+        // Validation côté client
+        if (!nom || !email || !telephone) {
+          alert('Veuillez remplir tous les champs obligatoires (Nom, Email, Téléphone).');
+          return;
+        }
 
         try {
           const response = await fetch('/api/send-reservation', {
@@ -241,7 +247,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             form.reset();
           } else {
             console.error('Erreur API:', data);
-            alert('Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer plus tard ou nous contacter directement à chalet.husky.2alpes@gmail.com');
+            const errorMsg = data.details ? `${data.error}\n\nDétails: ${data.details}` : data.error || 'Erreur inconnue';
+            console.log('Message d\'erreur complet:', errorMsg);
+            alert(`Une erreur est survenue lors de l'envoi de votre demande.\n\n${errorMsg}\n\nVeuillez réessayer plus tard ou nous contacter directement à chalet.husky.2alpes@gmail.com`);
           }
         } catch (error) {
           console.error('Erreur:', error);

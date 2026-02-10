@@ -47,8 +47,12 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     if (error) {
-      console.error('Erreur Resend:', error);
-      return new Response(JSON.stringify({ error: 'Erreur lors de l\'envoi', success: false }), { 
+      console.error('Erreur Resend:', JSON.stringify(error, null, 2));
+      return new Response(JSON.stringify({ 
+        error: 'Erreur lors de l\'envoi', 
+        details: error.message || 'Erreur inconnue',
+        success: false 
+      }), { 
         status: 500,
         headers 
       });
@@ -71,9 +75,13 @@ export const POST: APIRoute = async ({ request }) => {
       status: 200,
       headers
     });
-  } catch (err) {
+  } catch (err: any) {
     console.error('Erreur send-reservation:', err);
-    return new Response(JSON.stringify({ error: 'Erreur serveur', success: false }), { 
+    return new Response(JSON.stringify({ 
+      error: 'Erreur serveur', 
+      details: err?.message || 'Erreur inconnue',
+      success: false 
+    }), { 
       status: 500,
       headers 
     });
