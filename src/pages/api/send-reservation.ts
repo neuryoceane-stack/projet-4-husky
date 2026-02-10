@@ -1,7 +1,18 @@
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 
+// Email de destination des réservations
 const RESERVATION_EMAIL = 'chalet.husky.2alpes@gmail.com';
+
+// Adresse expéditrice :
+// - En mode test (onboarding@resend.dev) : ne peut envoyer qu'à l'email du compte Resend
+// - Une fois le domaine vérifié : utiliser une adresse de votre domaine (ex: contact@chalet-les2alpes.fr)
+const FROM_EMAIL = import.meta.env.RESEND_FROM_EMAIL || 'Chalet Husky <onboarding@resend.dev>';
+
+// Pour les tests uniquement : utiliser l'email du compte Resend
+// À retirer une fois le domaine vérifié
+const TEST_EMAIL = import.meta.env.RESEND_TEST_EMAIL;
+const DESTINATION_EMAIL = TEST_EMAIL || RESERVATION_EMAIL;
 
 export const POST: APIRoute = async ({ request }) => {
   const headers = {
@@ -40,8 +51,8 @@ export const POST: APIRoute = async ({ request }) => {
     `;
 
     const { error } = await resend.emails.send({
-      from: 'Chalet Husky <onboarding@resend.dev>',
-      to: RESERVATION_EMAIL,
+      from: FROM_EMAIL,
+      to: DESTINATION_EMAIL,
       subject,
       html
     });
