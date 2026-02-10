@@ -4,15 +4,28 @@ import type { APIRoute } from 'astro';
 const RESERVATION_EMAIL = 'chalet.husky.2alpes@gmail.com';
 
 export const POST: APIRoute = async ({ request }) => {
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST',
+  };
+
   try {
     const { nom, email, telephone, message } = await request.json();
     if (!nom || !email || !telephone) {
-      return new Response(JSON.stringify({ error: 'Champs requis manquants' }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'Champs requis manquants', success: false }), { 
+        status: 400,
+        headers 
+      });
     }
 
     const apiKey = import.meta.env.RESEND_API_KEY || process.env.RESEND_API_KEY;
     if (!apiKey) {
-      return new Response(JSON.stringify({ error: 'Envoi d\'email non configuré' }), { status: 500 });
+      console.error('RESEND_API_KEY non configuré');
+      return new Response(JSON.stringify({ error: 'Envoi d\'email non configuré', success: false }), { 
+        status: 500,
+        headers 
+      });
     }
 
     const resend = new Resend(apiKey);
@@ -35,7 +48,10 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (error) {
       console.error('Erreur Resend:', error);
-      return new Response(JSON.stringify({ error: 'Erreur lors de l\'envoi' }), { status: 500 });
+      return new Response(JSON.stringify({ error: 'Erreur lors de l\'envoi', success: false }), { 
+        status: 500,
+        headers 
+      });
     }
 
     // Optionnel : sauvegarder dans la base contacts si disponible
@@ -46,16 +62,20 @@ export const POST: APIRoute = async ({ request }) => {
         INSERT INTO contacts (nom, email, telephone, periode, personnes, statut, source, message)
         VALUES (${nom}, ${email}, ${telephone}, 'Demande à préciser', '-', 'contact', 'Formulaire réservation', ${message || ''})
       `;
-    } catch (_) {
+    } catch (dbError) {
       // Ignorer si la base n'est pas configurée
+      console.warn('Base de données non disponible:', dbError);
     }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers
     });
   } catch (err) {
     console.error('Erreur send-reservation:', err);
-    return new Response(JSON.stringify({ error: 'Erreur serveur' }), { status: 500 });
+    return new Response(JSON.stringify({ error: 'Erreur serveur', success: false }), { 
+      status: 500,
+      headers 
+    });
   }
 };

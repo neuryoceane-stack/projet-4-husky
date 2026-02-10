@@ -19,7 +19,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   <section class="section">
     <div class="container">
       <div class="contact-wrapper">
-        <form id="reservationForm" class="contact-form" action="mailto:chalet.husky.2alpes@gmail.com" method="post" enctype="text/plain">
+        <form id="reservationForm" class="contact-form">
           <h3>Reservation Form</h3>
           
           <div class="form-group">
@@ -200,19 +200,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             body: JSON.stringify({ nom, email, telephone, message })
           });
 
-          if (response.ok) {
+          let data;
+          try {
+            data = await response.json();
+          } catch (parseError) {
+            console.error('Error parsing response:', parseError);
+            alert('An error occurred while sending your request. Please try again later or contact us directly at chalet.husky.2alpes@gmail.com');
+            return;
+          }
+
+          if (response.ok && data.success) {
             alert('Your request has been successfully sent. We will contact you shortly.');
             form.reset();
           } else {
-            const subject = encodeURIComponent('Chalet Husky - Reservation Request');
-            const body = encodeURIComponent(`Name: ${nom}\nEmail: ${email}\nPhone: ${telephone}\n\nMessage:\n${message}`);
-            window.location.href = `mailto:chalet.husky.2alpes@gmail.com?subject=${subject}&body=${body}`;
+            console.error('API Error:', data);
+            alert('An error occurred while sending your request. Please try again later or contact us directly at chalet.husky.2alpes@gmail.com');
           }
         } catch (error) {
           console.error('Error:', error);
-          const subject = encodeURIComponent('Chalet Husky - Reservation Request');
-          const body = encodeURIComponent(`Name: ${nom}\nEmail: ${email}\nPhone: ${telephone}\n\nMessage:\n${message}`);
-          window.location.href = `mailto:chalet.husky.2alpes@gmail.com?subject=${subject}&body=${body}`;
+          alert('An error occurred while sending your request. Please try again later or contact us directly at chalet.husky.2alpes@gmail.com');
         }
       });
     }
