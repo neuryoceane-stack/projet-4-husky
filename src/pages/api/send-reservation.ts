@@ -1,18 +1,17 @@
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 
-// Email de destination des réservations
+// Email de destination des réservations (utilisé quand le domaine est vérifié)
 const RESERVATION_EMAIL = 'chalet.husky.2alpes@gmail.com';
 
-// Adresse expéditrice :
-// - En mode test (onboarding@resend.dev) : ne peut envoyer qu'à l'email du compte Resend
-// - Une fois le domaine vérifié : utiliser une adresse de votre domaine (ex: contact@chalet-les2alpes.fr)
-const FROM_EMAIL = import.meta.env.RESEND_FROM_EMAIL || 'Chalet Husky <onboarding@resend.dev>';
+// Adresse expéditrice. En mode test (onboarding@resend.dev), Resend n'autorise qu'envoi vers l'email du compte.
+const DEFAULT_FROM = 'Chalet Husky <onboarding@resend.dev>';
+const FROM_EMAIL = import.meta.env.RESEND_FROM_EMAIL || DEFAULT_FROM;
 
-// Pour les tests uniquement : utiliser l'email du compte Resend
-// À retirer une fois le domaine vérifié
-const TEST_EMAIL = import.meta.env.RESEND_TEST_EMAIL;
-const DESTINATION_EMAIL = TEST_EMAIL || RESERVATION_EMAIL;
+// Si domaine vérifié (RESEND_FROM_EMAIL défini) → envoi à chalet.husky.2alpes@gmail.com
+// Sinon (mode test) → envoi à l'email du compte Resend pour que ça fonctionne sans erreur 403
+const USE_VERIFIED_DOMAIN = Boolean(import.meta.env.RESEND_FROM_EMAIL);
+const DESTINATION_EMAIL = USE_VERIFIED_DOMAIN ? RESERVATION_EMAIL : (import.meta.env.RESEND_TEST_EMAIL || 'neuryoceane@gmail.com');
 
 export const POST: APIRoute = async ({ request }) => {
   const headers = {
