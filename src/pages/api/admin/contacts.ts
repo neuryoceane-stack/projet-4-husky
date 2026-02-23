@@ -1,8 +1,18 @@
+import '../../../lib/env-bridge';
 import { db } from '@vercel/postgres';
 import type { APIRoute } from 'astro';
+import { ensurePostgresEnv } from '../../../lib/load-env';
+
+function connectionErrorMessage(err: unknown): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  if (!process.env.POSTGRES_URL) return 'Connection failed: POSTGRES_URL non configuré. En local, créez un fichier .env.local avec POSTGRES_URL. Sur Vercel, ajoutez les variables POSTGRES_* dans Settings → Environment Variables.';
+  if (/connect|ECONNREFUSED|timeout|ENOTFOUND/i.test(msg)) return `Connection failed: ${msg}`;
+  return msg;
+}
 
 export const GET: APIRoute = async () => {
   try {
+    await ensurePostgresEnv();
     const client = await db.connect();
     const { rows } = await client.sql`
       SELECT * FROM contacts 
@@ -14,12 +24,17 @@ export const GET: APIRoute = async () => {
     });
   } catch (error) {
     console.error('Erreur fetch contacts:', error);
-    return new Response(JSON.stringify({ error: "Erreur serveur" }), { status: 500 });
+    const message = connectionErrorMessage(error);
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 };
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    await ensurePostgresEnv();
     const contact = await request.json();
     const client = await db.connect();
 
@@ -49,6 +64,26 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
     console.error('Erreur save contact:', error);
+    return new Response(JSON.stringify({ error: "Erreur serveur" }), { status: 500 });
+  }
+};
+
+export const DELETE: APIRoute = async ({ request }) => {
+  try {
+    await ensurePostgresEnv();
+    const body = await request.json().catch(() => ({}));
+    const id = body.id != null ? parseInt(body.id, 10) : NaN;
+    if (isNaN(id) || id < 1) {
+      return new Response(JSON.stringify({ error: "ID contact invalide" }), { status: 400 });
+    }
+    const client = await db.connect();
+    await client.sql`DELETE FROM contacts WHERE id = ${id}`;
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error) {
+    console.error('Erreur delete contact:', error);
     return new Response(JSON.stringify({ error: "Erreur serveur" }), { status: 500 });
   }
 };

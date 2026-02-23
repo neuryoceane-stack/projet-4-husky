@@ -3,8 +3,8 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "HOST=127.0.0.1 astro dev",
-    "start": "HOST=127.0.0.1 astro dev",
+    "dev": "HOST=127.0.0.1 node -r ./scripts/load-dotenv.cjs ./node_modules/.bin/astro dev",
+    "start": "HOST=127.0.0.1 node -r ./scripts/load-dotenv.cjs ./node_modules/.bin/astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -16,6 +16,7 @@
     "@astrojs/vercel": "^7.8.2",
     "@vercel/postgres": "^0.10.0",
     "astro": "^4.0.0",
+    "dotenv": "^17.3.1",
     "resend": "^6.9.1"
   },
   "devDependencies": {

@@ -1,3 +1,4 @@
+import '../../lib/env-bridge';
 import { Resend } from 'resend';
 import type { APIRoute } from 'astro';
 

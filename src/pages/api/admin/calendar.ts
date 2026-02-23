@@ -1,3 +1,4 @@
+import '../../../lib/env-bridge';
 import { db } from '@vercel/postgres';
 import type { APIRoute } from 'astro';
 

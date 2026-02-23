@@ -1,8 +1,11 @@
+import '../../../lib/env-bridge';
 import { db } from '@vercel/postgres';
 import type { APIRoute } from 'astro';
+import { ensurePostgresEnv } from '../../../lib/load-env';
 
 export const GET: APIRoute = async () => {
   try {
+    await ensurePostgresEnv();
     const client = await db.connect();
     
     // Création des tables si elles n'existent pas

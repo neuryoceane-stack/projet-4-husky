@@ -22,6 +22,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <select id="statusFilter" class="filter-select">
             <option value="">Tous les statuts</option>
             <option value="nouveau">Nouveau</option>
+            <option value="contact">Contact</option>
             <option value="en_cours">En cours</option>
             <option value="confirme">Confirmé</option>
             <option value="annule">Annulé</option>
@@ -37,17 +38,47 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
                 <th>Email</th>
                 <th>Téléphone</th>
                 <th>Période</th>
-                <th>Personnes</th>
                 <th>Statut</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody id="contactsTableBody">
               <tr>
-                <td colspan="8" class="empty-state">Aucun contact pour le moment</td>
+                <td colspan="7" class="empty-state">Aucun contact pour le moment</td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Modal détail contact -->
+        <div id="contactModal" class="crm-modal" aria-hidden="true">
+          <div class="crm-modal-backdrop"></div>
+          <div class="crm-modal-content">
+            <div class="crm-modal-header">
+              <h3 id="contactModalTitle">Détail du contact</h3>
+              <button type="button" id="contactModalClose" class="crm-modal-close" aria-label="Fermer">×</button>
+            </div>
+            <div id="contactModalBody" class="crm-modal-body"></div>
+            <div id="contactModalFooter" class="crm-modal-footer"></div>
+          </div>
+        </div>
+
+        <!-- Modal confirmation suppression -->
+        <div id="confirmDeleteModal" class="crm-modal" aria-hidden="true">
+          <div class="crm-modal-backdrop"></div>
+          <div class="crm-modal-content crm-modal-content-sm">
+            <div class="crm-modal-header">
+              <h3>Confirmation</h3>
+              <button type="button" id="confirmDeleteModalClose" class="crm-modal-close" aria-label="Fermer">×</button>
+            </div>
+            <div class="crm-modal-body">
+              <p class="confirm-delete-text">Êtes-vous sûr de supprimer définitivement ce contact ?</p>
+            </div>
+            <div class="crm-modal-footer crm-modal-footer-actions">
+              <button type="button" id="confirmDeleteCancel" class="btn btn-secondary">Annuler</button>
+              <button type="button" id="confirmDeleteBtn" class="btn-modal btn-modal-delete btn-modal-delete-confirm">Supprimer définitivement</button>
+            </div>
+          </div>
         </div>
 
         <div class="crm-stats">
@@ -130,17 +161,28 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .filter-select {
     flex: 1;
     min-width: 200px;
-    padding: 0.875rem 1rem;
-    border: 2px solid var(--color-border);
+    padding: 0.75rem 1rem;
+    border: 1px solid #dde0e4;
     border-radius: 8px;
-    font-size: 0.9rem;
-    font-family: Calibri, sans-serif;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    background: #fafbfc;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .search-input:hover,
+  .filter-select:hover {
+    background: #fff;
+    border-color: #c8ccd2;
   }
 
   .search-input:focus,
   .filter-select:focus {
     outline: none;
     border-color: var(--color-sapin);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12);
   }
 
   .crm-table-container {
@@ -154,25 +196,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   }
 
   .crm-table thead {
-    background-color: var(--color-cream);
+    background: var(--color-blue-night);
+    color: #fff;
   }
 
   .crm-table th {
-    padding: 1rem;
+    padding: 0.875rem 1rem;
     text-align: left;
-    font-weight: 700;
-    color: var(--color-blue-night);
-    border-bottom: 2px solid var(--color-border);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: none;
   }
 
   .crm-table td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--color-border);
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid #e8e6e3;
     color: var(--color-text);
+    font-size: 0.9375rem;
+    vertical-align: middle;
   }
 
   .crm-table tbody tr:hover {
-    background-color: var(--color-cream);
+    background: rgba(30, 58, 95, 0.04);
   }
 
   .empty-state {
@@ -180,6 +227,20 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     padding: var(--spacing-xl);
     color: var(--color-text-light);
     font-style: italic;
+  }
+
+  .empty-state.error-state {
+    color: #c62828;
+    font-style: normal;
+  }
+
+  .empty-state.error-state a {
+    color: #1565c0;
+    text-decoration: underline;
+  }
+
+  .empty-state.error-state a:hover {
+    color: #0d47a1;
   }
 
   .status-badge {
@@ -190,7 +251,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     font-weight: 600;
   }
 
-  .status-nouveau {
+  .status-nouveau,
+  .status-contact {
     background-color: #e3f2fd;
     color: #1976d2;
   }
@@ -208,6 +270,322 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .status-annule {
     background-color: #ffebee;
     color: #d32f2f;
+  }
+
+  .crm-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+  }
+
+  .crm-modal.crm-modal-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .crm-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 37, 64, 0.35);
+  }
+
+  .crm-modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(15, 37, 64, 0.12), 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .crm-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e8e6e3;
+    background: #faf9f7;
+  }
+
+  .crm-modal-header h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-blue-night);
+    letter-spacing: 0.01em;
+  }
+
+  .crm-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b6b6b;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  .crm-modal-close:hover {
+    color: var(--color-blue-night);
+  }
+
+  .crm-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+    background: #fff;
+  }
+
+  .contact-detail-list {
+    margin: 0;
+    display: grid;
+    gap: 0.625rem 1.25rem;
+    grid-template-columns: 100px 1fr;
+  }
+
+  .contact-detail-list dt {
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: #6b6b6b;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-detail-list dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-text);
+  }
+
+  .contact-detail-list dd a {
+    color: var(--color-sapin);
+    text-decoration: none;
+  }
+
+  .contact-detail-list dd a:hover {
+    text-decoration: underline;
+  }
+
+  .crm-modal-footer {
+    padding: 1.5rem 1.5rem;
+    border-top: 1px solid #e8e6e3;
+    background: #faf9f7;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-modal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 140px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    border: none;
+    font-family: inherit;
+  }
+
+  .btn-modal-edit {
+    background: var(--color-sapin);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(30, 58, 95, 0.2);
+  }
+
+  .btn-modal-edit:hover {
+    background: var(--color-blue-night);
+    box-shadow: 0 4px 12px rgba(15, 37, 64, 0.25);
+  }
+
+  .btn-modal-delete {
+    background: #fff;
+    color: #9a2a2a;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid #e8d4d4;
+  }
+
+  .btn-modal-delete:hover {
+    background: #9a2a2a;
+    color: #fff;
+    border-color: #9a2a2a;
+    box-shadow: 0 4px 12px rgba(154, 42, 42, 0.2);
+  }
+
+  .btn-modal-delete-confirm {
+    background: #9a2a2a !important;
+    color: #fff !important;
+    border: none !important;
+  }
+
+  .btn-modal-delete-confirm:hover {
+    background: #7a2222 !important;
+    box-shadow: 0 4px 12px rgba(154, 42, 42, 0.3) !important;
+  }
+
+  .crm-modal-content-sm {
+    max-width: 400px;
+  }
+
+  .crm-modal-footer-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .confirm-delete-text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .btn-secondary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 8px;
+    background: #fff;
+    color: var(--color-blue-night);
+    border: 1px solid #d4d4d4;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+
+  .contact-edit-form {
+    max-width: 100%;
+  }
+
+  .contact-edit-form .form-group {
+    margin-bottom: 1.375rem;
+  }
+
+  .contact-edit-form .form-group:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .contact-edit-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--color-blue-night);
+    margin-bottom: 0.5rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .contact-edit-form input,
+  .contact-edit-form select,
+  .contact-edit-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #dde0e4;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    background: #fafbfc;
+    color: var(--color-text);
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    font-family: inherit;
+  }
+
+  .contact-edit-form input:hover,
+  .contact-edit-form select:hover,
+  .contact-edit-form textarea:hover {
+    background: #fff;
+    border-color: #c8ccd2;
+  }
+
+  .contact-edit-form input:focus,
+  .contact-edit-form select:focus,
+  .contact-edit-form textarea:focus {
+    outline: none;
+    border-color: var(--color-sapin);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12);
+  }
+
+  .contact-edit-form select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.25rem;
+  }
+
+  .contact-edit-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .contact-edit-form-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e8e6e3;
+  }
+
+  .contact-edit-form-actions .btn-edit-cancel {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 8px;
+    background: #fff;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    min-width: 110px;
+  }
+
+  .contact-edit-form-actions .btn-edit-cancel:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+    color: var(--color-blue-night);
+  }
+
+  .contact-edit-form-actions .btn-save {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: var(--color-sapin);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    min-width: 130px;
+    box-shadow: 0 1px 3px rgba(30, 58, 95, 0.2);
+  }
+
+  .contact-edit-form-actions .btn-save:hover {
+    background: var(--color-blue-night);
+    box-shadow: 0 4px 12px rgba(15, 37, 64, 0.25);
   }
 
   .crm-stats {
@@ -271,7 +649,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       logoutBtn.addEventListener('click', () => {
         sessionStorage.removeItem('chalet_admin_auth');
         sessionStorage.removeItem('chalet_admin_time');
-        window.location.href = '/login';
+        window.location.href = '/';
       });
     }
 
@@ -285,7 +663,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const confirmeValue = document.querySelector('.stat-card:nth-child(4) .stat-value');
 
       if (totalValue) totalValue.textContent = contactsToStat.length.toString();
-      if (nouveauValue) nouveauValue.textContent = contactsToStat.filter((c: any) => (c.statut || 'nouveau') === 'nouveau').length.toString();
+      if (nouveauValue) nouveauValue.textContent = contactsToStat.filter((c: any) => ((c.statut || 'nouveau') === 'nouveau') || (c.statut === 'contact')).length.toString();
       if (enCoursValue) enCoursValue.textContent = contactsToStat.filter((c: any) => c.statut === 'en_cours').length.toString();
       if (confirmeValue) confirmeValue.textContent = contactsToStat.filter((c: any) => c.statut === 'confirme').length.toString();
     }
@@ -299,19 +677,31 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       if (!currentContacts) {
         try {
           const response = await fetch('/api/admin/contacts');
-          currentContacts = await response.json();
+          const data = await response.json();
+          if (!response.ok || !Array.isArray(data)) {
+            console.error('API contacts erreur:', data);
+            const errMsg = (data && typeof data.error === 'string') ? data.error : 'Impossible de charger les contacts. Vérifiez la base de données (variables POSTGRES_* en local dans .env.local, sur Vercel dans Settings → Environment Variables).';
+            const localHint = ' En local : lancez <code>npm run dev</code> puis ouvrez l\'URL affichée dans le terminal (ex. http://127.0.0.1:4321 ou :4322). <a href="/">Accueil</a>';
+            tbody.innerHTML = '<tr><td colspan="7" class="empty-state error-state">' + errMsg.replace(/</g, '&lt;') + localHint + '</td></tr>';
+            updateStats([]);
+            return;
+          }
+          currentContacts = data;
         } catch (error) {
           console.error('Erreur chargement contacts:', error);
-          currentContacts = [];
+          tbody.innerHTML = '<tr><td colspan="7" class="empty-state error-state">Erreur de connexion au serveur. Réessayez. En local : lancez <code>npm run dev</code> puis ouvrez l\'URL indiquée dans le terminal (ex. 4321 ou 4322). <a href="/">Revenir à l\'accueil</a>.</td></tr>';
+          updateStats([]);
+          return;
         }
       }
 
-      if (currentContacts.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Aucun contact pour le moment</td></tr>';
-        updateStats(currentContacts);
+      if (!Array.isArray(currentContacts) || currentContacts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Aucun contact pour le moment</td></tr>';
+        updateStats([]);
         return;
       }
 
+      const escapeJson = (obj: any) => encodeURIComponent(JSON.stringify(obj));
       tbody.innerHTML = currentContacts.map((contact: any) => `
         <tr>
           <td>${new Date(contact.date).toLocaleDateString('fr-FR')}</td>
@@ -319,15 +709,210 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <td>${contact.email}</td>
           <td>${contact.telephone || '-'}</td>
           <td>${contact.periode || '-'}</td>
-          <td>${contact.personnes || '-'}</td>
-          <td><span class="status-badge status-${contact.statut || 'nouveau'}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></td>
+          <td><span class="status-badge status-${(contact.statut || 'nouveau')}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></td>
           <td>
-            <button class="btn-small btn-primary">Voir</button>
+            <button type="button" class="btn-small btn-primary btn-voir-contact" data-contact="${escapeJson(contact)}">Voir</button>
           </td>
         </tr>
       `).join('');
+
+      tbody.querySelectorAll('.btn-voir-contact').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const data = (btn as HTMLButtonElement).getAttribute('data-contact');
+          if (data) {
+            try {
+              const contact = JSON.parse(decodeURIComponent(data));
+              openContactModal(contact);
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        });
+      });
       
       updateStats(currentContacts);
+    }
+
+    let currentContactForDelete: any = null;
+
+    function openContactModal(contact: any) {
+      const modal = document.getElementById('contactModal');
+      const body = document.getElementById('contactModalBody');
+      const footer = document.getElementById('contactModalFooter');
+      const title = document.getElementById('contactModalTitle');
+      if (!modal || !body || !title) return;
+      title.textContent = contact.nom || 'Détail du contact';
+      const dateStr = contact.date ? new Date(contact.date).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
+      body.innerHTML = `
+        <dl class="contact-detail-list">
+          <dt>Date</dt><dd>${dateStr}</dd>
+          <dt>Nom</dt><dd>${contact.nom || '-'}</dd>
+          <dt>Email</dt><dd>${contact.email ? `<a href="mailto:${contact.email}">${contact.email}</a>` : '-'}</dd>
+          <dt>Téléphone</dt><dd>${contact.telephone ? `<a href="tel:${contact.telephone}">${contact.telephone}</a>` : '-'}</dd>
+          <dt>Période</dt><dd>${contact.periode || '-'}</dd>
+          <dt>Statut</dt><dd><span class="status-badge status-${(contact.statut || 'nouveau')}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></dd>
+          <dt>Source</dt><dd>${contact.source || '-'}</dd>
+          <dt>Message</dt><dd>${contact.message ? contact.message.replace(/\n/g, '<br>') : '-'}</dd>
+        </dl>
+      `;
+      if (footer) {
+        footer.innerHTML = `
+          <button type="button" class="btn-modal btn-modal-edit btn-edit-contact" title="Modifier le contact">Modifier le contact</button>
+          <button type="button" class="btn-modal btn-modal-delete btn-delete-contact" title="Supprimer le contact">Supprimer ce contact</button>
+        `;
+        footer.querySelector('.btn-edit-contact')?.addEventListener('click', () => {
+          showEditForm(contact);
+        });
+        footer.querySelector('.btn-delete-contact')?.addEventListener('click', () => {
+          currentContactForDelete = contact;
+          closeContactModal();
+          openConfirmDeleteModal();
+        });
+      }
+      modal.setAttribute('aria-hidden', 'false');
+      modal.classList.add('crm-modal-open');
+    }
+
+    const statutsList = ['nouveau', 'contact', 'en_cours', 'confirme', 'annule'];
+
+    function showEditForm(contact: any) {
+      const body = document.getElementById('contactModalBody');
+      const footer = document.getElementById('contactModalFooter');
+      const title = document.getElementById('contactModalTitle');
+      if (!body || !footer || !title) return;
+      title.textContent = 'Modifier le contact';
+      body.innerHTML = `
+        <form id="contactEditForm" class="contact-edit-form">
+          <div class="form-group">
+            <label for="edit-nom">Nom</label>
+            <input type="text" id="edit-nom" value="${(contact.nom || '').replace(/"/g, '&quot;')}" required />
+          </div>
+          <div class="form-group">
+            <label for="edit-email">Email</label>
+            <input type="email" id="edit-email" value="${(contact.email || '').replace(/"/g, '&quot;')}" required />
+          </div>
+          <div class="form-group">
+            <label for="edit-telephone">Téléphone</label>
+            <input type="tel" id="edit-telephone" value="${(contact.telephone || '').replace(/"/g, '&quot;')}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-periode">Période</label>
+            <input type="text" id="edit-periode" value="${(contact.periode || '').replace(/"/g, '&quot;')}" />
+          </div>
+          <div class="form-group">
+            <label for="edit-statut">Statut</label>
+            <select id="edit-statut">
+              ${statutsList.map(s => `<option value="${s}" ${(contact.statut || '') === s ? 'selected' : ''}>${s.replace('_', ' ')}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit-message">Message</label>
+            <textarea id="edit-message">${(contact.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+          </div>
+          <div class="contact-edit-form-actions">
+            <button type="button" class="btn-edit-cancel">Annuler</button>
+            <button type="submit" class="btn-save">Enregistrer</button>
+          </div>
+        </form>
+      `;
+      footer.innerHTML = '';
+      const form = document.getElementById('contactEditForm');
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+          id: contact.id,
+          nom: (document.getElementById('edit-nom') as HTMLInputElement).value.trim(),
+          email: (document.getElementById('edit-email') as HTMLInputElement).value.trim(),
+          telephone: (document.getElementById('edit-telephone') as HTMLInputElement).value.trim(),
+          periode: (document.getElementById('edit-periode') as HTMLInputElement).value.trim(),
+          personnes: contact.personnes || '',
+          statut: (document.getElementById('edit-statut') as HTMLSelectElement).value,
+          source: contact.source || '',
+          message: (document.getElementById('edit-message') as HTMLTextAreaElement).value.trim()
+        };
+        try {
+          const response = await fetch('/api/admin/contacts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (response.ok) {
+            closeContactModal();
+            renderContacts();
+          } else {
+            const err = await response.json().catch(() => ({}));
+            alert(err.error || 'Erreur lors de l\'enregistrement.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Erreur de connexion.');
+        }
+      });
+      body.querySelector('.btn-edit-cancel')?.addEventListener('click', () => openContactModal(contact));
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (modal) {
+        modal.setAttribute('aria-hidden', 'true');
+        modal.classList.remove('crm-modal-open');
+      }
+    }
+
+    function openConfirmDeleteModal() {
+      const modal = document.getElementById('confirmDeleteModal');
+      if (modal) {
+        modal.setAttribute('aria-hidden', 'false');
+        modal.classList.add('crm-modal-open');
+      }
+    }
+
+    function closeConfirmDeleteModal() {
+      const modal = document.getElementById('confirmDeleteModal');
+      if (modal) {
+        modal.setAttribute('aria-hidden', 'true');
+        modal.classList.remove('crm-modal-open');
+      }
+      currentContactForDelete = null;
+    }
+
+    async function deleteContactAndRefresh() {
+      if (!currentContactForDelete || !currentContactForDelete.id) return;
+      try {
+        const response = await fetch('/api/admin/contacts', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: currentContactForDelete.id })
+        });
+        if (response.ok) {
+          closeConfirmDeleteModal();
+          renderContacts();
+        } else {
+          const err = await response.json().catch(() => ({}));
+          alert(err.error || 'Erreur lors de la suppression.');
+        }
+      } catch (e) {
+        console.error(e);
+        alert('Erreur de connexion.');
+      }
+    }
+
+    const contactModalClose = document.getElementById('contactModalClose');
+    const contactModal = document.getElementById('contactModal');
+    if (contactModalClose) contactModalClose.addEventListener('click', closeContactModal);
+    if (contactModal) {
+      contactModal.querySelector('.crm-modal-backdrop')?.addEventListener('click', closeContactModal);
+    }
+
+    const confirmModalClose = document.getElementById('confirmDeleteModalClose');
+    const confirmModalCancel = document.getElementById('confirmDeleteCancel');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const confirmModal = document.getElementById('confirmDeleteModal');
+    if (confirmModalClose) confirmModalClose.addEventListener('click', closeConfirmDeleteModal);
+    if (confirmModalCancel) confirmModalCancel.addEventListener('click', closeConfirmDeleteModal);
+    if (confirmDeleteBtn) confirmDeleteBtn.addEventListener('click', deleteContactAndRefresh);
+    if (confirmModal) {
+      confirmModal.querySelector('.crm-modal-backdrop')?.addEventListener('click', closeConfirmDeleteModal);
     }
 
     // Gestion de la recherche
@@ -340,7 +925,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
       try {
         const response = await fetch('/api/admin/contacts');
-        const allContacts = await response.json();
+        const data = await response.json();
+        if (!response.ok || !Array.isArray(data)) {
+          renderContacts([]);
+          return;
+        }
+        const allContacts = data;
         
         const filtered = allContacts.filter((contact: any) => {
           const matchesSearch = 
@@ -370,5 +960,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .btn-small {
     padding: 0.375rem 0.75rem;
     font-size: 0.75rem;
+  }
+
+  .btn-voir-contact {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    background: var(--color-sapin) !important;
+    color: #fff !important;
+    border: none !important;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 1px 3px rgba(30, 58, 95, 0.2);
+    letter-spacing: 0.02em;
+  }
+
+  .btn-voir-contact:hover {
+    background: var(--color-blue-night) !important;
+    box-shadow: 0 2px 8px rgba(15, 37, 64, 0.25);
   }
 </style>
