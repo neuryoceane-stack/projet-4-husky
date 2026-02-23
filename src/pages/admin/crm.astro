@@ -21,11 +21,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <input type="search" id="searchInput" placeholder="Rechercher un contact..." class="search-input" />
           <select id="statusFilter" class="filter-select">
             <option value="">Tous les statuts</option>
-            <option value="nouveau">Nouveau</option>
             <option value="contact">Contact</option>
-            <option value="en_cours">En cours</option>
             <option value="confirme">Confirmé</option>
-            <option value="annule">Annulé</option>
           </select>
         </div>
 
@@ -33,18 +30,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <table class="crm-table">
             <thead>
               <tr>
-                <th>Date</th>
+                <th>Période</th>
                 <th>Nom</th>
                 <th>Email</th>
                 <th>Téléphone</th>
-                <th>Période</th>
                 <th>Statut</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody id="contactsTableBody">
               <tr>
-                <td colspan="7" class="empty-state">Aucun contact pour le moment</td>
+                <td colspan="6" class="empty-state">Aucun contact pour le moment</td>
               </tr>
             </tbody>
           </table>
@@ -89,14 +85,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <div class="stat-card">
             <div class="stat-value">0</div>
             <div class="stat-label">Total contacts</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">0</div>
-            <div class="stat-label">Nouveaux</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">0</div>
-            <div class="stat-label">En cours</div>
           </div>
           <div class="stat-card">
             <div class="stat-value">0</div>
@@ -220,6 +208,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     color: var(--color-text);
     font-size: 0.9375rem;
     vertical-align: middle;
+  }
+
+  .crm-table th:last-child,
+  .crm-table td:last-child {
+    text-align: center;
   }
 
   .crm-table tbody tr:hover {
@@ -371,32 +364,37 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     background: #fff;
   }
 
-  .contact-detail-list {
+  /* :global() pour que les styles s'appliquent au contenu injecté en JS dans la modale */
+  :global(.contact-detail-list) {
     margin: 0;
     display: grid;
-    gap: 0.625rem 1.25rem;
-    grid-template-columns: 100px 1fr;
+    gap: 0.75rem 1.25rem;
+    grid-template-columns: 120px 1fr;
   }
 
-  .contact-detail-list dt {
-    font-weight: 500;
-    font-size: 0.8125rem;
-    color: #6b6b6b;
-    letter-spacing: 0.02em;
+  :global(.contact-detail-list dt) {
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--color-blue-night);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-family: inherit;
   }
 
-  .contact-detail-list dd {
+  :global(.contact-detail-list dd) {
     margin: 0;
     font-size: 0.9375rem;
-    color: var(--color-text);
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.45;
   }
 
-  .contact-detail-list dd a {
+  :global(.contact-detail-list dd a) {
     color: var(--color-sapin);
     text-decoration: none;
   }
 
-  .contact-detail-list dd a:hover {
+  :global(.contact-detail-list dd a:hover) {
     text-decoration: underline;
   }
 
@@ -683,13 +681,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     
     function updateStats(contactsToStat: any[]) {
       const totalValue = document.querySelector('.stat-card:nth-child(1) .stat-value');
-      const nouveauValue = document.querySelector('.stat-card:nth-child(2) .stat-value');
-      const enCoursValue = document.querySelector('.stat-card:nth-child(3) .stat-value');
-      const confirmeValue = document.querySelector('.stat-card:nth-child(4) .stat-value');
+      const confirmeValue = document.querySelector('.stat-card:nth-child(2) .stat-value');
 
       if (totalValue) totalValue.textContent = contactsToStat.length.toString();
-      if (nouveauValue) nouveauValue.textContent = contactsToStat.filter((c: any) => ((c.statut || 'nouveau') === 'nouveau') || (c.statut === 'contact')).length.toString();
-      if (enCoursValue) enCoursValue.textContent = contactsToStat.filter((c: any) => c.statut === 'en_cours').length.toString();
       if (confirmeValue) confirmeValue.textContent = contactsToStat.filter((c: any) => c.statut === 'confirme').length.toString();
     }
 
@@ -707,21 +701,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             console.error('API contacts erreur:', data);
             const errMsg = (data && typeof data.error === 'string') ? data.error : 'Impossible de charger les contacts. Vérifiez la base de données (variables POSTGRES_* en local dans .env.local, sur Vercel dans Settings → Environment Variables).';
             const localHint = ' En local : lancez <code>npm run dev</code> puis ouvrez l\'URL affichée dans le terminal (ex. http://127.0.0.1:4321 ou :4322). <a href="/">Accueil</a>';
-            tbody.innerHTML = '<tr><td colspan="7" class="empty-state error-state">' + errMsg.replace(/</g, '&lt;') + localHint + '</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="empty-state error-state">' + errMsg.replace(/</g, '&lt;') + localHint + '</td></tr>';
             updateStats([]);
             return;
           }
           currentContacts = data;
         } catch (error) {
           console.error('Erreur chargement contacts:', error);
-          tbody.innerHTML = '<tr><td colspan="7" class="empty-state error-state">Erreur de connexion au serveur. Réessayez. En local : lancez <code>npm run dev</code> puis ouvrez l\'URL indiquée dans le terminal (ex. 4321 ou 4322). <a href="/">Revenir à l\'accueil</a>.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="6" class="empty-state error-state">Erreur de connexion au serveur. Réessayez. En local : lancez <code>npm run dev</code> puis ouvrez l\'URL indiquée dans le terminal (ex. 4321 ou 4322). <a href="/">Revenir à l\'accueil</a>.</td></tr>';
           updateStats([]);
           return;
         }
       }
 
       if (!Array.isArray(currentContacts) || currentContacts.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Aucun contact pour le moment</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Aucun contact pour le moment</td></tr>';
         updateStats([]);
         return;
       }
@@ -729,11 +723,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const escapeJson = (obj: any) => encodeURIComponent(JSON.stringify(obj));
       tbody.innerHTML = currentContacts.map((contact: any) => `
         <tr>
-          <td>${new Date(contact.date).toLocaleDateString('fr-FR')}</td>
+          <td>${contact.periode || '-'}</td>
           <td>${contact.nom}</td>
           <td>${contact.email}</td>
           <td>${contact.telephone || '-'}</td>
-          <td>${contact.periode || '-'}</td>
           <td><span class="status-badge status-${(contact.statut || 'nouveau')}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></td>
           <td>
             <button type="button" class="btn-small btn-primary btn-voir-contact" data-contact="${escapeJson(contact)}">Voir</button>
@@ -810,7 +803,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }
     }
 
-    const statutsList = ['nouveau', 'contact', 'en_cours', 'confirme', 'annule'];
+    const statutsList = ['contact', 'confirme'];
 
     function showEditForm(contact: any) {
       const body = document.getElementById('contactModalBody');
