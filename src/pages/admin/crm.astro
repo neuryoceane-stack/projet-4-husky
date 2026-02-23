@@ -56,7 +56,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <div class="crm-modal-content">
             <div class="crm-modal-header">
               <h3 id="contactModalTitle">Détail du contact</h3>
-              <button type="button" id="contactModalClose" class="crm-modal-close" aria-label="Fermer">×</button>
+              <button type="button" id="contactModalClose" class="crm-modal-close" title="Fermer" aria-label="Fermer la fenêtre" onclick="typeof window.closeContactModal === 'function' && window.closeContactModal(); return false;">
+                <svg class="crm-modal-close-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
             </div>
             <div id="contactModalBody" class="crm-modal-body"></div>
             <div id="contactModalFooter" class="crm-modal-footer"></div>
@@ -69,7 +71,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <div class="crm-modal-content crm-modal-content-sm">
             <div class="crm-modal-header">
               <h3>Confirmation</h3>
-              <button type="button" id="confirmDeleteModalClose" class="crm-modal-close" aria-label="Fermer">×</button>
+              <button type="button" id="confirmDeleteModalClose" class="crm-modal-close" aria-label="Fermer">
+              <svg class="crm-modal-close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
             </div>
             <div class="crm-modal-body">
               <p class="confirm-delete-text">Êtes-vous sûr de supprimer définitivement ce contact ?</p>
@@ -293,11 +297,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   .crm-modal-backdrop {
     position: absolute;
     inset: 0;
+    z-index: 0;
     background: rgba(15, 37, 64, 0.35);
   }
 
   .crm-modal-content {
     position: relative;
+    z-index: 1;
     background: #fff;
     border-radius: 12px;
     max-width: 500px;
@@ -314,6 +320,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid #e8e6e3;
     background: #faf9f7;
+    position: relative;
+    z-index: 2;
   }
 
   .crm-modal-header h3 {
@@ -325,17 +333,34 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   }
 
   .crm-modal-close {
-    background: none;
+    background: #e8e6e3;
     border: none;
-    font-size: 1.5rem;
-    line-height: 1;
+    border-radius: 8px;
     cursor: pointer;
-    color: #6b6b6b;
-    padding: 0.25rem;
-    transition: color 0.2s ease;
+    color: var(--color-blue-night);
+    padding: 6px;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
+  }
+
+  .crm-modal-close-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
   }
 
   .crm-modal-close:hover {
+    background: #d1d5db;
     color: var(--color-blue-night);
   }
 
@@ -752,6 +777,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <dt>Période</dt><dd>${contact.periode || '-'}</dd>
           <dt>Statut</dt><dd><span class="status-badge status-${(contact.statut || 'nouveau')}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></dd>
           <dt>Source</dt><dd>${contact.source || '-'}</dd>
+          <dt>Nationalité</dt><dd>${contact.nationalite || '-'}</dd>
+          <dt>Notes locataire</dt><dd>${contact.note ? contact.note.replace(/\n/g, '<br>') : '-'}</dd>
           <dt>Message</dt><dd>${contact.message ? contact.message.replace(/\n/g, '<br>') : '-'}</dd>
         </dl>
       `;
@@ -771,6 +798,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }
       modal.setAttribute('aria-hidden', 'false');
       modal.classList.add('crm-modal-open');
+
+      // Attacher la fermeture à la croix à chaque ouverture (garantit que le clic fonctionne)
+      const closeBtn = document.getElementById('contactModalClose');
+      if (closeBtn) {
+        closeBtn.onclick = function (ev: Event) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          closeContactModal();
+        };
+      }
     }
 
     const statutsList = ['nouveau', 'contact', 'en_cours', 'confirme', 'annule'];
@@ -800,6 +837,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <input type="text" id="edit-periode" value="${(contact.periode || '').replace(/"/g, '&quot;')}" />
           </div>
           <div class="form-group">
+            <label for="edit-nationalite">Nationalité</label>
+            <input type="text" id="edit-nationalite" value="${(contact.nationalite || '').replace(/"/g, '&quot;')}" />
+          </div>
+          <div class="form-group">
             <label for="edit-statut">Statut</label>
             <select id="edit-statut">
               ${statutsList.map(s => `<option value="${s}" ${(contact.statut || '') === s ? 'selected' : ''}>${s.replace('_', ' ')}</option>`).join('')}
@@ -808,6 +849,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <div class="form-group">
             <label for="edit-message">Message</label>
             <textarea id="edit-message">${(contact.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="edit-note">Notes locataire</label>
+            <textarea id="edit-note">${(contact.note || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
           </div>
           <div class="contact-edit-form-actions">
             <button type="button" class="btn-edit-cancel">Annuler</button>
@@ -828,7 +873,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           personnes: contact.personnes || '',
           statut: (document.getElementById('edit-statut') as HTMLSelectElement).value,
           source: contact.source || '',
-          message: (document.getElementById('edit-message') as HTMLTextAreaElement).value.trim()
+          message: (document.getElementById('edit-message') as HTMLTextAreaElement).value.trim(),
+          nationalite: (document.getElementById('edit-nationalite') as HTMLInputElement).value.trim(),
+          note: (document.getElementById('edit-note') as HTMLTextAreaElement).value.trim()
         };
         try {
           const response = await fetch('/api/admin/contacts', {
@@ -858,6 +905,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         modal.classList.remove('crm-modal-open');
       }
     }
+    (window as unknown as { closeContactModal?: () => void }).closeContactModal = closeContactModal;
 
     function openConfirmDeleteModal() {
       const modal = document.getElementById('confirmDeleteModal');
@@ -897,11 +945,42 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }
     }
 
-    const contactModalClose = document.getElementById('contactModalClose');
     const contactModal = document.getElementById('contactModal');
-    if (contactModalClose) contactModalClose.addEventListener('click', closeContactModal);
+    const contactModalCloseBtn = document.getElementById('contactModalClose');
+
+    // 1. Clic direct sur le bouton croix (tout le carré + la croix) : toujours prioritaire
+    if (contactModalCloseBtn) {
+      contactModalCloseBtn.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeContactModal();
+      });
+    }
+
+    // 2. Secours : mousedown + click en phase capture (pour être pris avant tout)
+    function handleContactClose(e: Event) {
+      const target = e.target as Element | null;
+      if (!target || !contactModal?.classList.contains('crm-modal-open')) return;
+      if (target.id === 'contactModalClose' || (target as Element).closest?.('#contactModalClose') || (target as Element).closest?.('[data-close-contact-modal]')) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeContactModal();
+      }
+    }
+    document.addEventListener('mousedown', handleContactClose, true);
+    document.addEventListener('click', handleContactClose, true);
+
     if (contactModal) {
-      contactModal.querySelector('.crm-modal-backdrop')?.addEventListener('click', closeContactModal);
+      // Clic sur le fond gris (backdrop) pour fermer
+      contactModal.addEventListener('click', (e: Event) => {
+        const t = e.target as HTMLElement | null;
+        const el = t?.nodeType === 3 ? (t as unknown as Text).parentElement : t;
+        if (!el) return;
+        if (el.classList?.contains('crm-modal-backdrop') || el.closest?.('.crm-modal-backdrop')) {
+          e.preventDefault();
+          closeContactModal();
+        }
+      });
     }
 
     const confirmModalClose = document.getElementById('confirmDeleteModalClose');

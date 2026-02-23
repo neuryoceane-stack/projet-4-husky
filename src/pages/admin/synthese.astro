@@ -45,16 +45,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <div class="synthese-charts">
         <div class="chart-card">
           <h2>Réservations par mois</h2>
-          <div class="chart-placeholder">
-            <p>Graphique à venir</p>
-          </div>
+          <div id="chartByMonth" class="chart-container"></div>
         </div>
 
         <div class="chart-card">
           <h2>Répartition par plateforme</h2>
-          <div class="chart-placeholder">
-            <p>Graphique à venir</p>
-          </div>
+          <div id="chartByPlatform" class="chart-container"></div>
         </div>
       </div>
     </div>
@@ -194,14 +190,63 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     margin-bottom: var(--spacing-lg);
   }
 
-  .chart-placeholder {
-    height: 300px;
+  /* :global() pour que le HTML injecté par JS soit stylé (Astro scope les classes par défaut) */
+  :global(.chart-container) {
+    min-height: 280px;
+  }
+
+  :global(.chart-bars) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+  }
+
+  :global(.chart-bar-row) {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  :global(.chart-bar-label) {
+    min-width: 100px;
+    color: var(--color-blue-night);
+    font-weight: 500;
+  }
+
+  :global(.chart-bar-track) {
+    flex: 1;
+    height: 26px;
+    background: var(--color-cream);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  :global(.chart-bar-fill) {
+    height: 100%;
+    min-width: 4px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--color-sapin), var(--color-blue-night));
+    transition: width 0.3s ease;
+  }
+
+  :global(.chart-bar-value) {
+    min-width: 2.5rem;
+    text-align: right;
+    font-weight: 600;
+    color: var(--color-blue-night);
+  }
+
+  :global(.chart-empty) {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-cream);
+    min-height: 220px;
+    background: var(--color-cream);
     border-radius: 8px;
     color: var(--color-text-light);
+    font-size: 0.9375rem;
   }
 
   @media (max-width: 768px) {
@@ -379,6 +424,54 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       }));
     }
 
+    // Couleurs pour le graphique plateformes (répartition)
+    const platformColors = [
+      '#1e3a5f', '#2d5a87', '#3d7ab5', '#5a9fd4', '#7eb8e0',
+      '#4a7c59', '#6b9b6b', '#8fbc8f', '#c4a35a', '#9a7b4f'
+    ];
+
+    function updateCharts(monthCounts: Record<string, number>, platformCounts: Record<string, number>) {
+      const chartMonthEl = document.getElementById('chartByMonth');
+      const chartPlatformEl = document.getElementById('chartByPlatform');
+
+      const monthEntries = Object.entries(monthCounts).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
+      const platformEntries = Object.entries(platformCounts).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
+
+      const maxMonth = monthEntries.length ? Math.max(...monthEntries.map(([, v]) => v)) : 1;
+      const maxPlatform = platformEntries.length ? Math.max(...platformEntries.map(([, v]) => v)) : 1;
+
+      if (chartMonthEl) {
+        if (monthEntries.length === 0) {
+          chartMonthEl.innerHTML = '<div class="chart-empty">Aucune réservation sur cette période</div>';
+        } else {
+          chartMonthEl.innerHTML = '<div class="chart-bars">' + monthEntries.map(([label, value]) => `
+            <div class="chart-bar-row">
+              <span class="chart-bar-label">${label}</span>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width: ${(value / maxMonth) * 100}%"></div></div>
+              <span class="chart-bar-value">${value}</span>
+            </div>
+          `).join('') + '</div>';
+        }
+      }
+
+      if (chartPlatformEl) {
+        if (platformEntries.length === 0) {
+          chartPlatformEl.innerHTML = '<div class="chart-empty">Aucune plateforme renseignée</div>';
+        } else {
+          chartPlatformEl.innerHTML = '<div class="chart-bars">' + platformEntries.map(([label, value], i) => {
+            const color = platformColors[i % platformColors.length];
+            return `
+            <div class="chart-bar-row">
+              <span class="chart-bar-label">${label}</span>
+              <div class="chart-bar-track"><div class="chart-bar-fill" style="width: ${(value / maxPlatform) * 100}%; background: ${color}"></div></div>
+              <span class="chart-bar-value">${value}</span>
+            </div>
+          `;
+          }).join('') + '</div>';
+        }
+      }
+    }
+
     // Calculer les statistiques pour une période donnée
     async function calculateStats(year: number, isWinter: boolean) {
       try {
@@ -397,17 +490,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         let totalWeeks = weeks.length;
         let reservedWeeks = 0;
         let totalRevenue = 0;
+        const monthCounts: Record<string, number> = {};
+        const platformCounts: Record<string, number> = {};
 
         weeks.forEach(week => {
           const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
           const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
           const etat = (weekData.etat || '').trim();
           const tarif = parseFloat(weekData.tarif || '0') || 0;
-          
-          // Compter les semaines réservées ou privatisées pour l'occupation
+          const plateforme = (weekData.plateforme || '').trim() || 'Non renseigné';
+
+          const monthKey = week.start.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+          const monthLabel = monthKey.charAt(0).toUpperCase() + monthKey.slice(1);
+          if (!monthCounts[monthLabel]) monthCounts[monthLabel] = 0;
+          if (!platformCounts[plateforme]) platformCounts[plateforme] = 0;
+
           if (etat === 'Réservé' || etat === 'Privatisé') {
             reservedWeeks++;
             totalRevenue += tarif;
+            monthCounts[monthLabel]++;
+            platformCounts[plateforme]++;
           }
         });
 
@@ -422,10 +524,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         if (occupationRateEl) occupationRateEl.textContent = `${occupationRate}%`;
         if (totalRevenueEl) totalRevenueEl.textContent = `${totalRevenue.toLocaleString('fr-FR')} €`;
         if (reservationsCountEl) reservationsCountEl.textContent = reservedWeeks.toString();
+
+        // Mettre à jour les graphiques
+        updateCharts(monthCounts, platformCounts);
       } catch (error) {
         console.error('Erreur calcul stats:', error);
+        updateCharts({}, {});
       }
     }
+
+    // Afficher tout de suite un contenu dans les graphiques (évite des zones vides)
+    updateCharts({}, {});
 
     // Remplir le menu déroulant avec les périodes
     const periodSelect = document.getElementById('periodSelect') as HTMLSelectElement;

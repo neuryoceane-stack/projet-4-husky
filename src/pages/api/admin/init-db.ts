@@ -56,6 +56,10 @@ export const GET: APIRoute = async () => {
       );
     `;
 
+    // Aligner le CRM avec la fiche locataire : ajouter nationalité et note si besoin
+    await client.sql`ALTER TABLE contacts ADD COLUMN IF NOT EXISTS nationalite VARCHAR(100);`;
+    await client.sql`ALTER TABLE contacts ADD COLUMN IF NOT EXISTS note TEXT;`;
+
     return new Response(JSON.stringify({ message: "Tables initialisées avec succès" }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }

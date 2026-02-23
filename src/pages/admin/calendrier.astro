@@ -685,7 +685,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     // Générer le calendrier - toujours commencer sur Hiver 25/26
     let currentYear = 2025; // Année fixe pour commencer sur Hiver 25/26
     let isWinter = true; // true = Hiver, false = Été
-    const platforms = ['Perso', 'Booking', 'Airbnb', 'Abritel', 'Centrale de résa', 'Chalet Montagne'];
+    const platforms = ['Perso', 'Booking', 'Airbnb', 'Abritel', 'Leboncoin', 'Centrale de résa', 'Chalet Montagne'];
     const states = ['Disponible', 'Réservé', 'Hors Loc', 'Privatisé'];
 
     // Gestion de la modal fiche locataire
@@ -812,7 +812,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               periode: periode,
               personnes: '12',
               statut: 'confirme',
-              source: 'Calendrier'
+              source: 'Calendrier',
+              nationalite: nationalite,
+              note: note
             })
           });
 
