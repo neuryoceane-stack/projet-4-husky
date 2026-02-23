@@ -52,14 +52,15 @@ export const POST: APIRoute = async ({ request }) => {
             message = ${contact.message},
             nationalite = ${contact.nationalite},
             note = ${contact.note},
+            saison = ${contact.saison},
             updated_at = CURRENT_TIMESTAMP
         WHERE id = ${parseInt(contact.id)}
       `;
     } else {
       // Nouveau contact
       await client.sql`
-        INSERT INTO contacts (nom, email, telephone, periode, personnes, statut, source, message, nationalite, note)
-        VALUES (${contact.nom}, ${contact.email}, ${contact.telephone}, ${contact.periode}, ${contact.personnes}, ${contact.statut}, ${contact.source}, ${contact.message}, ${contact.nationalite}, ${contact.note})
+        INSERT INTO contacts (nom, email, telephone, periode, personnes, statut, source, message, nationalite, note, saison)
+        VALUES (${contact.nom}, ${contact.email}, ${contact.telephone}, ${contact.periode}, ${contact.personnes}, ${contact.statut}, ${contact.source}, ${contact.message}, ${contact.nationalite}, ${contact.note}, ${contact.saison})
       `;
     }
 

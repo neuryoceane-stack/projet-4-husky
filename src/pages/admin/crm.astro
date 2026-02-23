@@ -30,6 +30,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <table class="crm-table">
             <thead>
               <tr>
+                <th>Saison</th>
                 <th>Période</th>
                 <th>Nom</th>
                 <th>Email</th>
@@ -40,7 +41,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             </thead>
             <tbody id="contactsTableBody">
               <tr>
-                <td colspan="6" class="empty-state">Aucun contact pour le moment</td>
+                <td colspan="7" class="empty-state">Aucun contact pour le moment</td>
               </tr>
             </tbody>
           </table>
@@ -701,21 +702,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             console.error('API contacts erreur:', data);
             const errMsg = (data && typeof data.error === 'string') ? data.error : 'Impossible de charger les contacts. Vérifiez la base de données (variables POSTGRES_* en local dans .env.local, sur Vercel dans Settings → Environment Variables).';
             const localHint = ' En local : lancez <code>npm run dev</code> puis ouvrez l\'URL affichée dans le terminal (ex. http://127.0.0.1:4321 ou :4322). <a href="/">Accueil</a>';
-            tbody.innerHTML = '<tr><td colspan="6" class="empty-state error-state">' + errMsg.replace(/</g, '&lt;') + localHint + '</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="7" class="empty-state error-state">' + errMsg.replace(/</g, '&lt;') + localHint + '</td></tr>';
             updateStats([]);
             return;
           }
           currentContacts = data;
         } catch (error) {
           console.error('Erreur chargement contacts:', error);
-          tbody.innerHTML = '<tr><td colspan="6" class="empty-state error-state">Erreur de connexion au serveur. Réessayez. En local : lancez <code>npm run dev</code> puis ouvrez l\'URL indiquée dans le terminal (ex. 4321 ou 4322). <a href="/">Revenir à l\'accueil</a>.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="7" class="empty-state error-state">Erreur de connexion au serveur. Réessayez. En local : lancez <code>npm run dev</code> puis ouvrez l\'URL indiquée dans le terminal (ex. 4321 ou 4322). <a href="/">Revenir à l\'accueil</a>.</td></tr>';
           updateStats([]);
           return;
         }
       }
 
       if (!Array.isArray(currentContacts) || currentContacts.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Aucun contact pour le moment</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Aucun contact pour le moment</td></tr>';
         updateStats([]);
         return;
       }
@@ -723,6 +724,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       const escapeJson = (obj: any) => encodeURIComponent(JSON.stringify(obj));
       tbody.innerHTML = currentContacts.map((contact: any) => `
         <tr>
+          <td>${contact.saison || '-'}</td>
           <td>${contact.periode || '-'}</td>
           <td>${contact.nom}</td>
           <td>${contact.email}</td>
@@ -764,6 +766,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       body.innerHTML = `
         <dl class="contact-detail-list">
           <dt>Date</dt><dd>${dateStr}</dd>
+          <dt>Saison</dt><dd>${contact.saison || '-'}</dd>
           <dt>Nom</dt><dd>${contact.nom || '-'}</dd>
           <dt>Email</dt><dd>${contact.email ? `<a href="mailto:${contact.email}">${contact.email}</a>` : '-'}</dd>
           <dt>Téléphone</dt><dd>${contact.telephone ? `<a href="tel:${contact.telephone}">${contact.telephone}</a>` : '-'}</dd>
@@ -826,6 +829,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
             <input type="tel" id="edit-telephone" value="${(contact.telephone || '').replace(/"/g, '&quot;')}" />
           </div>
           <div class="form-group">
+            <label for="edit-saison">Saison</label>
+            <input type="text" id="edit-saison" value="${(contact.saison || '').replace(/"/g, '&quot;')}" placeholder="ex. Hiver 25/26, Été 26" />
+          </div>
+          <div class="form-group">
             <label for="edit-periode">Période</label>
             <input type="text" id="edit-periode" value="${(contact.periode || '').replace(/"/g, '&quot;')}" />
           </div>
@@ -868,7 +875,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           source: contact.source || '',
           message: (document.getElementById('edit-message') as HTMLTextAreaElement).value.trim(),
           nationalite: (document.getElementById('edit-nationalite') as HTMLInputElement).value.trim(),
-          note: (document.getElementById('edit-note') as HTMLTextAreaElement).value.trim()
+          note: (document.getElementById('edit-note') as HTMLTextAreaElement).value.trim(),
+          saison: (document.getElementById('edit-saison') as HTMLInputElement).value.trim()
         };
         try {
           const response = await fetch('/api/admin/contacts', {

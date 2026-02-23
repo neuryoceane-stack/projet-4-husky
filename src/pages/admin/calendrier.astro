@@ -694,9 +694,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
     const cancelTenantForm = document.getElementById('cancelTenantForm');
     const tenantForm = document.getElementById('tenantForm') as HTMLFormElement;
     let currentWeekKey = '';
+    let currentWeekPlateforme = '';
 
     async function openTenantModal(weekKey: string) {
       currentWeekKey = weekKey;
+      currentWeekPlateforme = '';
       
       try {
         // Charger les données depuis l'API SQL
@@ -704,6 +706,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         const response = await fetch(`/api/admin/calendar?year=${currentYear}&season=${season}`);
         const data = await response.json();
         
+        const weekResa = data.reservations?.[weekKey];
+        if (weekResa?.plateforme) currentWeekPlateforme = weekResa.plateforme;
+
         const weekTenantData = data.tenants[weekKey] || {
           nom: '',
           prenom: '',
@@ -736,6 +741,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         tenantModal.style.display = 'none';
       }
       currentWeekKey = '';
+      currentWeekPlateforme = '';
       if (tenantForm) {
         tenantForm.reset();
       }
@@ -800,8 +806,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
           if (!response.ok) throw new Error('Erreur lors de la sauvegarde');
 
-          // MISE À JOUR DU CRM CLIENT via l'API
+          // MISE À JOUR DU CRM CLIENT via l'API (source = plateforme de la semaine)
           const periode = currentWeekKey.replace('_', ' - ');
+          const yearShort = currentYear.toString().slice(-2);
+          const saisonLabel = isWinter ? `Hiver ${yearShort}/${(currentYear + 1).toString().slice(-2)}` : `Été ${yearShort}`;
+          const row = document.querySelector(`tr[data-week-key="${currentWeekKey}"]`);
+          const plateformeSelect = row?.querySelector('select[data-field="plateforme"]') as HTMLSelectElement | null;
+          const sourcePlateforme = (plateformeSelect?.value || currentWeekPlateforme || '').trim() || 'Non renseigné';
           await fetch('/api/admin/contacts', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -812,9 +823,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
               periode: periode,
               personnes: '12',
               statut: 'confirme',
-              source: 'Calendrier',
+              source: sourcePlateforme,
               nationalite: nationalite,
-              note: note
+              note: note,
+              saison: saisonLabel
             })
           });
 
