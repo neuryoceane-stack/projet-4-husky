@@ -220,12 +220,14 @@ const {
     }
     
     .hero-content {
-      padding-top: 6.5rem; /* espace plus généreux sous le header fixe pour le badge */
+      /* Header fixe ~5–6rem + marge de sécurité + safe-area pour le badge */
+      padding-top: max(9rem, calc(6rem + env(safe-area-inset-top, 0px)));
     }
     
     .hero-badge {
       font-size: 0.75rem;
       padding: 0.5rem 1rem;
+      margin-top: 0.5rem; /* marge sous le header */
       margin-bottom: var(--spacing-md);
       letter-spacing: 0.5px;
     }
