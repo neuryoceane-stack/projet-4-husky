@@ -1178,29 +1178,35 @@ import CTA from '../components/CTA.astro';
       justify-content: flex-start !important;
     }
     
+    /* Sur mobile, les 3 stats passent sous le hero pour être nettes et lisibles */
     .station-stats {
-      bottom: 150px; /* Remonté beaucoup plus haut pour être bien dans la photo */
+      position: static;
+      margin-top: -2rem;
+      padding: 0 var(--spacing-md) var(--spacing-lg);
     }
     
     .stats-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-sm);
+      max-width: 320px;
       margin: 0 auto;
     }
     
     .stat-card {
-      padding: 0.5rem 0.25rem;
-      min-height: 70px;
-      background-color: rgba(20, 20, 20, 0.8); /* Un peu plus sombre pour la lisibilité */
+      width: 100%;
+      padding: 0.75rem 1rem;
+      min-height: 68px;
+      background-color: rgba(20, 20, 20, 0.85);
     }
     
     .stat-number {
-      font-size: 1.125rem;
+      font-size: 1.2rem;
     }
     
     .stat-label {
-      font-size: 0.7rem;
+      font-size: 0.8rem;
     }
     
     .station-village-content {
