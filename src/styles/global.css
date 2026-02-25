@@ -295,23 +295,40 @@ img {
     padding: 0.875rem 1.5rem;
   }
 
-  /* Hero mobile (page d’accueil etc.) : badge petit et bien sous le header */
+  /* Hero mobile : badge petit, bien SOUS le header, juste au-dessus du titre */
   .hero {
     align-items: flex-start !important;
     justify-content: flex-start !important;
+    height: 70vh !important;
+    min-height: 500px !important;
   }
   .hero .hero-content {
-    padding-top: max(20rem, calc(15rem + env(safe-area-inset-top, 0px))) !important;
+    padding-top: max(320px, calc(240px + env(safe-area-inset-top, 0px))) !important;
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
     width: 100% !important;
     max-width: 100% !important;
   }
   .hero .hero-badge {
+    font-size: 0.45rem !important;
+    padding: 0.28rem 0.6rem !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* Même correctif pour largeurs 768–1024px (Safari, tablette) */
+@media (max-width: 1024px) {
+  .hero {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+  .hero .hero-content {
+    padding-top: max(320px, calc(240px + env(safe-area-inset-top, 0px))) !important;
+  }
+  .hero .hero-badge {
     font-size: 0.5rem !important;
     padding: 0.3rem 0.65rem !important;
-    margin-bottom: var(--spacing-sm) !important;
-    line-height: 1.25 !important;
   }
 }
 

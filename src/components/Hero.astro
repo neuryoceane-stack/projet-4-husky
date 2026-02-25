@@ -215,48 +215,7 @@ const {
   
   /* Uniquement mobile : ne pas toucher à l’affichage ordinateur (> 768px) */
   @media (max-width: 768px) {
-    .hero {
-      height: 70vh;
-      min-height: 500px;
-      align-items: flex-start !important;
-      justify-content: flex-start !important;
-      padding-top: 0 !important;
-    }
-    
-    .hero-content {
-      width: 100% !important;
-      max-width: 100% !important;
-      box-sizing: border-box !important;
-      padding-top: max(20rem, calc(15rem + env(safe-area-inset-top, 0px))) !important;
-      padding-left: 1.25rem !important;
-      padding-right: 1.25rem !important;
-      padding-bottom: var(--spacing-lg) !important;
-      margin: 0 !important;
-      align-items: center !important;
-      min-height: 0 !important;
-      overflow: visible !important;
-    }
-    
-    /* Badge : bien sous le header, à l’intérieur des bords, apparence soignée */
-    .hero-badge {
-      font-size: 0.5rem !important;
-      padding: 0.3rem 0.65rem !important;
-      margin: 0 0 var(--spacing-sm) 0 !important;
-      letter-spacing: 0.04em !important;
-      max-width: 100% !important;
-      text-align: center !important;
-      flex-shrink: 0 !important;
-      border-radius: 9999px !important;
-      border: 1px solid rgba(255, 255, 255, 0.5) !important;
-      background: rgba(255, 255, 255, 0.2) !important;
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15) !important;
-      line-height: 1.25 !important;
-      font-weight: 600 !important;
-      text-transform: uppercase !important;
-    }
-    
+    /* Position badge + espace header = global.css uniquement (évite conflit Vercel) */
     .hero-title {
       font-size: 2rem;
       font-weight: 900;
