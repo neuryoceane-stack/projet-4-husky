@@ -226,8 +226,8 @@ const {
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      /* Espace net sous le header : badge un peu plus bas sur mobile */
-      padding-top: max(11.5rem, calc(8.5rem + env(safe-area-inset-top, 0px)));
+      /* Grand espace sous le header pour que le badge soit bien en dessous, sans être collé */
+      padding-top: max(14rem, calc(11rem + env(safe-area-inset-top, 0px)));
       /* Marges latérales généreuses pour ne pas frôler le menu ni le drapeau */
       padding-left: 2.5rem;
       padding-right: 2.5rem;
@@ -242,7 +242,7 @@ const {
     .hero-badge {
       font-size: 0.65rem;
       padding: 0.5rem 1rem;
-      margin: 0 0 var(--spacing-sm) 0;
+      margin: 1rem 0 var(--spacing-sm) 0;
       letter-spacing: 0.06em;
       max-width: 100%;
       text-align: center;
