@@ -426,6 +426,15 @@ import Hero from '../components/Hero.astro';
   }
   
   @media (max-width: 768px) {
+    /* Page d'accueil : badge "Au bord des pistes" petit et bien sous le header */
+    :global(.hero-content) {
+      padding-top: max(20rem, calc(15rem + env(safe-area-inset-top, 0px))) !important;
+    }
+    :global(.hero-badge) {
+      font-size: 0.5rem !important;
+      padding: 0.3rem 0.65rem !important;
+    }
+
     .hero-section-title {
       font-size: 1.5rem;
       margin-bottom: var(--spacing-sm);
