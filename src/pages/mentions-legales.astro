@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Mentions légales - Chalet Husky"
+  description="Mentions légales du site Chalet Husky, location premium aux 2 Alpes."
+>
+  <section class="legal-header">
+    <div class="container">
+      <h1 class="legal-title">Mentions légales</h1>
+      <p class="legal-updated">Dernière mise à jour : janvier 2025</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <h2>1. Éditeur du site</h2>
+        <p>Le site <strong>chalet-les2alpes.fr</strong> est édité par :</p>
+        <p><strong>Chalet Husky</strong><br />
+        8 impasse des Lys<br />
+        38860 Les Deux Alpes<br />
+        France</p>
+        <p>Contact : <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a></p>
+
+        <h2>2. Hébergement</h2>
+        <p>Le site est hébergé par :</p>
+        <p><strong>Vercel Inc.</strong><br />
+        440 N Barranca Ave #4133<br />
+        Covina, CA 91723<br />
+        États-Unis</p>
+        <p>Site : <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+
+        <h2>3. Propriété intellectuelle</h2>
+        <p>L’ensemble du contenu de ce site (textes, images, logos, graphismes, etc.) est protégé par le droit d’auteur et le droit des marques. Toute reproduction, représentation ou diffusion, totale ou partielle, sans autorisation préalable de Chalet Husky est interdite.</p>
+
+        <h2>4. Données personnelles</h2>
+        <p>Les informations recueillies via le formulaire de contact et de réservation sont utilisées uniquement pour répondre à vos demandes et gérer votre séjour. Conformément au Règlement général sur la protection des données (RGPD), vous disposez d’un droit d’accès, de rectification et d’effacement de vos données. Pour toute demande : <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a>.</p>
+        <p>Consultez notre <a href="/cookies">politique de cookies</a> pour plus d’informations.</p>
+
+        <h2>5. Limitation de responsabilité</h2>
+        <p>Chalet Husky s’efforce d’assurer l’exactitude des informations publiées sur ce site. Toutefois, l’éditeur ne peut garantir l’absence d’erreur ou d’omission et décline toute responsabilité en cas de dommage résultant de l’utilisation du site ou de son contenu.</p>
+
+        <h2>6. Liens hypertextes</h2>
+        <p>Les liens vers des sites tiers ne engagent pas la responsabilité de Chalet Husky. L’insertion de liens vers ce site est soumise à l’accord préalable de l’éditeur.</p>
+
+        <h2>7. Droit applicable</h2>
+        <p>Les présentes mentions légales sont régies par le droit français. En cas de litige, les tribunaux français seront seuls compétents.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    background-color: var(--color-cream);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+  }
+  .legal-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xs);
+  }
+  .legal-updated {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+  .legal-content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    color: var(--color-blue-night);
+  }
+  .legal-content h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-blue-night);
+  }
+  .legal-content h2:first-of-type {
+    margin-top: 0;
+  }
+  .legal-content p {
+    margin-bottom: var(--spacing-sm);
+  }
+  .legal-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  .legal-content a:hover {
+    color: var(--color-sapin);
+  }
+</style>

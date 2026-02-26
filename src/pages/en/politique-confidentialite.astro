@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Privacy policy - Chalet Husky"
+  description="Privacy policy for Chalet Husky website, premium rental in Les 2 Alpes."
+>
+  <section class="legal-header">
+    <div class="container">
+      <h1 class="legal-title">Privacy policy</h1>
+      <p class="legal-updated">Last updated: January 2025</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <h2>1. Data controller</h2>
+        <p>The data controller for personal data is:</p>
+        <p><strong>Chalet Husky</strong><br />
+        8 impasse des Lys, 38860 Les Deux Alpes, France<br />
+        Email: <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a></p>
+
+        <h2>2. Data collected</h2>
+        <p>We collect the data you voluntarily provide:</p>
+        <ul>
+          <li><strong>Booking / contact form</strong>: name, email address, phone number, message and information about your stay.</li>
+          <li><strong>Browsing</strong>: technical data (IP address, browser type, pages visited) and cookies, for the operation of the site and, where applicable, analytics (see our <a href="/en/cookies">cookie policy</a>).</li>
+        </ul>
+
+        <h2>3. Purposes and legal bases</h2>
+        <p>Your data is used to:</p>
+        <ul>
+          <li>Respond to your contact and booking requests (basis: pre-contractual measures / legitimate interest).</li>
+          <li>Manage your stay and customer relationship (basis: contract performance).</li>
+          <li>Improve the site and analyse its use, if analytics tools are used (basis: consent or legitimate interest).</li>
+        </ul>
+
+        <h2>4. Retention period</h2>
+        <p>Contact and booking data is kept for the duration of the business relationship and then, for legal and accounting obligations, for the applicable periods (generally 5 to 10 years). Marketing data is kept for 3 years from the last contact. Logs and technical data are kept for a limited period in line with our technical and legal needs.</p>
+
+        <h2>5. Recipients and transfers</h2>
+        <p>Your data is intended for authorised persons within Chalet Husky and, where applicable, our service providers (website hosting, email sending) strictly for their assigned tasks. We do not sell your data. Hosting may involve transfers outside the EU (e.g. United States); in such cases, appropriate safeguards are in place.</p>
+
+        <h2>6. Your rights (GDPR)</h2>
+        <p>You have the following rights:</p>
+        <ul>
+          <li><strong>Access</strong>: obtain a copy of your data.</li>
+          <li><strong>Rectification</strong>: have inaccurate data corrected.</li>
+          <li><strong>Erasure</strong>: request deletion of your data within the limits provided by law.</li>
+          <li><strong>Restriction</strong>: request restriction of processing in certain cases.</li>
+          <li><strong>Objection</strong>: object to processing, including marketing.</li>
+          <li><strong>Portability</strong>: receive your data in a structured format, where applicable.</li>
+        </ul>
+        <p>To exercise these rights: <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a>. You may also lodge a complaint with the CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">cnil.fr</a>) or your local data protection authority.</p>
+
+        <h2>7. Security</h2>
+        <p>We implement appropriate technical and organisational measures to protect your data against unauthorised access, loss or alteration.</p>
+
+        <p><a href="/en/mentions-legales">Legal notice</a> · <a href="/en/cookies">Cookies</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    background-color: var(--color-cream);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+  }
+  .legal-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xs);
+  }
+  .legal-updated {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+  .legal-content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    color: var(--color-blue-night);
+  }
+  .legal-content h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-blue-night);
+  }
+  .legal-content h2:first-of-type {
+    margin-top: 0;
+  }
+  .legal-content p, .legal-content ul {
+    margin-bottom: var(--spacing-sm);
+  }
+  .legal-content ul {
+    padding-left: 1.5rem;
+  }
+  .legal-content li {
+    margin-bottom: 0.5rem;
+  }
+  .legal-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  .legal-content a:hover {
+    color: var(--color-sapin);
+  }
+</style>

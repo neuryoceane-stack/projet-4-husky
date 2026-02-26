@@ -11,9 +11,15 @@ const translations = {
     station: "Les 2 Alpes",
     chalet: "Le Chalet",
     rights: "Tous droits réservés.",
+    legal: "Mentions légales",
+    cookies: "Cookies",
+    privacy: "Confidentialité",
     homeLink: "/",
     stationLink: "/station",
-    chaletLink: "/chalet"
+    chaletLink: "/chalet",
+    legalLink: "/mentions-legales",
+    cookiesLink: "/cookies",
+    privacyLink: "/politique-confidentialite"
   },
   en: {
     description: "Premium rental in the heart of Les 2 Alpes. An exceptional chalet for your mountain holidays.",
@@ -22,9 +28,15 @@ const translations = {
     station: "Les 2 Alpes",
     chalet: "The Chalet",
     rights: "All rights reserved.",
+    legal: "Legal notice",
+    cookies: "Cookies",
+    privacy: "Privacy",
     homeLink: "/en",
     stationLink: "/en/station",
-    chaletLink: "/en/chalet"
+    chaletLink: "/en/chalet",
+    legalLink: "/en/mentions-legales",
+    cookiesLink: "/en/cookies",
+    privacyLink: "/en/politique-confidentialite"
   }
 };
 
@@ -50,7 +62,14 @@ const t = translations[locale];
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; 2024 Chalet Husky. {t.rights}</p>
+      <p class="footer-copyright">&copy; 2025 Chalet Husky. {t.rights}</p>
+      <p class="footer-legal">
+        <a href={t.legalLink}>{t.legal}</a>
+        <span class="footer-legal-sep"> · </span>
+        <a href={t.privacyLink}>{t.privacy}</a>
+        <span class="footer-legal-sep"> · </span>
+        <a href={t.cookiesLink}>{t.cookies}</a>
+      </p>
     </div>
   </div>
 </footer>
@@ -149,6 +168,22 @@ const t = translations[locale];
     text-align: center;
     color: var(--color-cream);
     font-size: 0.875rem;
+  }
+  .footer-copyright {
+    margin-bottom: 0.25rem;
+  }
+  .footer-legal {
+    margin: 0;
+  }
+  .footer-legal a {
+    color: var(--color-cream);
+    text-decoration: underline;
+  }
+  .footer-legal a:hover {
+    color: var(--color-accent);
+  }
+  .footer-legal-sep {
+    opacity: 0.7;
   }
   
   @media (max-width: 1024px) {

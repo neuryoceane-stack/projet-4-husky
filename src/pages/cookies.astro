@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Politique de cookies - Chalet Husky"
+  description="Politique de cookies du site Chalet Husky, location premium aux 2 Alpes."
+>
+  <section class="legal-header">
+    <div class="container">
+      <h1 class="legal-title">Politique de cookies</h1>
+      <p class="legal-updated">Dernière mise à jour : janvier 2025</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <h2>1. Qu’est-ce qu’un cookie ?</h2>
+        <p>Un cookie est un petit fichier texte déposé sur votre ordinateur ou appareil mobile lorsque vous visitez un site. Il permet au site de mémoriser vos actions ou préférences (par exemple la langue) pendant une certaine durée.</p>
+
+        <h2>2. Cookies utilisés sur ce site</h2>
+        <p>Le site <strong>chalet-les2alpes.fr</strong> utilise les cookies suivants :</p>
+        <ul>
+          <li><strong>Cookies strictement nécessaires</strong> : indispensables au fonctionnement du site (par exemple mémorisation de vos choix concernant les cookies). Ils ne peuvent pas être désactivés.</li>
+          <li><strong>Cookies de préférences</strong> : permettent de retenir vos réglages (langue, affichage).</li>
+          <li><strong>Cookies de mesure d’audience</strong> : si nous utilisons un outil d’analyse (ex. Google Analytics), ces cookies nous aident à comprendre comment les visiteurs utilisent le site, de manière anonyme.</li>
+        </ul>
+
+        <h2>3. Durée de conservation</h2>
+        <p>Les cookies de session sont supprimés à la fermeture du navigateur. Les cookies persistants sont conservés pour une durée limitée (par exemple 12 ou 13 mois selon le type), puis supprimés.</p>
+
+        <h2>4. Gestion des cookies</h2>
+        <p>Vous pouvez à tout moment choisir de refuser ou d’accepter les cookies non essentiels :</p>
+        <ul>
+          <li>Via les paramètres de votre navigateur (souvent dans « Confidentialité » ou « Cookies »).</li>
+          <li>En refusant les cookies non essentiels lors de votre première visite si un bandeau de consentement est affiché.</li>
+        </ul>
+        <p>Le blocage de certains cookies peut affecter l’utilisation du site (par exemple la langue ou l’affichage).</p>
+
+        <h2>5. Vos droits</h2>
+        <p>Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et d’effacement des données vous concernant. Pour toute question sur nos cookies ou vos données : <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a>.</p>
+
+        <p><a href="/mentions-legales">Retour aux mentions légales</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    background-color: var(--color-cream);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+  }
+  .legal-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xs);
+  }
+  .legal-updated {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+  .legal-content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    color: var(--color-blue-night);
+  }
+  .legal-content h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-blue-night);
+  }
+  .legal-content h2:first-of-type {
+    margin-top: 0;
+  }
+  .legal-content p, .legal-content ul {
+    margin-bottom: var(--spacing-sm);
+  }
+  .legal-content ul {
+    padding-left: 1.5rem;
+  }
+  .legal-content li {
+    margin-bottom: 0.5rem;
+  }
+  .legal-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  .legal-content a:hover {
+    color: var(--color-sapin);
+  }
+</style>

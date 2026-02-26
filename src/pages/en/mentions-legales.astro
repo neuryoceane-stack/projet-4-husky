@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Legal notice - Chalet Husky"
+  description="Legal notice for Chalet Husky website, premium rental in Les 2 Alpes."
+>
+  <section class="legal-header">
+    <div class="container">
+      <h1 class="legal-title">Legal notice</h1>
+      <p class="legal-updated">Last updated: January 2025</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="legal-content">
+        <h2>1. Website publisher</h2>
+        <p>The website <strong>chalet-les2alpes.fr</strong> is published by:</p>
+        <p><strong>Chalet Husky</strong><br />
+        8 impasse des Lys<br />
+        38860 Les Deux Alpes<br />
+        France</p>
+        <p>Contact: <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a></p>
+
+        <h2>2. Hosting</h2>
+        <p>The website is hosted by:</p>
+        <p><strong>Vercel Inc.</strong><br />
+        440 N Barranca Ave #4133<br />
+        Covina, CA 91723<br />
+        United States</p>
+        <p>Website: <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+
+        <h2>3. Intellectual property</h2>
+        <p>All content on this site (text, images, logos, graphics, etc.) is protected by copyright and trademark law. Any reproduction, representation or distribution, in whole or in part, without prior authorisation from Chalet Husky is prohibited.</p>
+
+        <h2>4. Personal data</h2>
+        <p>Information collected via the contact and booking form is used only to respond to your enquiries and manage your stay. In accordance with the General Data Protection Regulation (GDPR), you have the right to access, rectify and erase your data. For any request: <a href="mailto:chalet.husky.2alpes@gmail.com">chalet.husky.2alpes@gmail.com</a>.</p>
+        <p>See our <a href="/en/cookies">cookie policy</a> for more information.</p>
+
+        <h2>5. Limitation of liability</h2>
+        <p>Chalet Husky endeavours to ensure the accuracy of the information published on this site. However, the publisher cannot guarantee the absence of errors or omissions and accepts no liability for any damage resulting from the use of the site or its content.</p>
+
+        <h2>6. Hyperlinks</h2>
+        <p>Links to third-party sites do not engage the responsibility of Chalet Husky. Inserting links to this site is subject to prior agreement from the publisher.</p>
+
+        <h2>7. Applicable law</h2>
+        <p>These legal notices are governed by French law. In the event of a dispute, the French courts shall have exclusive jurisdiction.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-header {
+    background-color: var(--color-cream);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+  }
+  .legal-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-xs);
+  }
+  .legal-updated {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+  }
+  .legal-content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.7;
+    color: var(--color-blue-night);
+  }
+  .legal-content h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-blue-night);
+  }
+  .legal-content h2:first-of-type {
+    margin-top: 0;
+  }
+  .legal-content p {
+    margin-bottom: var(--spacing-sm);
+  }
+  .legal-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  .legal-content a:hover {
+    color: var(--color-sapin);
+  }
+</style>
