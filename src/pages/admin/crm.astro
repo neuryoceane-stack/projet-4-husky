@@ -100,84 +100,70 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   .admin-section {
-    padding: var(--spacing-xl) 0;
-    min-height: calc(100vh - 200px);
+    padding: 2.5rem 0 4rem;
+    min-height: calc(100vh - 56px);
+    background: #f5f4f1;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
   }
 
   .admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--spacing-xl);
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-  }
-
-  .back-link {
-    display: inline-block;
-    margin-bottom: var(--spacing-sm);
-    color: var(--color-sapin);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color var(--transition-base);
-  }
-
-  .back-link:hover {
-    color: var(--color-blue-night);
+    margin-bottom: 1.75rem;
   }
 
   .admin-header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 900;
     color: var(--color-blue-night);
     margin: 0;
   }
 
+  /* FILTRES */
   .crm-container {
     background: white;
     border-radius: 16px;
-    padding: var(--spacing-xl);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 1.75rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    border: 1px solid #ebe9e4;
   }
 
   .crm-filters {
     display: flex;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
   }
 
   .search-input,
   .filter-select {
     flex: 1;
-    min-width: 200px;
-    padding: 0.75rem 1rem;
-    border: 1px solid #dde0e4;
+    min-width: 180px;
+    padding: 0.6rem 1rem;
+    border: 1px solid #e0ddd8;
     border-radius: 8px;
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-family: inherit;
     background: #fafbfc;
     color: var(--color-text);
-    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .search-input:hover,
-  .filter-select:hover {
-    background: #fff;
-    border-color: #c8ccd2;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
 
   .search-input:focus,
   .filter-select:focus {
     outline: none;
     border-color: var(--color-sapin);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12);
+    box-shadow: 0 0 0 3px rgba(30,58,95,0.08);
+    background: white;
   }
 
+  /* TABLEAU */
   .crm-table-container {
     overflow-x: auto;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: 1.5rem;
   }
 
   .crm-table {
@@ -186,87 +172,144 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   .crm-table thead {
-    background: var(--color-blue-night);
-    color: #fff;
+    background: #faf9f7;
   }
 
   .crm-table th {
-    padding: 0.875rem 1rem;
+    padding: 0.65rem 1rem;
     text-align: left;
-    font-weight: 600;
-    font-size: 0.8125rem;
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    border-bottom: none;
+    color: #9ca3af;
+    border-bottom: 2px solid #f0ede8;
+    background: #faf9f7;
+    white-space: nowrap;
   }
 
   .crm-table td {
     padding: 0.875rem 1rem;
-    border-bottom: 1px solid #e8e6e3;
-    color: var(--color-text);
-    font-size: 0.9375rem;
+    border-bottom: 1px solid #f5f3f0;
     vertical-align: middle;
   }
 
-  .crm-table th:last-child,
-  .crm-table td:last-child {
-    text-align: center;
+  .crm-table tbody tr:hover {
+    background: #faf9f7;
   }
 
-  .crm-table tbody tr:hover {
-    background: rgba(30, 58, 95, 0.04);
+  .crm-table tbody tr:hover .btn-voir-contact {
+    background: #0f2540 !important;
+    color: white !important;
+    border-color: #0f2540 !important;
+  }
+
+  .crm-table tbody tr:last-child td {
+    border-bottom: none;
   }
 
   .empty-state {
     text-align: center;
-    padding: var(--spacing-xl);
-    color: var(--color-text-light);
+    padding: 3rem;
+    color: #9ca3af;
     font-style: italic;
   }
 
   .empty-state.error-state {
-    color: #c62828;
+    color: #dc2626;
     font-style: normal;
   }
 
-  .empty-state.error-state a {
-    color: #1565c0;
-    text-decoration: underline;
-  }
-
-  .empty-state.error-state a:hover {
-    color: #0d47a1;
-  }
-
+  /* BADGES STATUT */
   .status-badge {
-    display: inline-block;
-    padding: 0.375rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.65rem;
     border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
 
   .status-nouveau,
   .status-contact {
-    background-color: #e3f2fd;
-    color: #1976d2;
+    background: #dbeafe;
+    color: #1d4ed8;
   }
 
   .status-en_cours {
-    background-color: #fff3e0;
-    color: #f57c00;
+    background: #fef3c7;
+    color: #d97706;
   }
 
   .status-confirme {
-    background-color: #e8f5e9;
-    color: #388e3c;
+    background: #dcfce7;
+    color: #15803d;
   }
 
   .status-annule {
-    background-color: #ffebee;
-    color: #d32f2f;
+    background: #fee2e2;
+    color: #dc2626;
   }
 
+  /* BOUTON VOIR */
+  .btn-voir-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.875rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    background: #f5f4f1 !important;
+    color: var(--color-blue-night) !important;
+    border: 1px solid #e0ddd8 !important;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-voir-contact:hover {
+    background: var(--color-blue-night) !important;
+    color: white !important;
+    border-color: var(--color-blue-night) !important;
+  }
+
+  /* STATS */
+  .crm-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f0ede8;
+  }
+
+  .stat-card {
+    background: #faf9f7;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    border: 1px solid #ebe9e4;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .stat-label {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* MODALE FICHE CLIENT */
   .crm-modal {
     position: fixed;
     inset: 0;
@@ -288,20 +331,19 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   .crm-modal-backdrop {
     position: absolute;
     inset: 0;
-    z-index: 0;
-    background: rgba(15, 37, 64, 0.35);
+    background: rgba(15,37,64,0.35);
   }
 
   .crm-modal-content {
     position: relative;
     z-index: 1;
-    background: #fff;
-    border-radius: 12px;
-    max-width: 500px;
+    background: white;
+    border-radius: 16px;
+    max-width: 520px;
     width: 100%;
     max-height: 90vh;
     overflow: hidden;
-    box-shadow: 0 12px 40px rgba(15, 37, 64, 0.12), 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 12px 40px rgba(15,37,64,0.15);
   }
 
   .crm-modal-header {
@@ -309,86 +351,79 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #e8e6e3;
+    border-bottom: 1px solid #f0ede8;
     background: #faf9f7;
-    position: relative;
-    z-index: 2;
+    border-radius: 16px 16px 0 0;
   }
 
   .crm-modal-header h3 {
     margin: 0;
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     color: var(--color-blue-night);
-    letter-spacing: 0.01em;
   }
 
   .crm-modal-close {
-    background: #e8e6e3;
+    background: #ebe9e4;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     color: var(--color-blue-night);
-    padding: 6px;
-    margin: 0;
-    width: 36px;
-    height: 36px;
-    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.2s ease, color 0.2s ease;
-    position: relative;
-    z-index: 10;
-    pointer-events: auto;
+    transition: background 0.2s;
   }
 
-  .crm-modal-close-icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    pointer-events: none;
-  }
-
-  .crm-modal-close:hover {
-    background: #d1d5db;
-    color: var(--color-blue-night);
-  }
+  .crm-modal-close:hover { background: #d1d5db; }
 
   .crm-modal-body {
     padding: 1.5rem;
     overflow-y: auto;
-    max-height: calc(90vh - 80px);
-    background: #fff;
+    max-height: calc(90vh - 130px);
   }
 
-  /* :global() pour que les styles s'appliquent au contenu injecté en JS dans la modale */
+  /* Détails contact dans la modale */
   :global(.contact-detail-list) {
     margin: 0;
-    display: grid;
-    gap: 0.75rem 1.25rem;
-    grid-template-columns: 120px 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
   :global(.contact-detail-list dt) {
     font-weight: 700;
-    font-size: 0.75rem;
-    color: var(--color-blue-night);
-    letter-spacing: 0.04em;
+    font-size: 0.68rem;
+    color: #9ca3af;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    font-family: inherit;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+  }
+
+  :global(.contact-detail-list dt:first-child) {
+    margin-top: 0;
   }
 
   :global(.contact-detail-list dd) {
     margin: 0;
-    font-size: 0.9375rem;
-    font-weight: 400;
+    font-size: 0.9rem;
+    font-weight: 500;
     color: #1a1a1a;
-    line-height: 1.45;
+    line-height: 1.5;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f5f3f0;
+  }
+
+  :global(.contact-detail-list dd:last-child) {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   :global(.contact-detail-list dd a) {
-    color: var(--color-sapin);
+    color: #2563eb;
     text-decoration: none;
   }
 
@@ -397,123 +432,62 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   .crm-modal-footer {
-    padding: 1.5rem 1.5rem;
-    border-top: 1px solid #e8e6e3;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #f0ede8;
     background: #faf9f7;
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     justify-content: flex-end;
-    flex-wrap: wrap;
-    align-items: center;
+    border-radius: 0 0 16px 16px;
   }
 
   .btn-modal {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    min-width: 140px;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.825rem;
+    font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.2s, color 0.2s;
     border: none;
     font-family: inherit;
   }
 
   .btn-modal-edit {
-    background: var(--color-sapin);
-    color: #fff;
-    box-shadow: 0 1px 3px rgba(30, 58, 95, 0.2);
+    background: var(--color-blue-night);
+    color: white;
   }
 
   .btn-modal-edit:hover {
-    background: var(--color-blue-night);
-    box-shadow: 0 4px 12px rgba(15, 37, 64, 0.25);
+    background: #1e3a5f;
   }
 
   .btn-modal-delete {
-    background: #fff;
-    color: #9a2a2a;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    border: 1px solid #e8d4d4;
+    background: white;
+    color: #dc2626;
+    border: 1px solid #fecaca;
   }
 
   .btn-modal-delete:hover {
-    background: #9a2a2a;
-    color: #fff;
-    border-color: #9a2a2a;
-    box-shadow: 0 4px 12px rgba(154, 42, 42, 0.2);
+    background: #dc2626;
+    color: white;
+    border-color: #dc2626;
   }
 
-  .btn-modal-delete-confirm {
-    background: #9a2a2a !important;
-    color: #fff !important;
-    border: none !important;
-  }
-
-  .btn-modal-delete-confirm:hover {
-    background: #7a2222 !important;
-    box-shadow: 0 4px 12px rgba(154, 42, 42, 0.3) !important;
-  }
-
-  .crm-modal-content-sm {
-    max-width: 400px;
-  }
-
-  .crm-modal-footer-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .confirm-delete-text {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--color-text);
-  }
-
-  .btn-secondary {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: 8px;
-    background: #fff;
-    color: var(--color-blue-night);
-    border: 1px solid #d4d4d4;
-    cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease;
-  }
-
-  .btn-secondary:hover {
-    background: #f9fafb;
-    border-color: #9ca3af;
-  }
-
-  .contact-edit-form {
-    max-width: 100%;
-  }
-
+  /* FORMULAIRE ÉDITION */
   .contact-edit-form .form-group {
-    margin-bottom: 1.375rem;
-  }
-
-  .contact-edit-form .form-group:last-of-type {
-    margin-bottom: 0;
+    margin-bottom: 1.1rem;
   }
 
   .contact-edit-form label {
     display: block;
-    font-weight: 600;
-    color: var(--color-blue-night);
-    margin-bottom: 0.5rem;
-    font-size: 0.8125rem;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    color: #6b7280;
+    margin-bottom: 0.35rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
@@ -521,22 +495,14 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   .contact-edit-form select,
   .contact-edit-form textarea {
     width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid #dde0e4;
+    padding: 0.6rem 0.875rem;
+    border: 1px solid #e0ddd8;
     border-radius: 8px;
-    font-size: 0.9375rem;
-    line-height: 1.4;
+    font-size: 0.875rem;
     background: #fafbfc;
     color: var(--color-text);
-    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s, box-shadow 0.2s;
     font-family: inherit;
-  }
-
-  .contact-edit-form input:hover,
-  .contact-edit-form select:hover,
-  .contact-edit-form textarea:hover {
-    background: #fff;
-    border-color: #c8ccd2;
   }
 
   .contact-edit-form input:focus,
@@ -544,21 +510,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   .contact-edit-form textarea:focus {
     outline: none;
     border-color: var(--color-sapin);
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.12);
-  }
-
-  .contact-edit-form select {
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 2.25rem;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(30,58,95,0.08);
   }
 
   .contact-edit-form textarea {
-    min-height: 100px;
+    min-height: 90px;
     resize: vertical;
   }
 
@@ -566,92 +523,78 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     display: flex;
     gap: 0.75rem;
     justify-content: flex-end;
-    margin-top: 1.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e8e6e3;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f0ede8;
   }
 
-  .contact-edit-form-actions .btn-edit-cancel {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
+  .btn-edit-cancel {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.825rem;
     font-weight: 500;
     border-radius: 8px;
-    background: #fff;
-    color: #4b5563;
-    border: 1px solid #d1d5db;
+    background: white;
+    color: #6b7280;
+    border: 1px solid #e0ddd8;
     cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-    min-width: 110px;
+    font-family: inherit;
   }
 
-  .contact-edit-form-actions .btn-edit-cancel:hover {
-    background: #f9fafb;
-    border-color: #9ca3af;
-    color: var(--color-blue-night);
-  }
-
-  .contact-edit-form-actions .btn-save {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 600;
+  .btn-save {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.825rem;
+    font-weight: 700;
     border-radius: 8px;
-    background: var(--color-sapin);
-    color: #fff;
+    background: var(--color-blue-night);
+    color: white;
     border: none;
     cursor: pointer;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-    min-width: 130px;
-    box-shadow: 0 1px 3px rgba(30, 58, 95, 0.2);
+    font-family: inherit;
   }
 
-  .contact-edit-form-actions .btn-save:hover {
-    background: var(--color-blue-night);
-    box-shadow: 0 4px 12px rgba(15, 37, 64, 0.25);
+  /* MODALE CONFIRM DELETE */
+  .crm-modal-content-sm { max-width: 380px; }
+
+  .confirm-delete-text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #4b5563;
   }
 
-  .crm-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-xl);
+  .crm-modal-footer-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
   }
 
-  .stat-card {
-    background: var(--color-cream);
-    border-radius: 12px;
-    padding: var(--spacing-lg);
-    text-align: center;
+  .btn-secondary {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.825rem;
+    font-weight: 500;
+    border-radius: 8px;
+    background: white;
+    color: #4b5563;
+    border: 1px solid #e0ddd8;
+    cursor: pointer;
+    font-family: inherit;
   }
 
-  .stat-value {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--color-blue-night);
-    margin-bottom: var(--spacing-xs);
+  .btn-modal-delete-confirm {
+    background: #dc2626 !important;
+    color: white !important;
+    border: none !important;
   }
 
-  .stat-label {
-    color: var(--color-text-light);
-    font-size: 0.85rem;
+  .btn-modal-delete-confirm:hover {
+    background: #b91c1c !important;
   }
 
   @media (max-width: 768px) {
-    .admin-header h1 {
-      font-size: 1.6rem;
-    }
-
-    .crm-table {
-      font-size: 0.75rem;
-    }
-
-    .crm-table th,
-    .crm-table td {
-      padding: 0.5rem;
-    }
-
-    .crm-stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .admin-header h1 { font-size: 1.4rem; }
+    .crm-table { font-size: 0.75rem; }
+    .crm-table th, .crm-table td { padding: 0.5rem; }
+    .crm-stats { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 
@@ -709,19 +652,64 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       }
 
       const escapeJson = (obj: any) => encodeURIComponent(JSON.stringify(obj));
-      tbody.innerHTML = currentContacts.map((contact: any) => `
-        <tr>
-          <td>${contact.saison || '-'}</td>
-          <td>${contact.periode || '-'}</td>
-          <td>${contact.nom}</td>
-          <td>${contact.email}</td>
-          <td>${contact.telephone || '-'}</td>
-          <td><span class="status-badge status-${(contact.statut || 'nouveau')}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></td>
-          <td>
-            <button type="button" class="btn-small btn-primary btn-voir-contact" data-contact="${escapeJson(contact)}">Voir</button>
-          </td>
-        </tr>
-      `).join('');
+      tbody.innerHTML = currentContacts.map((contact: any) => {
+        const statutColor =
+          contact.statut === 'confirme' ? 'background:#dcfce7;color:#15803d;' :
+          contact.statut === 'annule' ? 'background:#fee2e2;color:#dc2626;' :
+          contact.statut === 'en_cours' ? 'background:#fef3c7;color:#d97706;' :
+          'background:#dbeafe;color:#1d4ed8;';
+
+        return `
+    <tr>
+      <td>
+        <span style="font-size:0.75rem;color:#9ca3af;font-weight:500;">
+          ${contact.saison || '-'}
+        </span>
+      </td>
+      <td>
+        <span style="font-size:0.8rem;color:#6b7280;">
+          ${contact.periode || '-'}
+        </span>
+      </td>
+      <td>
+        <div style="font-weight:600;font-size:0.875rem;color:#0f2540;">
+          ${contact.nom}
+        </div>
+      </td>
+      <td>
+        <a href="mailto:${contact.email}"
+          style="color:#2563eb;font-size:0.8rem;text-decoration:none;">
+          ${contact.email}
+        </a>
+      </td>
+      <td>
+        <a href="tel:${contact.telephone}"
+          style="color:#4b5563;font-size:0.8rem;text-decoration:none;">
+          ${contact.telephone || '-'}
+        </a>
+      </td>
+      <td>
+        <span style="display:inline-flex;align-items:center;padding:0.2rem 0.65rem;
+          border-radius:20px;font-size:0.7rem;font-weight:700;
+          letter-spacing:0.03em;text-transform:uppercase;${statutColor}">
+          ${(contact.statut || 'contact').replace('_', ' ')}
+        </span>
+      </td>
+      <td>
+        <button type="button"
+          class="btn-voir-contact"
+          data-contact="${escapeJson(contact)}"
+          style="display:inline-flex;align-items:center;gap:0.3rem;
+            padding:0.4rem 0.875rem;font-size:0.78rem;font-weight:600;
+            border-radius:6px;background:#f5f4f1;color:#0f2540;
+            border:1px solid #e0ddd8;cursor:pointer;font-family:inherit;
+            transition:all 0.15s;">
+          Voir
+        </button>
+      </td>
+    </tr>
+  `;
+      }).join('');
 
       tbody.querySelectorAll('.btn-voir-contact').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -751,20 +739,149 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       title.textContent = contact.nom || 'Détail du contact';
       const dateStr = contact.date ? new Date(contact.date).toLocaleString('fr-FR', { dateStyle: 'medium', timeStyle: 'short' }) : '-';
       body.innerHTML = `
-        <dl class="contact-detail-list">
-          <dt>Date</dt><dd>${dateStr}</dd>
-          <dt>Saison</dt><dd>${contact.saison || '-'}</dd>
-          <dt>Nom</dt><dd>${contact.nom || '-'}</dd>
-          <dt>Email</dt><dd>${contact.email ? `<a href="mailto:${contact.email}">${contact.email}</a>` : '-'}</dd>
-          <dt>Téléphone</dt><dd>${contact.telephone ? `<a href="tel:${contact.telephone}">${contact.telephone}</a>` : '-'}</dd>
-          <dt>Période</dt><dd>${contact.periode || '-'}</dd>
-          <dt>Statut</dt><dd><span class="status-badge status-${(contact.statut || 'nouveau')}">${(contact.statut || 'nouveau').replace('_', ' ')}</span></dd>
-          <dt>Source</dt><dd>${contact.source || '-'}</dd>
-          <dt>Nationalité</dt><dd>${contact.nationalite || '-'}</dd>
-          <dt>Notes locataire</dt><dd>${contact.note ? contact.note.replace(/\n/g, '<br>') : '-'}</dd>
-          <dt>Message</dt><dd>${contact.message ? contact.message.replace(/\n/g, '<br>') : '-'}</dd>
-        </dl>
-      `;
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;
+      margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0ede8;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Date
+        </div>
+        <div style="font-size:0.875rem;font-weight:500;color:#1a1a1a;">
+          ${dateStr}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Statut
+        </div>
+        <div>
+          <span style="display:inline-flex;align-items:center;padding:0.2rem 0.65rem;
+            border-radius:20px;font-size:0.72rem;font-weight:700;
+            letter-spacing:0.03em;text-transform:uppercase;
+            ${(contact.statut==='confirme') ? 'background:#dcfce7;color:#15803d;' :
+              (contact.statut==='annule') ? 'background:#fee2e2;color:#dc2626;' :
+              (contact.statut==='en_cours') ? 'background:#fef3c7;color:#d97706;' :
+              'background:#dbeafe;color:#1d4ed8;'}">
+            ${(contact.statut||'contact').replace('_',' ')}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;
+      margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0ede8;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Nom
+        </div>
+        <div style="font-size:0.875rem;font-weight:600;color:#1a1a1a;">
+          ${contact.nom||'-'}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Saison
+        </div>
+        <div style="font-size:0.875rem;font-weight:500;color:#1a1a1a;">
+          ${contact.saison||'-'}
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;
+      margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0ede8;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Email
+        </div>
+        <div style="font-size:0.875rem;">
+          ${contact.email
+            ? `<a href="mailto:${contact.email}"
+                style="color:#2563eb;text-decoration:none;font-weight:500;">
+                ${contact.email}
+              </a>`
+            : '-'}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Téléphone
+        </div>
+        <div style="font-size:0.875rem;">
+          ${contact.telephone
+            ? `<a href="tel:${contact.telephone}"
+                style="color:#2563eb;text-decoration:none;font-weight:500;">
+                ${contact.telephone}
+              </a>`
+            : '-'}
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;
+      margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0ede8;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Période
+        </div>
+        <div style="font-size:0.875rem;font-weight:500;color:#1a1a1a;">
+          ${contact.periode||'-'}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Source
+        </div>
+        <div style="font-size:0.875rem;font-weight:500;color:#1a1a1a;">
+          ${contact.source||'-'}
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;
+      margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid #f0ede8;">
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Nationalité
+        </div>
+        <div style="font-size:0.875rem;font-weight:500;color:#1a1a1a;">
+          ${contact.nationalite||'-'}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.2rem;">
+          Notes
+        </div>
+        <div style="font-size:0.875rem;font-weight:500;color:#1a1a1a;">
+          ${contact.note||'-'}
+        </div>
+      </div>
+    </div>
+
+    ${contact.message ? `
+    <div>
+      <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;
+        text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.5rem;">
+        Message
+      </div>
+      <div style="font-size:0.875rem;color:#4b5563;line-height:1.6;
+        background:#faf9f7;border-radius:8px;padding:0.875rem;
+        border:1px solid #f0ede8;">
+        ${contact.message.replace(/\n/g,'<br>')}
+      </div>
+    </div>` : ''}
+  </div>
+`;
       if (footer) {
         footer.innerHTML = `
           <button type="button" class="btn-modal btn-modal-edit btn-edit-contact" title="Modifier le contact">Modifier le contact</button>
@@ -793,8 +910,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       }
     }
 
-    const statutsList = ['contact', 'en_cours', 'confirme', 'annule'];
-
     function showEditForm(contact: any) {
       const body = document.getElementById('contactModalBody');
       const footer = document.getElementById('contactModalFooter');
@@ -802,62 +917,98 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       if (!body || !footer || !title) return;
       title.textContent = 'Modifier le contact';
       body.innerHTML = `
-        <form id="contactEditForm" class="contact-edit-form">
-          <div class="form-group">
-            <label for="edit-nom">Nom</label>
-            <input type="text" id="edit-nom" value="${(contact.nom || '').replace(/"/g, '&quot;')}" required />
-          </div>
-          <div class="form-group">
-            <label for="edit-email">Email</label>
-            <input type="email" id="edit-email" value="${(contact.email || '').replace(/"/g, '&quot;')}" required />
-          </div>
-          <div class="form-group">
-            <label for="edit-telephone">Téléphone</label>
-            <input type="tel" id="edit-telephone" value="${(contact.telephone || '').replace(/"/g, '&quot;')}" />
-          </div>
-          <div class="form-group">
-            <label for="edit-saison">Saison</label>
-            <input type="text" id="edit-saison" value="${(contact.saison || '').replace(/"/g, '&quot;')}" placeholder="ex. Hiver 25/26, Été 26" />
-          </div>
-          <div class="form-group">
-            <label for="edit-periode">Période</label>
-            <input type="text" id="edit-periode" value="${(contact.periode || '').replace(/"/g, '&quot;')}" />
-          </div>
-          <div class="form-group">
-            <label for="edit-nationalite">Nationalité</label>
-            <input type="text" id="edit-nationalite" value="${(contact.nationalite || '').replace(/"/g, '&quot;')}" />
-          </div>
-          <div class="form-group">
-            <label for="edit-source">Source</label>
-            <select id="edit-source">
-              <option value="Formulaire réservation" ${(contact.source||'')==='Formulaire réservation'?'selected':''}>Formulaire réservation</option>
-              <option value="Booking" ${(contact.source||'')==='Booking'?'selected':''}>Booking</option>
-              <option value="Chalet Montagne" ${(contact.source||'')==='Chalet Montagne'?'selected':''}>Chalet Montagne</option>
-              <option value="Centrale de résa" ${(contact.source||'')==='Centrale de résa'?'selected':''}>Centrale de résa</option>
-              <option value="Direct" ${(contact.source||'')==='Direct'?'selected':''}>Direct</option>
-              <option value="Autre" ${(contact.source||'')==='Autre'?'selected':''}>Autre</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="edit-statut">Statut</label>
-            <select id="edit-statut">
-              ${statutsList.map(s => `<option value="${s}" ${(contact.statut || '') === s ? 'selected' : ''}>${s.replace('_', ' ')}</option>`).join('')}
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="edit-message">Message</label>
-            <textarea id="edit-message">${(contact.message || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
-          </div>
-          <div class="form-group">
-            <label for="edit-note">Notes locataire</label>
-            <textarea id="edit-note">${(contact.note || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
-          </div>
-          <div class="contact-edit-form-actions">
-            <button type="button" class="btn-edit-cancel">Annuler</button>
-            <button type="submit" class="btn-save">Enregistrer</button>
-          </div>
-        </form>
-      `;
+  <form id="contactEditForm">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem 1rem;margin-bottom:0.75rem;">
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Nom</div>
+        <input type="text" id="edit-nom" required
+          value="${(contact.nom||'').replace(/"/g,'&quot;')}"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;" />
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Saison</div>
+        <input type="text" id="edit-saison"
+          value="${(contact.saison||'').replace(/"/g,'&quot;')}"
+          placeholder="ex. Hiver 25/26"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;" />
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Email</div>
+        <input type="email" id="edit-email" required
+          value="${(contact.email||'').replace(/"/g,'&quot;')}"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;" />
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Téléphone</div>
+        <input type="tel" id="edit-telephone"
+          value="${(contact.telephone||'').replace(/"/g,'&quot;')}"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;" />
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Période</div>
+        <input type="text" id="edit-periode"
+          value="${(contact.periode||'').replace(/"/g,'&quot;')}"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;" />
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Nationalité</div>
+        <input type="text" id="edit-nationalite"
+          value="${(contact.nationalite||'').replace(/"/g,'&quot;')}"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;" />
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Source</div>
+        <select id="edit-source"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;cursor:pointer;">
+          ${['Formulaire réservation','Booking','Chalet Montagne','Centrale de résa','Direct','Autre'].map(s =>
+            `<option value="${s}" ${(contact.source||'') === s ? 'selected' : ''}>${s}</option>`
+          ).join('')}
+        </select>
+      </div>
+
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Statut</div>
+        <select id="edit-statut"
+          style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;box-sizing:border-box;cursor:pointer;">
+          ${['contact','en_cours','confirme','annule'].map(s =>
+            `<option value="${s}" ${(contact.statut||'') === s ? 'selected' : ''}>${s.replace('_',' ')}</option>`
+          ).join('')}
+        </select>
+      </div>
+
+    </div>
+
+    <div style="margin-bottom:0.75rem;">
+      <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Message</div>
+      <textarea id="edit-message"
+        style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;min-height:90px;resize:vertical;box-sizing:border-box;">${(contact.message||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
+    </div>
+
+    <div style="margin-bottom:1.25rem;">
+      <div style="font-size:0.68rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem;">Notes locataire</div>
+      <textarea id="edit-note"
+        style="width:100%;padding:0.6rem 0.875rem;border:1px solid #e0ddd8;border-radius:8px;font-size:0.875rem;font-family:inherit;background:#fafbfc;min-height:70px;resize:vertical;box-sizing:border-box;">${(contact.note||'').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
+    </div>
+
+    <div style="display:flex;gap:0.75rem;justify-content:flex-end;padding-top:1rem;border-top:1px solid #f0ede8;">
+      <button type="button" class="btn-edit-cancel"
+        style="padding:0.6rem 1.25rem;font-size:0.825rem;font-weight:500;border-radius:8px;background:white;color:#6b7280;border:1px solid #e0ddd8;cursor:pointer;font-family:inherit;">
+        Annuler
+      </button>
+      <button type="submit"
+        style="padding:0.6rem 1.5rem;font-size:0.825rem;font-weight:700;border-radius:8px;background:#0f2540;color:white;border:none;cursor:pointer;font-family:inherit;">
+        Enregistrer
+      </button>
+    </div>
+  </form>
+`;
       footer.innerHTML = '';
       const form = document.getElementById('contactEditForm');
       form?.addEventListener('submit', async (e) => {
@@ -1044,24 +1195,5 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   .btn-small {
     padding: 0.375rem 0.75rem;
     font-size: 0.75rem;
-  }
-
-  .btn-voir-contact {
-    padding: 0.5rem 1rem !important;
-    font-size: 0.8125rem !important;
-    font-weight: 600 !important;
-    border-radius: 8px !important;
-    background: var(--color-sapin) !important;
-    color: #fff !important;
-    border: none !important;
-    cursor: pointer;
-    transition: background 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 1px 3px rgba(30, 58, 95, 0.2);
-    letter-spacing: 0.02em;
-  }
-
-  .btn-voir-contact:hover {
-    background: var(--color-blue-night) !important;
-    box-shadow: 0 2px 8px rgba(15, 37, 64, 0.25);
   }
 </style>
