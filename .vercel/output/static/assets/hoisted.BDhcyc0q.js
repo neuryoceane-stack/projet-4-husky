@@ -1,0 +1,7 @@
+import"./hoisted.BV8mCAo3.js";document.addEventListener("DOMContentLoaded",()=>{const o=document.getElementById("reservationForm");o&&o.addEventListener("submit",async l=>{l.preventDefault();const n=document.getElementById("nom").value.trim(),s=document.getElementById("email").value.trim(),a=document.getElementById("telephone").value.trim(),u=document.getElementById("message").value.trim();if(!n||!s||!a){alert("Veuillez remplir tous les champs obligatoires (Nom, Email, Téléphone).");return}try{const r=await fetch("/api/send-reservation",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nom:n,email:s,telephone:a,message:u})});let e;try{e=await r.json()}catch(t){console.error("Erreur parsing réponse:",t),alert("Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer plus tard ou nous contacter directement à chalet.husky.2alpes@gmail.com");return}if(r.ok&&e.success)alert("Votre demande a bien été envoyée. Nous vous recontacterons très prochainement."),o.reset();else{console.error("Erreur API:",e);const t=e.details?`${e.error}
+
+Détails: ${e.details}`:e.error||"Erreur inconnue";console.log("Message d'erreur complet:",t),alert(`Une erreur est survenue lors de l'envoi de votre demande.
+
+${t}
+
+Veuillez réessayer plus tard ou nous contacter directement à chalet.husky.2alpes@gmail.com`)}}catch(r){console.error("Erreur:",r),alert("Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer plus tard ou nous contacter directement à chalet.husky.2alpes@gmail.com")}})});

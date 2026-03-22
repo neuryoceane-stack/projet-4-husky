@@ -1,0 +1,108 @@
+---
+export interface Props {
+  currentPage?: 'dashboard' | 'calendrier' | 'crm' | 'synthese';
+}
+const { currentPage } = Astro.props;
+---
+
+<nav class="admin-nav">
+  <div class="admin-nav-inner">
+    <span class="admin-nav-brand">🏔 Chalet Husky</span>
+    <div class="admin-nav-links">
+      <a href="/admin" class:list={['admin-nav-link', { active: currentPage === 'dashboard' }]}>
+        Accueil
+      </a>
+      <a href="/admin/calendrier" class:list={['admin-nav-link', { active: currentPage === 'calendrier' }]}>
+        📅 Calendrier
+      </a>
+      <a href="/admin/crm" class:list={['admin-nav-link', { active: currentPage === 'crm' }]}>
+        👥 Clients
+      </a>
+      <a href="/admin/synthese" class:list={['admin-nav-link', { active: currentPage === 'synthese' }]}>
+        📊 Synthèse
+      </a>
+    </div>
+    <button type="button" id="adminNavLogout" class="admin-nav-logout">Déconnexion</button>
+  </div>
+</nav>
+
+<style>
+  .admin-nav {
+    background: var(--color-blue-night);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .admin-nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 56px;
+  }
+  .admin-nav-brand {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+    margin-right: 1rem;
+  }
+  .admin-nav-links {
+    display: flex;
+    gap: 0.25rem;
+    flex: 1;
+  }
+  .admin-nav-link {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+  }
+  .admin-nav-link:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+  }
+  .admin-nav-link.active {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    font-weight: 700;
+  }
+  .admin-nav-logout {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+  .admin-nav-logout:hover {
+    background: rgba(255,255,255,0.22);
+    color: #fff;
+  }
+  @media (max-width: 600px) {
+    .admin-nav-brand { display: none; }
+    .admin-nav-link { padding: 0.5rem 0.6rem; font-size: 0.8rem; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('adminNavLogout')?.addEventListener('click', () => {
+      sessionStorage.removeItem('chalet_admin_auth');
+      sessionStorage.removeItem('chalet_admin_time');
+      window.location.href = '/';
+    });
+  });
+</script>

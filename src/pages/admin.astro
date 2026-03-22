@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import AdminLayout from '../layouts/AdminLayout.astro';
 
 // Redirection côté serveur si non authentifié (pour Astro hybrid)
 if (import.meta.env.SSR) {
@@ -8,137 +8,231 @@ if (import.meta.env.SSR) {
 }
 ---
 
-<BaseLayout 
+<AdminLayout 
   title="Administration - Chalet Husky"
   description="Plateforme d'administration du Chalet Husky"
+  currentPage="dashboard"
 >
   <section class="admin-section">
     <div class="container">
-      <div class="admin-header">
-        <h1>Administration Chalet Husky</h1>
-        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
+      <div class="admin-dashboard-header">
+        <div>
+          <h1>Bonjour Florence 🌸</h1>
+          <p class="admin-subtitle">Espace de gestion — Chalet Husky, Les Deux Alpes</p>
+          <p class="admin-daily-quote" id="dailyQuote"></p>
+        </div>
       </div>
 
       <div class="admin-grid">
+        <a href="/admin/calendrier" class="admin-card">
+          <div class="admin-card-icon-wrap calendrier-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="admin-card-content">
+            <h2>Calendrier</h2>
+            <p>Réservations et tarifs par semaine</p>
+          </div>
+          <svg class="admin-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+
         <a href="/admin/crm" class="admin-card">
-          <div class="admin-card-icon">📋</div>
-          <h2>CRM Clients</h2>
-          <p>Gérer les contacts et demandes de réservation</p>
+          <div class="admin-card-icon-wrap crm-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="admin-card-content">
+            <h2>Clients</h2>
+            <p>Contacts et demandes de réservation</p>
+          </div>
+          <svg class="admin-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
 
         <a href="/admin/synthese" class="admin-card">
-          <div class="admin-card-icon">📊</div>
-          <h2>Synthèse</h2>
-          <p>Vue d'ensemble et statistiques</p>
-        </a>
-
-        <a href="/admin/calendrier" class="admin-card">
-          <div class="admin-card-icon">📅</div>
-          <h2>Calendrier</h2>
-          <p>Gérer les réservations et prix par semaine</p>
+          <div class="admin-card-icon-wrap synthese-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <div class="admin-card-content">
+            <h2>Synthèse</h2>
+            <p>Statistiques et vue d'ensemble</p>
+          </div>
+          <svg class="admin-card-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
         </a>
       </div>
     </div>
   </section>
-</BaseLayout>
+</AdminLayout>
 
 <style>
-  :global(body) {
-    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
-  }
-
   .admin-section {
-    padding: var(--spacing-xl) 0;
-    min-height: calc(100vh - 200px);
+    padding: 3rem 0;
+    min-height: calc(100vh - 56px);
+    background: #f5f4f1;
   }
 
-  .admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--spacing-xl);
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
   }
 
-  .admin-header h1 {
+  .admin-dashboard-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .admin-dashboard-header h1 {
     font-size: 2rem;
     font-weight: 900;
     color: var(--color-blue-night);
+    margin: 0 0 0.4rem 0;
+  }
+
+  .admin-subtitle {
+    color: #6b7280;
+    font-size: 0.95rem;
     margin: 0;
   }
 
+  .admin-daily-quote {
+    margin: 0.75rem 0 0 0;
+    font-size: 0.95rem;
+    color: #7c6f5e;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
   .admin-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .admin-card {
     background: white;
-    border-radius: 16px;
-    padding: var(--spacing-xl);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    text-align: center;
+    gap: 1.25rem;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    border: 1px solid #ebe9e4;
   }
 
   .admin-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
   }
 
-  .admin-card-icon {
-    font-size: 3.2rem;
-    margin-bottom: var(--spacing-md);
+  .admin-card-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
-  .admin-card h2 {
-    font-size: 1.4rem;
+  .calendrier-icon {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .crm-icon {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  .synthese-icon {
+    background: #ede9fe;
+    color: #7c3aed;
+  }
+
+  .admin-card-content {
+    flex: 1;
+  }
+
+  .admin-card-content h2 {
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-blue-night);
-    margin-bottom: var(--spacing-sm);
+    margin: 0 0 0.25rem 0;
   }
 
-  .admin-card p {
-    color: var(--color-text-light);
-    font-size: 0.9rem;
+  .admin-card-content p {
+    color: #6b7280;
+    font-size: 0.875rem;
     margin: 0;
   }
 
-  @media (max-width: 768px) {
-    .admin-header h1 {
-      font-size: 1.6rem;
-    }
+  .admin-card-arrow {
+    color: #9ca3af;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s;
+  }
 
-    .admin-grid {
-      grid-template-columns: 1fr;
-    }
+  .admin-card:hover .admin-card-arrow {
+    color: var(--color-blue-night);
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 600px) {
+    .admin-dashboard-header h1 { font-size: 1.5rem; }
+    .admin-card { padding: 1.25rem; }
+    .admin-card-icon-wrap { width: 48px; height: 48px; }
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Vérifier l'authentification
     const auth = sessionStorage.getItem('chalet_admin_auth');
     if (auth !== 'authenticated') {
       window.location.href = '/login';
       return;
     }
 
-    // Bouton de déconnexion
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        sessionStorage.removeItem('chalet_admin_auth');
-        sessionStorage.removeItem('chalet_admin_time');
-        window.location.href = '/';
-      });
-    }
+    const phrases = [
+      "La montagne garde tes secrets et célèbre ta générosité. ✨",
+      "Tu transformes chaque séjour en souvenir impérissable. 🏔️",
+      "Chaque clé que tu confies, c'est un peu de bonheur que tu offres. 🗝️",
+      "Les Deux Alpes brillent un peu plus grâce à toi. 🌟",
+      "Tu n'loues pas un chalet — tu offres des instants précieux. 🎁",
+      "Derrière chaque réservation, une famille qui rêvait de neige. ❄️",
+      "Ton chalet est un refuge, et toi, tu en es l'âme. 🏡",
+      "Le soin que tu mets dans les détails fait toute la différence. 🌺",
+      "Les sommets t'inspirent, et tu inspires ceux qui y séjournent. 🦅",
+      "Florence, tu fais de la montagne un endroit encore plus magique. 💫",
+      "Chaque semaine louée est une histoire qui commence grâce à toi. 📖",
+      "Tu portes ce chalet avec élégance et douceur. 🌿",
+      "La neige tombe, les étoiles brillent, et toi tu veilles sur tout ça. 🌙",
+    ];
+
+    // Phrase différente chaque jour (basée sur la date)
+    const today = new Date();
+    const dayIndex = (today.getFullYear() * 365 + today.getMonth() * 31 + today.getDate()) % phrases.length;
+    
+    const quoteEl = document.getElementById('dailyQuote');
+    if (quoteEl) quoteEl.textContent = phrases[dayIndex];
   });
 </script>

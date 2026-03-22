@@ -1,0 +1,87 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/assets/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/admin\\/calendrier\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/admin\\/crm\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/admin\\/synthese\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/admin\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/admin\\/calendar\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/admin\\/contacts\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/admin\\/init-db\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/send-reservation\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/chalet\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/en\\/chalet\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/en\\/reserver\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/en\\/station\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/en\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/login\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/reserver\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/station\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "_render"
+		}
+	]
+}

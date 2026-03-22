@@ -1,0 +1,74 @@
+---
+import AdminNav from '../components/AdminNav.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  currentPage?: 'dashboard' | 'calendrier' | 'crm' | 'synthese';
+}
+
+const { title, description, image = '/assets/logo/logo.svg', currentPage } = Astro.props;
+const currentPath = Astro.url.pathname;
+const isEn = currentPath.startsWith('/en');
+const locale = isEn ? 'en' : 'fr';
+const localeFull = isEn ? 'en_US' : 'fr_FR';
+
+const siteURL = Astro.site || 'https://chalethusky.fr';
+let canonicalURL: URL;
+try {
+  canonicalURL = Astro.url ? new URL(Astro.url.pathname, siteURL) : new URL('/', siteURL);
+} catch {
+  canonicalURL = new URL(Astro.url?.pathname || '/', siteURL);
+}
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href="/assets/logo/logo.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/logo/logo.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Google Fonts - Playfair Display (style AIRELLES) et Montserrat (style COURCHEVEL) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500&family=Lobster&display=swap" rel="stylesheet">
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image.startsWith('http') ? image : `${siteURL}${image}`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={localeFull} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Chalet Husky" />
+    
+    <!-- Alternate languages -->
+    <link rel="alternate" hreflang="fr" href={siteURL + (currentPath.startsWith('/en') ? currentPath.replace('/en', '') : currentPath)} />
+    <link rel="alternate" hreflang="en" href={siteURL + (currentPath.startsWith('/en') ? currentPath : `/en${currentPath}`)} />
+    <link rel="alternate" hreflang="x-default" href={siteURL + (currentPath.startsWith('/en') ? currentPath.replace('/en', '') : currentPath)} />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image.startsWith('http') ? image : `${siteURL}${image}`} />
+  </head>
+  <body>
+    <AdminNav currentPage={currentPage} />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

@@ -1,16 +1,19 @@
 ---
-import AdminLayout from '../../layouts/AdminLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<AdminLayout 
+<BaseLayout 
   title="CRM Clients - Administration Chalet Husky"
   description="Gestion des contacts clients"
-  currentPage="crm"
 >
   <section class="admin-section">
     <div class="container">
       <div class="admin-header">
-        <h1>CRM Clients</h1>
+        <div>
+          <a href="/admin" class="back-link">← Retour</a>
+          <h1>CRM Clients</h1>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
       </div>
 
       <div class="crm-container">
@@ -92,7 +95,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       </div>
     </div>
   </section>
-</AdminLayout>
+</BaseLayout>
 
 <style>
   :global(body) {
@@ -664,6 +667,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       return;
     }
 
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/';
+      });
+    }
+
     // Supprimer cette ligne car on charge maintenant via API
     // const contacts = JSON.parse(localStorage.getItem('chalet_contacts') || '[]');
     
@@ -793,7 +806,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       }
     }
 
-    const statutsList = ['contact', 'en_cours', 'confirme', 'annule'];
+    const statutsList = ['contact', 'confirme'];
 
     function showEditForm(contact: any) {
       const body = document.getElementById('contactModalBody');
@@ -828,17 +841,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             <input type="text" id="edit-nationalite" value="${(contact.nationalite || '').replace(/"/g, '&quot;')}" />
           </div>
           <div class="form-group">
-            <label for="edit-source">Source</label>
-            <select id="edit-source">
-              <option value="Formulaire réservation" ${(contact.source||'')==='Formulaire réservation'?'selected':''}>Formulaire réservation</option>
-              <option value="Booking" ${(contact.source||'')==='Booking'?'selected':''}>Booking</option>
-              <option value="Chalet Montagne" ${(contact.source||'')==='Chalet Montagne'?'selected':''}>Chalet Montagne</option>
-              <option value="Centrale de résa" ${(contact.source||'')==='Centrale de résa'?'selected':''}>Centrale de résa</option>
-              <option value="Direct" ${(contact.source||'')==='Direct'?'selected':''}>Direct</option>
-              <option value="Autre" ${(contact.source||'')==='Autre'?'selected':''}>Autre</option>
-            </select>
-          </div>
-          <div class="form-group">
             <label for="edit-statut">Statut</label>
             <select id="edit-statut">
               ${statutsList.map(s => `<option value="${s}" ${(contact.statut || '') === s ? 'selected' : ''}>${s.replace('_', ' ')}</option>`).join('')}
@@ -870,7 +872,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           periode: (document.getElementById('edit-periode') as HTMLInputElement).value.trim(),
           personnes: contact.personnes || '',
           statut: (document.getElementById('edit-statut') as HTMLSelectElement).value,
-          source: (document.getElementById('edit-source') as HTMLSelectElement).value,
+          source: contact.source || '',
           message: (document.getElementById('edit-message') as HTMLTextAreaElement).value.trim(),
           nationalite: (document.getElementById('edit-nationalite') as HTMLInputElement).value.trim(),
           note: (document.getElementById('edit-note') as HTMLTextAreaElement).value.trim(),
@@ -884,13 +886,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           });
           if (response.ok) {
             closeContactModal();
-            await renderContacts();
-            // Afficher un toast de confirmation
-            const toast = document.createElement('div');
-            toast.textContent = '✓ Contact enregistré';
-            toast.style.cssText = 'position:fixed;bottom:2rem;right:2rem;background:#1e3a5f;color:#fff;padding:0.75rem 1.5rem;border-radius:8px;font-weight:600;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,0.15);';
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            renderContacts();
           } else {
             const err = await response.json().catch(() => ({}));
             alert(err.error || 'Erreur lors de l\'enregistrement.');

@@ -1,16 +1,19 @@
 ---
-import AdminLayout from '../../layouts/AdminLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<AdminLayout 
+<BaseLayout 
   title="Calendrier - Administration Chalet Husky"
   description="Gestion des réservations et prix par semaine"
-  currentPage="calendrier"
 >
   <section class="admin-section">
     <div class="container">
       <div class="admin-header">
-        <h1>Calendrier des réservations</h1>
+        <div>
+          <a href="/admin" class="back-link">← Retour</a>
+          <h1>Calendrier des réservations</h1>
+        </div>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
       </div>
 
       <div class="calendar-container">
@@ -86,7 +89,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       </div>
     </div>
   </div>
-</AdminLayout>
+</BaseLayout>
 
 <style>
   :global(body) {
@@ -554,6 +557,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (auth !== 'authenticated') {
       window.location.href = '/login';
       return;
+    }
+
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/';
+      });
     }
 
     // Fonction pour obtenir le premier samedi de décembre

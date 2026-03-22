@@ -1,0 +1,41 @@
+import { c as createComponent, d as renderComponent, r as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_lY7DtpCo.mjs';
+import 'kleur/colors';
+import { $ as $$BaseLayout } from '../chunks/BaseLayout_fnnClJRy.mjs';
+import { $ as $$Hero } from '../chunks/Hero_CDfcXzD3.mjs';
+/* empty css                                 */
+export { renderers } from '../renderers.mjs';
+
+const $$Index = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "Chalet Husky - Location Premium aux 2 Alpes", "description": "D\xE9couvrez le Chalet Husky, une location d'exception au c\u0153ur des 2 Alpes. Confort, vue panoramique et proximit\xE9 des pistes pour des vacances m\xE9morables \xE0 la montagne.", "data-astro-cid-j7pv25f6": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, { "badge": "Au bord des pistes de ski", "title": "Un s\xE9jour au paradis", "subtitle": "Chalet de standing pour 12 personnes", "image": "/assets/acceuil/Muzelle.jpg", "ctaPrimary": { text: "D\xE9couvrir le chalet", link: "/chalet" }, "ctaSecondary": { text: "La station des 2 Alpes", link: "/station" }, "data-astro-cid-j7pv25f6": true })} ${maybeRenderHead()}<section class="section" data-astro-cid-j7pv25f6> <div class="container" data-astro-cid-j7pv25f6> <div class="hero-intro-container" data-astro-cid-j7pv25f6> <h2 class="hero-section-title" data-astro-cid-j7pv25f6>
+L'art de vivre à la montagne,<br data-astro-cid-j7pv25f6>en toute élégance
+</h2> <div class="hero-section-text" data-astro-cid-j7pv25f6> <p data-astro-cid-j7pv25f6>Pensé comme un refuge exclusif pour vos retrouvailles, notre chalet de standing pour 12 personnes vous offre le privilège d'un séjour "skis aux pieds". Après une journée sur les sommets, profitez du panorama et de la sérénité d'une vue imprenable. Tout a été conçu pour que vous n'ayez qu'une seule chose à faire : déconnecter.</p> </div> <div class="features-grid" data-astro-cid-j7pv25f6> <div class="feature-item" data-astro-cid-j7pv25f6> <div class="feature-icon-wrapper" data-astro-cid-j7pv25f6> <img src="/assets/icons/ski.png" alt="Skis aux pieds" class="feature-icon" data-astro-cid-j7pv25f6> </div> <h3 class="feature-title" data-astro-cid-j7pv25f6>Au bord des pistes</h3> </div> <div class="feature-item" data-astro-cid-j7pv25f6> <div class="feature-icon-wrapper" data-astro-cid-j7pv25f6> <img src="/assets/icons/family.png" alt="12 personnes" class="feature-icon" data-astro-cid-j7pv25f6> </div> <h3 class="feature-title" data-astro-cid-j7pv25f6>12 personnes</h3> </div> <div class="feature-item" data-astro-cid-j7pv25f6> <div class="feature-icon-wrapper" data-astro-cid-j7pv25f6> <img src="/assets/icons/spa.png" alt="Hammam" class="feature-icon" data-astro-cid-j7pv25f6> </div> <h3 class="feature-title" data-astro-cid-j7pv25f6>Hammam</h3> </div> </div> <div class="hero-section-text hero-section-text-alt" data-astro-cid-j7pv25f6> <p data-astro-cid-j7pv25f6>
+Chaussez vos skis, vous êtes déjà arrivés. Notre chalet de 12 personnes est le théâtre parfait de vos vacances : des volumes généreux pour se retrouver sans se marcher dessus, un hammam pour apaiser les muscles après l'effort, et une terrasse plein sud pour des déjeuners face aux sommets. Bienvenue dans votre maison de montagne, pensée pour le bonheur des petits et des grands.
+</p> </div> </div> </div> </section> <section class="section section-alt" data-astro-cid-j7pv25f6> <div class="container" data-astro-cid-j7pv25f6> <h2 class="experience-section-title" data-astro-cid-j7pv25f6> <img src="/assets/logo/logo husky transparent.png" alt="" class="experience-title-logo" data-astro-cid-j7pv25f6>
+Destination : Les 2 Alpes
+</h2> <div class="experience-content" data-astro-cid-j7pv25f6> <div class="experience-image-container" data-astro-cid-j7pv25f6> <img src="/assets/station/2 Alps oeufs blancs.jpg" alt="Les 2 Alpes - Télécabines" class="experience-image" data-astro-cid-j7pv25f6> </div> <div class="experience-grid" data-astro-cid-j7pv25f6> <div class="experience-item" data-astro-cid-j7pv25f6> <h3 class="experience-title" data-astro-cid-j7pv25f6> <img src="/assets/icons/domaine skiable.png" alt="" class="experience-item-icon" data-astro-cid-j7pv25f6>
+Domaine skiable
+</h3> <p class="experience-text" data-astro-cid-j7pv25f6>200 km de glisse, une neige garantie et des panoramas à couper le souffle. Que vous soyez skieur serein ou mordu de dénivelé, le terrain de jeu des 2 Alpes commence ici.</p> </div> <div class="experience-item" data-astro-cid-j7pv25f6> <h3 class="experience-title" data-astro-cid-j7pv25f6> <img src="/assets/icons/restaurant.png" alt="" class="experience-item-icon" data-astro-cid-j7pv25f6>
+Restaurants d'altitude
+</h3> <p class="experience-text" data-astro-cid-j7pv25f6>De la table étoilée au refuge chaleureux, goûtez au meilleur des Alpes. Fondus, crozets ou haute gastronomie : prolongez la magie du ski par une escale gourmande.</p> </div> <div class="experience-item" data-astro-cid-j7pv25f6> <h3 class="experience-title" data-astro-cid-j7pv25f6> <img src="/assets/icons/bien etre.png" alt="" class="experience-item-icon" data-astro-cid-j7pv25f6>
+Activités bien-être
+</h3> <p class="experience-text" data-astro-cid-j7pv25f6>Place à la détente. Profitez des espaces bien-être de la station ou de notre hammam privé pour clore vos journées de ski dans une bulle de sérénité.</p> </div> <div class="experience-item" data-astro-cid-j7pv25f6> <h3 class="experience-title" data-astro-cid-j7pv25f6> <img src="/assets/icons/climbing.png" alt="" class="experience-item-icon" data-astro-cid-j7pv25f6>
+Activités été
+</h3> <p class="experience-text" data-astro-cid-j7pv25f6>Un paradis vert sous le soleil des Alpes. Des sentiers de randonnée aux pistes de VTT, vivez l'été intensément au cœur d'une nature sauvage et préservée.</p> </div> </div> </div> <div class="experience-actions" data-astro-cid-j7pv25f6> <a href="/station" class="btn btn-primary" data-astro-cid-j7pv25f6>Découvrir la station</a> </div> </div> </section> <section class="section" data-astro-cid-j7pv25f6> <div class="container" data-astro-cid-j7pv25f6> <div class="localisation-card" data-astro-cid-j7pv25f6> <h2 data-astro-cid-j7pv25f6>Localisation privilégiée</h2> <p class="localisation-text" data-astro-cid-j7pv25f6>
+Le Chalet Husky est idéalement situé au <strong data-astro-cid-j7pv25f6>8 impasse des lys, 38860 Les 2 Alpes</strong>, à quelques pas des remontées mécaniques et des commerces de la station.
+</p> <div class="map-container" data-astro-cid-j7pv25f6> <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2815.3045!2d6.1234!3d45.0086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478a13f707f43c8d%3A0x408ab2ae4ba01e0!2s8%20Imp.%20des%20Lys%2C%2038860%20Les%20Deux%20Alpes!5e0!3m2!1sfr!2sfr!4v1716300000000!5m2!1sfr!2sfr" width="100%" height="450" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-astro-cid-j7pv25f6>
+          </iframe> </div> </div> </div> </section> <section class="section section-cta" data-astro-cid-j7pv25f6> <div class="cta-overlay" data-astro-cid-j7pv25f6></div> <div class="container" style="position: relative; z-index: 2;" data-astro-cid-j7pv25f6> <h2 class="text-center mb-lg" style="color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.5);" data-astro-cid-j7pv25f6>Et si vos plus beaux souvenirs commençaient ici ?</h2> <div class="cta-cards" data-astro-cid-j7pv25f6> <a href="/station" class="cta-card" data-astro-cid-j7pv25f6> <span class="cta-card-text" data-astro-cid-j7pv25f6>La station des 2 Alpes</span> </a> <a href="/chalet" class="cta-card" data-astro-cid-j7pv25f6> <span class="cta-card-text" data-astro-cid-j7pv25f6>Votre Chalet</span> </a> </div> </div> </section> ` })} `;
+}, "/Users/oceaneneury/Desktop/Cursor/Projet 4 Husky/src/pages/index.astro", void 0);
+
+const $$file = "/Users/oceaneneury/Desktop/Cursor/Projet 4 Husky/src/pages/index.astro";
+const $$url = "";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Index,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

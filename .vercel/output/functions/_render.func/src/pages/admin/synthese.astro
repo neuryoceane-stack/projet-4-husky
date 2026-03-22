@@ -1,16 +1,16 @@
 ---
-import AdminLayout from '../../layouts/AdminLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
-<AdminLayout 
+<BaseLayout 
   title="Synthèse - Administration Chalet Husky"
   description="Vue d'ensemble et statistiques"
-  currentPage="synthese"
 >
   <section class="admin-section">
     <div class="container">
       <div class="admin-header">
         <div class="header-left">
+          <a href="/admin" class="back-link">← Retour</a>
           <h1>Synthèse</h1>
           <div class="period-selector">
             <label for="periodSelect" class="period-label">Période :</label>
@@ -19,6 +19,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             </select>
           </div>
         </div>
+        <button id="logoutBtn" class="btn btn-secondary">Déconnexion</button>
       </div>
 
       <div class="synthese-grid">
@@ -54,7 +55,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       </div>
     </div>
   </section>
-</AdminLayout>
+</BaseLayout>
 
 <style>
   :global(body) {
@@ -270,6 +271,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     if (auth !== 'authenticated') {
       window.location.href = '/login';
       return;
+    }
+
+    // Bouton de déconnexion
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem('chalet_admin_auth');
+        sessionStorage.removeItem('chalet_admin_time');
+        window.location.href = '/';
+      });
     }
 
     // Fonctions pour calculer les semaines (copiées depuis calendrier.astro)

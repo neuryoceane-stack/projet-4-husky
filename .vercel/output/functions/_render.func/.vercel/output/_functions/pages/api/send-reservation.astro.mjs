@@ -1,0 +1,93 @@
+import '../../chunks/env-bridge_COxfGZjz.mjs';
+import { Resend } from 'resend';
+export { renderers } from '../../renderers.mjs';
+
+const RESERVATION_EMAIL = "chalet.husky.2alpes@gmail.com";
+const DEFAULT_FROM = "Chalet Husky <onboarding@resend.dev>";
+const FROM_EMAIL = DEFAULT_FROM;
+const USE_VERIFIED_DOMAIN = Boolean(undefined                                 );
+const DESTINATION_EMAIL = USE_VERIFIED_DOMAIN ? RESERVATION_EMAIL : "neuryoceane@gmail.com";
+const POST = async ({ request }) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "POST"
+  };
+  try {
+    const { nom, email, telephone, message } = await request.json();
+    if (!nom || !email || !telephone) {
+      return new Response(JSON.stringify({ error: "Champs requis manquants", success: false }), {
+        status: 400,
+        headers
+      });
+    }
+    const apiKey = undefined                               || process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error("RESEND_API_KEY non configuré");
+      return new Response(JSON.stringify({ error: "Envoi d'email non configuré", success: false }), {
+        status: 500,
+        headers
+      });
+    }
+    const resend = new Resend(apiKey);
+    const subject = `[Chalet Husky] Nouvelle demande de réservation - ${nom}`;
+    const html = `
+      <h2>Nouvelle demande de réservation</h2>
+      <p><strong>Nom :</strong> ${nom}</p>
+      <p><strong>Email :</strong> ${email}</p>
+      <p><strong>Téléphone :</strong> ${telephone}</p>
+      <p><strong>Message :</strong></p>
+      <p>${(message || "-").replace(/\n/g, "<br>")}</p>
+    `;
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: DESTINATION_EMAIL,
+      subject,
+      html
+    });
+    if (error) {
+      console.error("Erreur Resend:", JSON.stringify(error, null, 2));
+      return new Response(JSON.stringify({
+        error: "Erreur lors de l'envoi",
+        details: error.message || "Erreur inconnue",
+        success: false
+      }), {
+        status: 500,
+        headers
+      });
+    }
+    try {
+      const { db } = await import('@vercel/postgres');
+      const client = await db.connect();
+      await client.sql`
+        INSERT INTO contacts (nom, email, telephone, periode, personnes, statut, source, message)
+        VALUES (${nom}, ${email}, ${telephone}, 'Demande à préciser', '-', 'contact', 'Formulaire réservation', ${message || ""})
+      `;
+    } catch (dbError) {
+      console.warn("Base de données non disponible:", dbError);
+    }
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers
+    });
+  } catch (err) {
+    console.error("Erreur send-reservation:", err);
+    return new Response(JSON.stringify({
+      error: "Erreur serveur",
+      details: err?.message || "Erreur inconnue",
+      success: false
+    }), {
+      status: 500,
+      headers
+    });
+  }
+};
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  POST
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

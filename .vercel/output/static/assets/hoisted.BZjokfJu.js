@@ -1,0 +1,1 @@
+import"./hoisted.BV8mCAo3.js";const o=document.getElementById("scrollSnowflake");o&&window.addEventListener("scroll",()=>{const n=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight),t=window.innerHeight,e=n*(t+150),l=Math.sin(window.scrollY/120)*25,s=window.scrollY/6;o.style.transform=`translate(${l}px, ${e}px) rotate(${s}deg)`});

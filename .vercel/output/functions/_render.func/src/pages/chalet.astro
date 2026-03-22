@@ -1,0 +1,796 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<BaseLayout 
+  title="Le Chalet Husky - Votre Cocon entre Ciel et Montagnes"
+  description="Découvrez le Chalet Husky : 5 chambres, cuisine entièrement équipée, hammam privé, terrasse avec vue panoramique. Un hébergement d'exception pour 12 personnes."
+>
+  <Hero 
+    title="Le Chalet Husky"
+    subtitle="Votre Cocon entre Ciel et Montagnes"
+    image="/assets/chalet/vue entree chalet.jpeg"
+  />
+
+  <!-- Section principale -->
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-main-title">Votre Cocon entre Ciel et Montagnes</h2>
+        <p class="chalet-main-text chalet-body-text">
+          Tout a été pensé pour vous accueillir dans un décor chaleureux et raffiné. Nos chambres, véritables écrins de douceur, s'ouvrent chacune sur une terrasse privée offrant une vue panoramique sur les sommets. Pour vos instants gourmands, vous disposerez d'une cuisine entièrement équipée. Savourez vos plats dans l'intimité de la salle à manger ou profitez du grand air sur la terrasse aménagée.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Vues extérieures -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-section-title">Un panorama grandeur nature</h2>
+        <p class="chalet-section-text chalet-body-text">
+          Profitez d'une terrasse spacieuse, entièrement aménagée pour vos moments de détente. Entre deux descentes ou après une randonnée, prélassez-vous sur nos transats ou partagez un barbecue convivial face à l'immensité de la Vallée Blanche. Un espace sans aucun vis-à-vis, où les repas se savourent face aux sommets.
+        </p>
+        <div class="chalet-ext-gallery">
+          <div class="chalet-ext-grid">
+            <div class="chalet-ext-item">
+              <img src="/assets/chalet/Vue ext chalet.JPG" alt="Vue extérieure - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-ext-item">
+              <img src="/assets/chalet/Vue ext 2.JPG" alt="Vue extérieure 2 - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-ext-item">
+              <img src="/assets/chalet/Vue ext 3.JPG" alt="Vue extérieure 3 - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-ext-item">
+              <img src="/assets/chalet/Vue ext neige.png" alt="Vue extérieure sous la neige - Chalet Husky" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Espaces de vie -->
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-section-title">L'art de se retrouver</h2>
+        <p class="chalet-section-text chalet-body-text">
+          Nos espaces de vie ont été conçus pour votre bien-être : une clarté exceptionnelle grâce à une belle luminosité, le crépitement d'une cheminée authentique pour vos retours de ski, et un coin télévision confortable. Des pièces vastes et douillettes, idéales pour se ressourcer et créer des souvenirs inoubliables.
+        </p>
+        <div class="chalet-spaces-gallery">
+          <div class="chalet-spaces-grid">
+            <div class="chalet-space-item">
+              <img src="/assets/chalet/Salon salle a manger.JPG" alt="Salon salle à manger - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-space-item">
+              <img src="/assets/chalet/Salon cheminee.jpg" alt="Salon cheminée - Chalet Husky" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Cuisine -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-section-title">Cuisine entièrement équipée</h2>
+        <p class="chalet-section-text chalet-body-text">
+          La cuisine est entièrement équipée pour préparer de bons petits plats à déguster soit à la salle à manger soit sur la terrasse aménagée.
+        </p>
+        
+        <div class="chalet-equipment-grid">
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">🍽️</span>
+            <p>Four micro-ondes</p>
+          </div>
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">🍽️</span>
+            <p>Lave-vaisselle</p>
+          </div>
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">🍽️</span>
+            <p>Plaques vitrocéramiques</p>
+          </div>
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">🍽️</span>
+            <p>Réfrigérateur</p>
+          </div>
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">☕</span>
+            <p>Cafetière</p>
+          </div>
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">☕</span>
+            <p>Cafetière Nespresso</p>
+          </div>
+          <div class="chalet-equipment-item">
+            <span class="chalet-equipment-icon">🧀</span>
+            <p>Appareils à raclette</p>
+          </div>
+        </div>
+
+        <!-- Galerie cuisine -->
+        <div class="chalet-kitchen-gallery">
+          <div class="chalet-kitchen-grid">
+            <div class="chalet-kitchen-item">
+              <img 
+                src="/assets/chalet/Cuisine.JPG" 
+                alt="Cuisine - Chalet Husky"
+                loading="lazy"
+              />
+            </div>
+            <div class="chalet-kitchen-item">
+              <img 
+                src="/assets/chalet/Salle a manger.JPG" 
+                alt="Salle à manger - Chalet Husky"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Équipements disponibles -->
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-section-title text-center">À votre disposition</h2>
+        
+        <div class="chalet-services-grid">
+          <div class="chalet-service-card">
+            <div class="chalet-service-icon">🧳</div>
+            <h3>Bagagerie spacieuse</h3>
+            <p>Pour le rangement</p>
+          </div>
+          
+          <div class="chalet-service-card">
+            <div class="chalet-service-icon">👕</div>
+            <h3>Lave-linge & Sèche-linge</h3>
+            <p>Pour votre confort</p>
+          </div>
+          
+          <div class="chalet-service-card">
+            <div class="chalet-service-icon">👶</div>
+            <h3>Chaise haute & Lit parapluie</h3>
+            <p>Pour bébé</p>
+          </div>
+          
+          <div class="chalet-service-card">
+            <div class="chalet-service-icon">🎿</div>
+            <h3>Local à skis privé</h3>
+            <p>Équipé de chauffe-chaussures</p>
+          </div>
+          
+          <div class="chalet-service-card">
+            <div class="chalet-service-icon">🚗</div>
+            <h3>Places de parking privées</h3>
+            <p>Pour votre véhicule</p>
+          </div>
+          
+          <div class="chalet-service-card">
+            <div class="chalet-service-icon">📶</div>
+            <h3>Wifi gratuit</h3>
+            <p>Dans tout le chalet</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5 Chambres -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-section-title">5 Chambres sur 2 niveaux</h2>
+        <p class="chalet-section-text chalet-body-text">
+          Toutes les chambres disposent d'un accès sur la terrasse avec vue panoramique et de leur propre salle de bain.
+        </p>
+        <div class="chalet-rooms-gallery">
+          <div class="chalet-rooms-grid">
+            <div class="chalet-room-item">
+              <img src="/assets/chalet/Chambre beige.JPG" alt="Chambre beige - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-room-item">
+              <img src="/assets/chalet/Chambre bleue.JPG" alt="Chambre bleue - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-room-item">
+              <img src="/assets/chalet/Chambre noire.JPG" alt="Chambre noire - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-room-item">
+              <img src="/assets/chalet/Chambre rouge.JPG" alt="Chambre rouge - Chalet Husky" loading="lazy" />
+            </div>
+            <div class="chalet-room-item">
+              <img src="/assets/chalet/Chambre verte.JPG" alt="Chambre verte - Chalet Husky" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Salles de bain -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h2 class="chalet-section-title">Salles de bain</h2>
+        <p class="chalet-section-text chalet-body-text">
+          Chaque chambre dispose de sa propre salle de bain pour votre confort et votre intimité.
+        </p>
+        <div class="chalet-bathrooms-gallery">
+          <div class="chalet-bathrooms-grid">
+            <div class="chalet-bathroom-item">
+              <img 
+                src="/assets/chalet/Salle de bain noire.JPG" 
+                alt="Salle de bain - Chalet Husky"
+                loading="lazy"
+              />
+            </div>
+            <div class="chalet-bathroom-item">
+              <img 
+                src="/assets/chalet/Salle d'eau beige.JPG" 
+                alt="Salle d'eau - Chalet Husky"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Hammam privé -->
+  <section class="section">
+    <div class="container">
+      <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
+        <h2 class="chalet-section-title">Hammam privé</h2>
+        <div class="chalet-hammam-image">
+          <img src="/assets/chalet/Hammam.JPG" alt="Hammam privé - Chalet Husky" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Ce qui est inclus -->
+  <section class="section section-alt">
+    <div class="container">
+      <div style="max-width: 900px; margin: 0 auto;">
+        <h2 class="chalet-section-title">Ce qui est inclus dans votre séjour</h2>
+        <ul class="chalet-inclus-list">
+          <li>Accueil personnalisé</li>
+          <li>Le linge de lit et les torchons</li>
+          <li>Bois de cheminée</li>
+          <li>Local à ski équipé de chauffe-chaussures de ski, parking privé, bagagerie spacieuse pour rangement</li>
+          <li>Lave-linge, sèche-linge</li>
+          <li>Chaise haute et lit parapluie pour bébé</li>
+          <li>WiFi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTA 
+    title="Réservez votre séjour"
+    text="Contactez-nous dès maintenant pour vérifier les disponibilités et obtenir un devis personnalisé pour votre séjour au Chalet Husky."
+    buttonText="Réserver"
+    buttonLink="/reserver"
+    variant="alt"
+  />
+</BaseLayout>
+
+<style>
+  .chalet-main-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .chalet-main-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .chalet-body-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: var(--font-size-base) !important;
+    line-height: 1.5 !important;
+    color: #0F2540 !important;
+    font-weight: 400 !important;
+  }
+
+  .chalet-section-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .chalet-section-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--color-blue-night);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .chalet-inclus-list {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.0625rem;
+    line-height: 2;
+    color: var(--color-blue-night);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .chalet-inclus-list li {
+    position: relative;
+    padding-left: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .chalet-inclus-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  /* Galerie des chambres */
+  .chalet-rooms-gallery {
+    margin-top: var(--spacing-lg);
+  }
+
+  .chalet-rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .chalet-room-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-room-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .chalet-room-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chalet-room-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Image Hammam */
+  .chalet-hammam-image {
+    margin-top: var(--spacing-lg);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .chalet-hammam-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Grille équipements cuisine */
+  .chalet-equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .chalet-equipment-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-equipment-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .chalet-equipment-icon {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .chalet-equipment-item p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-blue-night);
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Galerie cuisine */
+  .chalet-kitchen-gallery {
+    margin-top: var(--spacing-xl);
+  }
+
+  .chalet-kitchen-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .chalet-kitchen-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-kitchen-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .chalet-kitchen-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chalet-kitchen-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Grille services */
+  .chalet-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+  }
+
+  .chalet-service-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-lg);
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .chalet-service-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .chalet-service-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-blue-night);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .chalet-service-card p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-blue-night);
+    margin: 0;
+  }
+
+  /* Espaces de vie */
+  .chalet-spaces-gallery {
+    margin-top: var(--spacing-lg);
+  }
+
+  .chalet-spaces-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .chalet-space-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-space-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .chalet-space-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chalet-space-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Vues extérieures */
+  .chalet-ext-gallery {
+    margin-top: var(--spacing-lg);
+  }
+
+  .chalet-ext-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .chalet-ext-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-ext-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .chalet-ext-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chalet-ext-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Salles de bain */
+  .chalet-bathrooms-gallery {
+    margin-top: var(--spacing-lg);
+  }
+
+  .chalet-bathrooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .chalet-bathroom-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-bathroom-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .chalet-bathroom-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chalet-bathroom-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Autres espaces */
+  .chalet-other-gallery {
+    margin-top: var(--spacing-lg);
+  }
+
+  .chalet-other-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-md);
+  }
+
+  .chalet-other-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    aspect-ratio: 4 / 3;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .chalet-other-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .chalet-other-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .chalet-other-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Responsive - Tablette */
+  @media (max-width: 1024px) {
+    .chalet-rooms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chalet-spaces-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chalet-ext-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chalet-bathrooms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chalet-services-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    .chalet-hammam-image {
+      padding: 0 var(--spacing-sm);
+    }
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 768px) {
+    .chalet-main-title {
+      font-size: 1.875rem;
+      padding: 0 var(--spacing-xs);
+      line-height: 1.2;
+    }
+
+    .chalet-section-title {
+      font-size: 1.5rem;
+      padding: 0 var(--spacing-sm);
+      line-height: 1.25;
+    }
+
+    .chalet-main-text,
+    .chalet-section-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      padding: 0 var(--spacing-xs);
+      text-align: center;
+    }
+
+    .chalet-rooms-grid,
+    .chalet-kitchen-grid,
+    .chalet-spaces-grid,
+    .chalet-ext-grid,
+    .chalet-bathrooms-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+
+    .chalet-services-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+
+    .chalet-equipment-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-sm);
+    }
+
+    .chalet-equipment-item p {
+      font-size: 0.8rem;
+    }
+
+    .chalet-service-card h3 {
+      font-size: 1.25rem;
+    }
+
+    .chalet-service-icon {
+      font-size: 2.5rem;
+    }
+
+    .chalet-inclus-list {
+      font-size: 0.9375rem;
+      padding: 0 var(--spacing-sm);
+    }
+
+    .chalet-inclus-list li {
+      padding-left: 1.5rem;
+      margin-bottom: 0.375rem;
+    }
+
+    .chalet-hammam-image {
+      margin-top: var(--spacing-md);
+      padding: 0 var(--spacing-sm);
+    }
+
+    .chalet-hammam-image img {
+      border-radius: 12px;
+    }
+  }
+
+  /* Responsive - Petit mobile */
+  @media (max-width: 480px) {
+    .chalet-main-title {
+      font-size: 1.5rem;
+    }
+
+    .chalet-section-title {
+      font-size: 1.375rem;
+    }
+
+    .chalet-main-text,
+    .chalet-section-text {
+      font-size: 0.9375rem;
+    }
+
+    .chalet-equipment-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chalet-equipment-item {
+      padding: var(--spacing-sm);
+    }
+
+    .chalet-service-card {
+      padding: var(--spacing-md);
+    }
+
+    .chalet-inclus-list {
+      font-size: 0.875rem;
+      line-height: 1.75;
+    }
+  }
+</style>
