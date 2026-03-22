@@ -9,33 +9,46 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 >
   <section class="admin-section">
     <div class="container">
-      <div class="admin-header">
-        <h1>Calendrier des réservations</h1>
+      <div class="cal-header">
+        <div>
+          <p class="cal-label">Saison</p>
+          <h1 id="currentYear">Hiver 25/26</h1>
+        </div>
+        <div class="cal-nav">
+          <button id="prevYear" class="btn btn-secondary">← Précédent</button>
+          <button id="nextYear" class="btn btn-secondary">Suivant →</button>
+        </div>
       </div>
 
-      <div class="calendar-container">
-        <div class="calendar-controls">
-          <button id="prevYear" class="btn btn-secondary">←</button>
-          <span id="currentYear" class="year-display">Hiver 24/25</span>
-          <button id="nextYear" class="btn btn-secondary">→</button>
+      <div class="cal-kpis" id="calKpis">
+        <div class="kpi-card">
+          <p class="kpi-label">Revenus</p>
+          <p class="kpi-value" id="kpiRevenu">—</p>
         </div>
+        <div class="kpi-card">
+          <p class="kpi-label">Occupation</p>
+          <p class="kpi-value" id="kpiOccupation">—</p>
+        </div>
+        <div class="kpi-card">
+          <p class="kpi-label">Réservations</p>
+          <p class="kpi-value" id="kpiReservations">—</p>
+        </div>
+      </div>
 
-        <div class="calendar-table-container">
-          <table class="calendar-table" id="calendarTable">
-            <thead>
-              <tr>
-                <th class="week-column">Semaine</th>
-                <th>Tarif TTC (€)</th>
-                <th>Plateforme</th>
-                <th>État</th>
-                <th class="action-column">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="calendarBody">
-              <!-- Généré par JavaScript -->
-            </tbody>
-          </table>
-        </div>
+      <div class="cal-table-wrap">
+        <table class="cal-table" id="calendarTable">
+          <thead>
+            <tr>
+              <th class="col-semaine">Semaine</th>
+              <th class="col-tarif">Tarif TTC</th>
+              <th class="col-plateforme">Plateforme</th>
+              <th class="col-etat">État</th>
+              <th class="col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="calendarBody">
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -125,320 +138,326 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
   }
 
   .admin-section {
-    padding: 2.5rem 0 4rem;
+    padding: 2rem 0 4rem;
     min-height: calc(100vh - 56px);
     background: #f5f4f1;
   }
 
   .container {
-    max-width: 1100px;
+    max-width: 1050px;
     margin: 0 auto;
     padding: 0 1.5rem;
   }
 
-  .admin-header {
-    margin-bottom: 1.5rem;
+  /* HEADER */
+  .cal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
-  .admin-header h1 {
-    font-size: 1.75rem;
-    font-weight: 900;
-    color: var(--color-blue-night);
+  .cal-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 4px;
+  }
+
+  .cal-header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0f2540;
     margin: 0;
   }
 
-  .calendar-container {
-    background: white;
-    border-radius: 16px;
-    padding: 2rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    border: 1px solid #ebe9e4;
-  }
-
-  .calendar-controls {
+  .cal-nav {
     display: flex;
+    gap: 8px;
     align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #f0ede8;
   }
 
-  .calendar-controls .btn {
-    background: #f5f4f1;
+  .cal-nav .btn {
+    padding: 6px 16px;
+    font-size: 13px;
+    font-family: inherit;
+    background: white;
     border: 1px solid #e0ddd8;
-    color: var(--color-blue-night);
     border-radius: 8px;
-    padding: 0.5rem 1.25rem;
-    font-size: 1rem;
-    font-weight: 600;
+    color: #0f2540;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    font-weight: 600;
+    transition: background 0.15s;
   }
 
-  .calendar-controls .btn:hover {
-    background: #ebe9e4;
-    border-color: #c8c5be;
+  .cal-nav .btn:hover {
+    background: #f5f4f1;
   }
 
-  .year-display {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: var(--color-blue-night);
-    min-width: 120px;
-    text-align: center;
-    letter-spacing: 0.01em;
+  /* KPI CARDS */
+  .cal-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 1.25rem;
   }
 
-  .calendar-table-container {
-    overflow-x: auto;
+  .kpi-card {
+    background: white;
+    border: 0.5px solid #e8e6e3;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
   }
 
-  .calendar-table {
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 6px;
+  }
+
+  .kpi-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f2540;
+    margin: 0;
+  }
+
+  /* TABLE */
+  .cal-table-wrap {
+    background: white;
+    border: 0.5px solid #e8e6e3;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .cal-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px;
+    font-size: 13px;
   }
 
-  .calendar-table thead {
-    background: #f5f4f1;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  .cal-table thead tr {
+    border-bottom: 0.5px solid #e8e6e3;
   }
 
-  .calendar-table th {
-    padding: 0.75rem 1rem;
-    text-align: center;
-    font-weight: 700;
-    font-size: 0.72rem;
+  .cal-table th {
+    padding: 10px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    color: #9ca3af;
-    border-bottom: 2px solid #f0ede8;
+    background: white;
+    text-align: left;
+  }
+
+  .col-tarif { text-align: right !important; }
+  .col-actions { text-align: center !important; }
+
+  .cal-table tbody tr {
+    border-bottom: 0.5px solid #f5f3f0;
+    transition: filter 0.1s;
+  }
+
+  .cal-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .cal-table td {
+    padding: 11px 16px;
+    vertical-align: middle;
+    color: #4b5563;
+  }
+
+  /* COULEURS PAR ÉTAT */
+  .cal-table tbody tr.row-reserved { background: #fff1f2; }
+  .cal-table tbody tr.row-reserved td { background: #fff1f2; }
+  .cal-table tbody tr.row-reserved:hover { background: #ffe4e6; }
+  .cal-table tbody tr.row-reserved:hover td { background: #ffe4e6; }
+
+  .cal-table tbody tr.row-available { background: #f0fdf4; }
+  .cal-table tbody tr.row-available td { background: #f0fdf4; }
+  .cal-table tbody tr.row-available:hover { background: #dcfce7; }
+  .cal-table tbody tr.row-available:hover td { background: #dcfce7; }
+
+  .cal-table tbody tr.row-privatized { background: #fff7ed; }
+  .cal-table tbody tr.row-privatized td { background: #fff7ed; }
+  .cal-table tbody tr.row-privatized:hover { background: #ffedd5; }
+  .cal-table tbody tr.row-privatized:hover td { background: #ffedd5; }
+
+  /* Forcer les fonds par état (priorité sur styles inline / autres règles) */
+  .row-reserved, .row-reserved td { background-color: #fff1f2 !important; }
+  .row-reserved:hover td { background-color: #ffe4e6 !important; }
+  .row-available, .row-available td { background-color: #f0fdf4 !important; }
+  .row-available:hover td { background-color: #dcfce7 !important; }
+  .row-privatized, .row-privatized td { background-color: #fff7ed !important; }
+  .row-privatized:hover td { background-color: #ffedd5 !important; }
+
+  .cal-table tbody tr:not(.row-reserved):not(.row-available):not(.row-privatized):not(.total-row):hover td {
     background: #faf9f7;
   }
 
-  .week-column {
-    text-align: left !important;
-    min-width: 180px;
-  }
-
-  .calendar-table tbody tr {
-    background-color: transparent;
-    transition: filter 0.15s;
-  }
-
-  .calendar-table td {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #f0ede8;
-    text-align: center;
-    vertical-align: middle;
-    background-color: transparent;
-  }
-
-  /* Couleurs par état */
-  .calendar-table tbody tr.row-reserved,
-  .calendar-table tbody tr.row-reserved td {
-    background-color: #fee2e2 !important;
-  }
-  .calendar-table tbody tr.row-reserved:hover,
-  .calendar-table tbody tr.row-reserved:hover td {
-    background-color: #fecaca !important;
-  }
-
-  .calendar-table tbody tr.row-available,
-  .calendar-table tbody tr.row-available td {
-    background-color: #dcfce7 !important;
-  }
-  .calendar-table tbody tr.row-available:hover,
-  .calendar-table tbody tr.row-available:hover td {
-    background-color: #bbf7d0 !important;
-  }
-
-  .calendar-table tbody tr.row-privatized,
-  .calendar-table tbody tr.row-privatized td {
-    background-color: #fed7aa !important;
-  }
-  .calendar-table tbody tr.row-privatized:hover,
-  .calendar-table tbody tr.row-privatized:hover td {
-    background-color: #fdba74 !important;
-  }
-
-  .calendar-table tbody tr:not(.row-reserved):not(.row-available):not(.row-privatized):hover {
-    background-color: #faf9f7;
-  }
-
-  /* Inputs transparents sur lignes colorées */
-  .calendar-table tbody tr.row-reserved .price-input:not(:focus),
-  .calendar-table tbody tr.row-available .price-input:not(:focus),
-  .calendar-table tbody tr.row-privatized .price-input:not(:focus) {
-    background-color: transparent !important;
-  }
-
-  .calendar-table tbody tr.row-reserved .calendar-select:disabled,
-  .calendar-table tbody tr.row-available .calendar-select:disabled,
-  .calendar-table tbody tr.row-privatized .calendar-select:disabled {
-    background-color: transparent !important;
-  }
-
-  .week-cell {
+  /* CELLULE SEMAINE */
+  .cell-semaine {
     font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--color-blue-night);
-    text-align: left !important;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.01em;
+    font-size: 13px;
+    color: #0f2540;
   }
 
+  .row-reserved .cell-semaine { color: #9f1239; }
+  .row-available .cell-semaine { color: #166534; }
+  .row-privatized .cell-semaine { color: #9a3412; }
+
+  /* CELLULE TARIF */
+  .cell-tarif {
+    text-align: right;
+    font-weight: 600;
+    color: #0f2540;
+  }
+
+  /* INPUTS */
   .price-input {
     width: 100%;
-    max-width: 140px;
-    margin: 0 auto;
-    padding: 0.4rem 0.6rem;
-    border: 1.5px solid transparent;
-    border-radius: 6px;
-    text-align: center;
-    font-size: 0.875rem;
+    max-width: 120px;
+    margin-left: auto;
+    padding: 0.3rem 0.5rem;
+    border: none !important;
+    border-bottom: 1.5px solid transparent !important;
+    background: transparent !important;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
     font-family: inherit;
-    transition: border-color 0.2s, background 0.2s;
+    color: #0f2540;
+    transition: border-color 0.2s;
     display: block;
   }
 
   .price-input:focus {
     outline: none;
-    border-color: var(--color-sapin);
-    background-color: white;
+    border-bottom-color: #0f2540;
   }
 
-  .price-input:not(:focus) {
-    background-color: transparent;
-  }
+  .price-input[readonly] { cursor: default; }
 
-  .price-input[readonly],
-  .calendar-select:disabled {
-    cursor: default;
-    opacity: 0.9;
-  }
-
+  /* SELECTS */
   .calendar-select {
     width: 100%;
-    max-width: 170px;
-    margin: 0 auto;
-    padding: 0.4rem 0.6rem;
-    border: 1.5px solid transparent;
-    border-radius: 6px;
-    text-align: center;
-    text-align-last: center;
-    font-size: 0.875rem;
+    max-width: 155px;
+    padding: 0.3rem 0.5rem;
+    border: none;
+    background: transparent;
+    font-size: 13px;
     font-family: inherit;
-    background-color: transparent;
-    cursor: pointer;
-    transition: border-color 0.2s;
+    color: #6b7280;
+    cursor: default;
+    appearance: none;
+    -webkit-appearance: none;
     display: block;
   }
 
   .calendar-select:not(:disabled) {
-    background-color: white;
-    border-color: #e0ddd8;
+    background: #f5f4f1;
+    border: 1px solid #e0ddd8;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #0f2540;
   }
 
   .calendar-select:focus {
     outline: none;
-    border-color: var(--color-sapin);
-    background-color: white;
+    border-color: #0f2540;
   }
 
-  .action-column {
-    width: 110px;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .action-cell {
-    text-align: center;
-    padding: 0.5rem;
-    vertical-align: middle;
-  }
-
-  .total-row td {
-    padding: 1rem;
-    border-top: 2px solid #e8e6e3;
-    font-weight: 800;
-    font-size: 1rem;
-    background: #f5f4f1 !important;
-    color: var(--color-blue-night);
-  }
-
-  .action-buttons {
-    display: flex;
-    gap: 0.15rem;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
-    background: rgba(0,0,0,0.03);
-    border-radius: 8px;
-    padding: 0.2rem;
-  }
-
-  .action-buttons::before {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 16px;
-    background: #e0ddd8;
-    margin: 0 0.1rem;
-    order: 2;
-  }
-
-  .btn-edit, .btn-comment, .btn-save, .btn-cancel {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.3rem;
+  /* BADGES ÉTAT */
+  .badge {
     display: inline-flex;
     align-items: center;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .badge-reserved { background: #ffe4e6; color: #9f1239; }
+  .badge-available { background: #dcfce7; color: #166534; }
+  .badge-privatized { background: #ffedd5; color: #9a3412; }
+  .badge-empty { color: #9ca3af; font-size: 13px; }
+
+  /* BOUTONS ACTION */
+  .action-cell {
+    text-align: center;
+    padding: 8px 16px;
+  }
+
+  .action-btns {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
     justify-content: center;
+  }
+
+  .btn-action {
+    background: #f5f4f1;
+    border: 1px solid #e0ddd8;
     border-radius: 6px;
-    transition: background-color 0.15s, color 0.15s;
-    margin: 0;
-    flex-shrink: 0;
-    opacity: 0.6;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    color: #4b5563;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
   }
 
-  .btn-edit:hover, .btn-comment:hover, .btn-save:hover, .btn-cancel:hover {
-    opacity: 1;
+  .btn-action:hover {
+    background: #0f2540;
+    color: white;
+    border-color: #0f2540;
   }
 
-  .btn-edit { color: #4b5563; }
-  .btn-edit:hover { background: #f3f2ef; color: #1e3a5f; }
+  .btn-action-green { color: #166534; border-color: #bbf7d0; background: #f0fdf4; }
+  .btn-action-green:hover { background: #166534; color: white; border-color: #166534; }
 
-  .btn-comment { color: #2563eb; }
-  .btn-comment:hover { background: #eff6ff; }
+  .btn-action-red { color: #9f1239; border-color: #fecdd3; background: #fff1f2; }
+  .btn-action-red:hover { background: #9f1239; color: white; border-color: #9f1239; }
 
-  .btn-save { color: #16a34a; }
-  .btn-save:hover { background: #f0fdf4; }
+  /* LIGNE TOTAL */
+  .total-row td {
+    padding: 12px 16px;
+    border-top: 2px solid #e8e6e3;
+    background: #f5f4f1 !important;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f2540;
+  }
 
-  .btn-cancel { color: #dc2626; }
-  .btn-cancel:hover { background: #fef2f2; }
-
-  /* Modal fiche locataire */
+  /* MODAL LOCATAIRE */
   .tenant-modal {
     position: fixed;
     inset: 0;
-    background: rgba(15, 37, 64, 0.4);
+    background: rgba(15,37,64,0.4);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
   }
 
   .tenant-modal-content {
     background: white;
     border-radius: 14px;
     width: 90%;
-    max-width: 560px;
+    max-width: 520px;
     max-height: 90vh;
     overflow-y: auto;
     box-shadow: 0 12px 40px rgba(0,0,0,0.15);
@@ -449,16 +468,16 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     justify-content: space-between;
     align-items: center;
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #e8e6e3;
+    border-bottom: 0.5px solid #e8e6e3;
     background: #faf9f7;
     border-radius: 14px 14px 0 0;
   }
 
   .tenant-modal-header h2 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
-    color: var(--color-blue-night);
+    color: #0f2540;
   }
 
   .tenant-modal-close {
@@ -466,53 +485,49 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    padding: 6px;
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-blue-night);
+    color: #0f2540;
     transition: background 0.2s;
+    font-size: 14px;
   }
 
   .tenant-modal-close:hover { background: #d1d5db; }
 
-  .tenant-modal-body {
-    padding: 1.5rem;
-  }
+  .tenant-modal-body { padding: 1.5rem; }
 
-  .tenant-modal-body .form-group {
-    margin-bottom: 1.1rem;
-  }
+  .tenant-modal-body .form-group { margin-bottom: 1rem; }
 
   .tenant-modal-body .form-label {
     display: block;
-    margin-bottom: 0.4rem;
-    font-weight: 700;
-    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-blue-night);
+    letter-spacing: 0.07em;
+    color: #9ca3af;
   }
 
   .tenant-modal-body .form-input,
   .tenant-modal-body .form-textarea {
     width: 100%;
     padding: 0.6rem 0.875rem;
-    font-size: 0.9rem;
+    font-size: 13px;
     font-family: inherit;
     border: 1px solid #e0ddd8;
     border-radius: 8px;
     background: #fafbfc;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
   }
 
   .tenant-modal-body .form-input:focus,
   .tenant-modal-body .form-textarea:focus {
     outline: none;
-    border-color: var(--color-sapin);
-    box-shadow: 0 0 0 3px rgba(30,58,95,0.1);
+    border-color: #0f2540;
     background: white;
   }
 
@@ -527,21 +542,35 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     gap: 0.75rem;
     margin-top: 1.5rem;
     padding-top: 1.25rem;
-    border-top: 1px solid #e8e6e3;
+    border-top: 0.5px solid #e8e6e3;
   }
 
   .tenant-modal-actions .btn {
     padding: 0.6rem 1.25rem;
-    font-size: 0.875rem;
+    font-size: 13px;
     font-family: inherit;
     border-radius: 8px;
     font-weight: 600;
+    cursor: pointer;
+    border: none;
+  }
+
+  .tenant-modal-actions .btn-secondary {
+    background: white;
+    color: #6b7280;
+    border: 1px solid #e0ddd8;
+  }
+
+  .tenant-modal-actions .btn-primary {
+    background: #0f2540;
+    color: white;
   }
 
   @media (max-width: 768px) {
-    .admin-header h1 { font-size: 1.4rem; }
-    .calendar-table { font-size: 0.75rem; }
-    .calendar-table th, .calendar-table td { padding: 0.5rem; }
+    .cal-header h1 { font-size: 1.2rem; }
+    .cal-kpis { grid-template-columns: 1fr; }
+    .cal-table { font-size: 11px; }
+    .cal-table th, .cal-table td { padding: 8px; }
   }
 </style>
 
@@ -671,7 +700,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
     let currentYear = 2025; // Année fixe pour commencer sur Hiver 25/26
     let isWinter = true; // true = Hiver, false = Été
     const platforms = ['Perso', 'Booking', 'Airbnb', 'Abritel', 'Leboncoin', 'Centrale de résa', 'Chalet Montagne'];
-    const states = ['Disponible', 'Réservé', 'Hors Loc', 'Privatisé'];
 
     // Gestion de la modal fiche locataire
     const tenantModal = document.getElementById('tenantModal') as HTMLElement;
@@ -998,24 +1026,22 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       const yearDisplay = document.getElementById('currentYear');
       if (!tbody || !yearDisplay) return;
 
+      const season = winter ? 'hiver' : 'ete';
       let weeks: Array<{ start: Date; end: Date }>;
       let displayTitle: string;
-      const season = winter ? 'hiver' : 'ete';
 
       if (winter) {
         weeks = getWinterWeeks(year);
-        const yearShort = year.toString().slice(-2);
-        const nextYearShort = (year + 1).toString().slice(-2);
-        displayTitle = `Hiver ${yearShort}/${nextYearShort}`;
+        const y = year.toString().slice(-2);
+        const ny = (year + 1).toString().slice(-2);
+        displayTitle = `Hiver ${y}/${ny}`;
       } else {
         weeks = getSummerWeeks(year);
-        const yearShort = year.toString().slice(-2);
-        displayTitle = `Été ${yearShort}`;
+        displayTitle = `Été ${year.toString().slice(-2)}`;
       }
 
       yearDisplay.textContent = displayTitle;
-      
-      // Charger les données depuis l'API SQL
+
       let savedData: any = {};
       try {
         const response = await fetch(`/api/admin/calendar?year=${year}&season=${season}`);
@@ -1024,169 +1050,99 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
       } catch (error) {
         console.error('Erreur chargement calendrier:', error);
       }
-      
-      // Calculer le total des revenus
+
       let totalRevenue = 0;
       weeks.forEach(week => {
         const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
-        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
-        const tarif = parseFloat(weekData.tarif || '0') || 0;
-        totalRevenue += tarif;
+        const d = savedData[weekKey] || {};
+        totalRevenue += parseFloat(d.tarif || '0') || 0;
       });
-      
-      tbody.innerHTML = weeks.map((week, index) => {
+
+      tbody.innerHTML = weeks.map((week) => {
         const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
         const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
         const etat = (weekData.etat || '').trim();
-        
-        // Déterminer la classe CSS et la couleur selon l'état
+
         let rowClass = '';
-        let bgColor = '';
+        let rowStyle = '';
+        let etatBadgeHtml = '<span style="color:#9ca3af;">—</span>';
+
         if (etat === 'Réservé') {
           rowClass = 'row-reserved';
-          bgColor = '#fee2e2';
+          rowStyle = 'background-color:#fff1f2;';
+          etatBadgeHtml = '<span style="background:#ffe4e6;color:#9f1239;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;">Réservé</span>';
         } else if (etat === 'Disponible') {
           rowClass = 'row-available';
-          bgColor = '#dcfce7';
+          rowStyle = 'background-color:#f0fdf4;';
+          etatBadgeHtml = '<span style="background:#dcfce7;color:#166534;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;">Disponible</span>';
         } else if (etat === 'Privatisé') {
           rowClass = 'row-privatized';
-          bgColor = '#fed7aa';
+          rowStyle = 'background-color:#fff7ed;';
+          etatBadgeHtml = '<span style="background:#ffedd5;color:#9a3412;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;">Privatisé</span>';
         }
-        
+
+        const semaineCouleur =
+          rowClass === 'row-reserved' ? 'color:#9f1239;' :
+          rowClass === 'row-available' ? 'color:#166534;' :
+          rowClass === 'row-privatized' ? 'color:#9a3412;' :
+          'color:#0f2540;';
+
+        const btnRowStyle = 'background:#f5f4f1;border:1px solid #e0ddd8;border-radius:6px;padding:4px 12px;font-size:12px;font-family:inherit;color:#0f2540;cursor:pointer;font-weight:500;';
+        const crmBtn = etat === 'Réservé'
+          ? `<button type="button" class="btn-action btn-crm" data-week="${weekKey}" style="${btnRowStyle}">Client</button>`
+          : '';
+
         return `
-          <tr class="${rowClass}" data-week-key="${weekKey}"${bgColor ? ` style="background-color: ${bgColor};"` : ''}>
-            <td class="week-cell">
-              ${formatDate(week.start)} - ${formatDate(week.end)}
-            </td>
-            <td>
-              <input 
-                type="text" 
-                class="price-input" 
-                data-week="${weekKey}"
-                data-field="tarif"
-                value="${weekData.tarif || ''}"
-                placeholder="€"
-                readonly
-              />
-            </td>
-            <td>
-              <select 
-                class="calendar-select" 
-                data-week="${weekKey}"
-                data-field="plateforme"
-                disabled
-              >
-                <option value="">--</option>
-                ${platforms.map(platform => `
-                  <option value="${platform}" ${weekData.plateforme === platform ? 'selected' : ''}>${platform}</option>
-                `).join('')}
-              </select>
-            </td>
-            <td>
-              <select 
-                class="calendar-select" 
-                data-week="${weekKey}"
-                data-field="etat"
-                disabled
-              >
-                <option value="">--</option>
-                ${states.map(state => `
-                  <option value="${state}" ${weekData.etat === state ? 'selected' : ''}>${state}</option>
-                `).join('')}
-              </select>
-            </td>
-            <td class="action-cell">
-              <div class="action-buttons">
-                <button class="btn-edit" data-week="${weekKey}" title="Modifier">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                  </svg>
-                </button>
-                <button class="btn-comment" data-week="${weekKey}" title="Fiche locataire">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                    <line x1="16" y1="13" x2="8" y2="13"/>
-                    <line x1="16" y1="17" x2="8" y2="17"/>
-                    <polyline points="10 9 9 9 8 9"/>
-                  </svg>
-                </button>
-                ${etat === 'Réservé' ? `
-                <button class="btn-crm" data-week="${weekKey}" title="Fiche client CRM"
-                  style="background:none;border:none;cursor:pointer;padding:0.3rem;
-                  display:inline-flex;align-items:center;justify-content:center;
-                  border-radius:6px;color:#4a7c59;opacity:0.6;transition:all 0.15s;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                </button>` : ''}
-                <button class="btn-save" data-week="${weekKey}" title="Enregistrer"
-                  style="display:none;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                </button>
-                <button class="btn-cancel" data-week="${weekKey}" title="Annuler"
-                  style="display:none;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"/>
-                    <line x1="6" y1="6" x2="18" y2="18"/>
-                  </svg>
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join('') + `
-        <tr class="total-row">
-          <td class="week-cell" style="font-weight: 700; border-top: 2px solid var(--color-border);">Total</td>
-          <td style="font-weight: 700; font-size: 1rem; border-top: 2px solid var(--color-border);">${totalRevenue.toLocaleString('fr-FR')} €</td>
-          <td style="border-top: 2px solid var(--color-border);"></td>
-          <td style="border-top: 2px solid var(--color-border);"></td>
-          <td class="action-cell" style="border-top: 2px solid var(--color-border);"></td>
+        <tr class="${rowClass}" data-week-key="${weekKey}" style="${rowStyle}">
+          <td style="padding:11px 16px;font-weight:600;font-size:13px;${semaineCouleur}">
+            <input type="hidden" class="etat-field" data-week="${weekKey}" data-field="etat" value="${(weekData.etat || '').replace(/"/g, '&quot;')}" />
+            ${formatDate(week.start)} – ${formatDate(week.end)}
+          </td>
+          <td style="padding:11px 16px;text-align:right;">
+            <input type="text" class="price-input"
+              data-week="${weekKey}" data-field="tarif"
+              data-raw-tarif="${(weekData.tarif || '').replace(/"/g, '&quot;')}"
+              value="${weekData.tarif ? parseFloat(weekData.tarif).toLocaleString('fr-FR') + ' €' : ''}" placeholder="—" readonly
+              style="width:100%;max-width:120px;margin-left:auto;padding:0.3rem 0.5rem;
+              border:none;border-bottom:1.5px solid transparent;background:transparent;
+              text-align:right;font-size:13px;font-weight:600;font-family:inherit;
+              color:#0f2540;display:block;" />
+          </td>
+          <td style="padding:11px 16px;">
+            <select class="calendar-select" data-week="${weekKey}" data-field="plateforme" disabled
+              style="max-width:155px;padding:0.3rem 0.5rem;border:none;background:transparent;
+              font-size:13px;font-family:inherit;color:#6b7280;appearance:none;display:block;">
+              <option value="">—</option>
+              ${platforms.map(p => `<option value="${p}" ${weekData.plateforme === p ? 'selected' : ''}>${p}</option>`).join('')}
+            </select>
+          </td>
+          <td style="padding:11px 16px;">${etatBadgeHtml}</td>
+          <td style="padding:8px 16px;text-align:center;">
+            <div style="display:inline-flex;gap:4px;align-items:center;">
+              <button type="button" class="btn-action btn-edit" data-week="${weekKey}" style="${btnRowStyle}">Éditer</button>
+              <button type="button" class="btn-action btn-comment" data-week="${weekKey}" style="${btnRowStyle}">Fiche</button>
+              ${crmBtn}
+              <button type="button" class="btn-action btn-action-green btn-save" data-week="${weekKey}" style="display:none;">✓</button>
+              <button type="button" class="btn-action btn-action-red btn-cancel" data-week="${weekKey}" style="display:none;">✕</button>
+            </div>
+          </td>
         </tr>
       `;
+      }).join('') + `
+      <tr class="total-row">
+        <td style="padding:12px 16px;font-size:11px;font-weight:600;color:#9ca3af;
+          text-transform:uppercase;letter-spacing:0.05em;border-top:2px solid #e8e6e3;
+          background:#f5f4f1;">Total saison</td>
+        <td style="padding:12px 16px;text-align:right;font-size:16px;font-weight:700;
+          color:#0f2540;border-top:2px solid #e8e6e3;background:#f5f4f1;">
+          ${totalRevenue.toLocaleString('fr-FR')} €
+        </td>
+        <td colspan="3" style="border-top:2px solid #e8e6e3;background:#f5f4f1;"></td>
+      </tr>
+    `;
 
-      // Appliquer les couleurs directement aux cellules
-      tbody.querySelectorAll('tr:not(.total-row)').forEach((row: any) => {
-        const weekKey = row.dataset.weekKey;
-        if (!weekKey) return;
-        const weekData = savedData[weekKey] || { tarif: '', plateforme: '', etat: '' };
-        const etat = (weekData.etat || '').trim();
-        const cells = row.querySelectorAll('td');
-        
-        let bgColor = '';
-        if (etat === 'Réservé') {
-          bgColor = '#fee2e2';
-        } else if (etat === 'Disponible') {
-          bgColor = '#dcfce7';
-        } else if (etat === 'Privatisé') {
-          bgColor = '#fed7aa';
-        }
-        
-        if (bgColor) {
-          cells.forEach((td: HTMLElement) => {
-            td.style.backgroundColor = bgColor;
-          });
-        }
-      });
-
-      // Stocker les données originales pour annuler
       const originalData: { [key: string]: any } = {};
-      
-      // Ajouter les event listeners pour les boutons d'édition
+
       tbody.querySelectorAll('.btn-edit').forEach((btn: any) => {
         btn.addEventListener('click', (e: Event) => {
           const target = e.target.closest('.btn-edit') as HTMLElement;
@@ -1196,7 +1152,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           const row = target.closest('tr') as HTMLTableRowElement;
           if (!row) return;
 
-          const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+          const priceInput = row.querySelector('.price-input[data-field="tarif"]') as HTMLInputElement | null;
+          if (priceInput && priceInput.dataset.rawTarif !== undefined) {
+            priceInput.value = priceInput.dataset.rawTarif || '';
+          }
+
+          const inputs = row.querySelectorAll('.price-input, .calendar-select, .etat-field') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
           originalData[weekKey] = {};
           inputs.forEach(input => {
             const field = input.dataset.field;
@@ -1222,7 +1183,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         });
       });
 
-      // Bouton d'enregistrement
       tbody.querySelectorAll('.btn-save').forEach((btn: any) => {
         btn.addEventListener('click', async (e: Event) => {
           const target = e.target.closest('.btn-save') as HTMLElement;
@@ -1232,18 +1192,17 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           const row = target.closest('tr') as HTMLTableRowElement;
           if (!row) return;
 
-          const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
-          const weekData: any = {};
-          
+          const inputs = row.querySelectorAll('.price-input, .calendar-select, .etat-field') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+          const weekDataPayload: any = {};
+
           inputs.forEach(input => {
             const field = input.dataset.field;
             if (field) {
-              weekData[field] = input.value.trim();
+              weekDataPayload[field] = input.value.trim();
             }
           });
 
           try {
-            // Sauvegarder via l'API SQL
             const response = await fetch('/api/admin/calendar', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -1252,13 +1211,12 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
                 season: winter ? 'hiver' : 'ete',
                 week_key: weekKey,
                 type: 'reservation',
-                data: weekData
+                data: weekDataPayload
               })
             });
 
             if (!response.ok) throw new Error('Erreur sauvegarde');
 
-            // Recharger tout le calendrier pour mettre à jour les couleurs et totaux
             renderCalendar(year, winter);
           } catch (error) {
             console.error('Erreur:', error);
@@ -1267,7 +1225,6 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         });
       });
 
-      // Bouton d'annulation
       tbody.querySelectorAll('.btn-cancel').forEach((btn: any) => {
         btn.addEventListener('click', (e: Event) => {
           const target = e.target.closest('.btn-cancel') as HTMLElement;
@@ -1277,7 +1234,7 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
           const row = target.closest('tr') as HTMLTableRowElement;
           if (!row) return;
 
-          const inputs = row.querySelectorAll('.price-input, .calendar-select') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
+          const inputs = row.querySelectorAll('.price-input, .calendar-select, .etat-field') as NodeListOf<HTMLInputElement | HTMLSelectElement>;
 
           if (originalData[weekKey]) {
             inputs.forEach(input => {
@@ -1297,6 +1254,19 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
             }
           });
 
+          const piFmt = row.querySelector('.price-input[data-field="tarif"]') as HTMLInputElement | null;
+          if (piFmt && piFmt.dataset.rawTarif !== undefined) {
+            const raw = (piFmt.value || '').trim();
+            const n = parseFloat(String(raw).replace(/\s/g, '').replace(',', '.'));
+            if (raw !== '' && !isNaN(n)) {
+              piFmt.dataset.rawTarif = String(n);
+              piFmt.value = n.toLocaleString('fr-FR') + ' €';
+            } else {
+              piFmt.dataset.rawTarif = '';
+              piFmt.value = '';
+            }
+          }
+
           const saveBtn = row.querySelector('.btn-save') as HTMLElement;
           const cancelBtn = row.querySelector('.btn-cancel') as HTMLElement;
           const editBtn = row.querySelector('.btn-edit') as HTMLElement;
@@ -1306,8 +1276,29 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
         });
       });
 
+      updateKpis(weeks, savedData);
       attachCommentButtonListeners();
       attachCrmButtonListeners();
+    }
+
+    function updateKpis(weeks: any[], savedData: any) {
+      let revenus = 0;
+      let reservations = 0;
+      weeks.forEach((week: any) => {
+        const weekKey = `${formatDate(week.start)}_${formatDate(week.end)}`;
+        const d = savedData[weekKey] || {};
+        if (d.etat === 'Réservé' || d.etat === 'Privatisé') {
+          reservations++;
+          revenus += parseFloat(d.tarif || '0') || 0;
+        }
+      });
+      const occupation = weeks.length > 0 ? Math.round((reservations / weeks.length) * 100) : 0;
+      const kpiRevenu = document.getElementById('kpiRevenu');
+      const kpiOccupation = document.getElementById('kpiOccupation');
+      const kpiReservations = document.getElementById('kpiReservations');
+      if (kpiRevenu) kpiRevenu.textContent = revenus.toLocaleString('fr-FR') + ' €';
+      if (kpiOccupation) kpiOccupation.textContent = occupation + '%';
+      if (kpiReservations) kpiReservations.textContent = reservations.toString();
     }
 
     // Contrôles de navigation - chronologique
