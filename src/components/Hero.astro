@@ -230,15 +230,29 @@ const {
       padding: 0 var(--spacing-xs);
     }
     
+    /* Deux CTA côte à côte comme sur desktop (largeur équilibrée) */
     .hero-cta {
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
       align-items: stretch;
-      gap: var(--spacing-sm);
-    }
-    
-    .btn-hero {
+      gap: 0.5rem;
       width: 100%;
-      min-width: unset;
+      max-width: 100%;
+      padding-left: var(--spacing-xs);
+      padding-right: var(--spacing-xs);
+      box-sizing: border-box;
+    }
+
+    .btn-hero {
+      flex: 1 1 0;
+      min-width: 0;
+      width: auto;
+      max-width: none;
+      padding: 0.65rem 0.5rem;
+      font-size: clamp(0.72rem, 2.6vw, 1rem);
+      line-height: 1.25;
+      text-align: center;
     }
   }
 </style>

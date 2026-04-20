@@ -953,24 +953,29 @@ import CTA from '../../components/CTA.astro';
     }
     
     .stats-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      max-width: 90%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+      max-width: 700px;
+      width: 100%;
       margin: 0 auto;
+      align-items: stretch;
     }
-    
+
     .stat-card {
-      padding: 0.5rem 0.25rem;
-      min-height: 70px;
-      background-color: rgba(20, 20, 20, 0.8); /* Un peu plus sombre pour la lisibilité */
+      min-width: 0;
+      padding: 0.45rem 0.35rem;
+      min-height: auto;
+      background-color: rgba(40, 40, 40, 0.75);
     }
-    
+
     .stat-number {
-      font-size: 1.125rem;
+      font-size: clamp(1rem, 4vw, 1.35rem);
     }
-    
+
     .stat-label {
-      font-size: 0.7rem;
+      font-size: clamp(0.58rem, 2.4vw, 0.85rem);
+      line-height: 1.2;
     }
     
     .station-village-content {

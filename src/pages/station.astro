@@ -1224,35 +1224,38 @@ import CTA from '../components/CTA.astro';
       justify-content: flex-start !important;
     }
     
-    /* Sur mobile, les 3 stats passent sous le hero pour être nettes et lisibles */
+    /* Même disposition que desktop : 3 cartes compactes côte à côte */
     .station-stats {
       position: static;
       margin-top: -2rem;
-      padding: 0 var(--spacing-md) var(--spacing-lg);
+      padding: 0 var(--spacing-sm) var(--spacing-md);
     }
-    
+
     .stats-grid {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--spacing-sm);
-      max-width: 320px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+      max-width: 700px;
+      width: 100%;
       margin: 0 auto;
+      align-items: stretch;
     }
-    
+
     .stat-card {
       width: 100%;
-      padding: 0.75rem 1rem;
-      min-height: 68px;
-      background-color: rgba(20, 20, 20, 0.85);
+      min-width: 0;
+      padding: 0.45rem 0.35rem;
+      min-height: auto;
+      background-color: rgba(40, 40, 40, 0.75);
     }
-    
+
     .stat-number {
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 4vw, 1.35rem);
     }
-    
+
     .stat-label {
-      font-size: 0.8rem;
+      font-size: clamp(0.58rem, 2.4vw, 0.85rem);
+      line-height: 1.2;
     }
     
     .station-village-content {

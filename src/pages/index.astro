@@ -428,7 +428,9 @@ import Hero from '../components/Hero.astro';
   @media (max-width: 768px) {
     /* Page d'accueil : badge "Au bord des pistes" petit et bien sous le header */
     :global(.hero-content) {
-      padding-top: max(20rem, calc(15rem + env(safe-area-inset-top, 0px))) !important;
+      /* Sous le header fixe, sans repousser les CTA hors du viewport */
+      padding-top: calc(4.75rem + env(safe-area-inset-top, 0px)) !important;
+      padding-bottom: var(--spacing-md) !important;
     }
     :global(.hero-badge) {
       font-size: 0.5rem !important;
