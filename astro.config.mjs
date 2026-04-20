@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { defineConfig } from 'astro/config';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 // En local : charger .env.local dans process.env pour que @vercel/postgres puisse se connecter
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

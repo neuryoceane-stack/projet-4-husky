@@ -4,7 +4,9 @@ Site vitrine premium pour la location du Chalet Husky aux 2 Alpes, développé a
 
 ## 🚀 Technologies
 
-- **Astro** (v4.0+) - Framework statique moderne
+- **Astro** (v5.x) - Framework statique moderne
+- **@astrojs/vercel** (v8.x) - Adaptateur Vercel serverless (runtime Node 20.x/22.x)
+- **Node.js** 20.x (voir `.nvmrc` / `.node-version`)
 - **HTML/CSS natif** - Pas de framework JS
 - **TypeScript** - Typage optionnel
 - **CSS Variables** - Système de design cohérent
